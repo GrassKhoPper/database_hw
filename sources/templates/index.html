@@ -1,0 +1,49 @@
+<html>
+  <body>
+    <table border=1>
+      <thead>
+        <tr>
+          {% for col_name in columns %}
+          <th>{{ col_name }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+
+      {% for row in data %} 
+      <tr>
+        {% for cell in row %}
+        <td>{{ cell }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <form action="{{ url_for('add_item') }}" method="post">
+      a:<input type=text name=a id=input_a><br>
+      b:<input type=text name=b id=input_b><br>
+      <input type=submit value="Add item" onclick="send_item()">
+        <script>
+          function I(elem_id) {
+            return document.getElementById(elem_id);
+          }
+          function send_item() {
+            let a = I('input_a').value;
+            let b = I('input_b').value;
+            let req = new XMLHttpRequest();
+            req.onreadystatechange = function() {
+              if (req.readyState != 4) {
+                return;
+              }
+              if (req.status != 200) {
+                alert('Server error: ' + req.statusText);
+              }
+            } ;
+            req.open('POST', "{{ url_for('add_item') }}", true);
+            req.setRequestHeader('Content-Type', 'application/json')
+            req.send(JSON.stringify({'a':a, 'b':b}))
+          }
+        </script>
+    </form>
+  </body>
+
+</html>

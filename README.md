@@ -8,8 +8,15 @@
 
 ### Development Stack : Docker, Python(backend + frontend), sqlite3
 
+### How to run
+
+```
+docker compose up --build -d
+```
+
 ### Requirements list :
   * python-sqlite3
+  * docker
   * docker compose
 
 ## The composition of our team:
