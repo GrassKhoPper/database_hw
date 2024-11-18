@@ -1,4 +1,5 @@
-/*Store*/
+/*Common*/
+
 body {
 	margin: 0;
 	font-family: inter;
@@ -13,6 +14,7 @@ body {
   justify-content: space-between;
   font-family: 'Jaro', sans-serif;
 }
+
 
 .title_img {
   width:  35px;
@@ -76,6 +78,37 @@ body {
   text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
 }
 
+.content {
+  padding: 20px;
+}
+
+.buy-button {
+  background-color: lime;
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+	font-size: 100%;
+  cursor: pointer;
+  float: center; 
+}
+
+
+.button_common {
+  background-color: #6B6B6B;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 8px;
+}
+
+/*Store*/
 
 .search-bar {
   display: flex;
@@ -96,10 +129,6 @@ body {
 .search-icon {
   margin-left: 0; 
   cursor: pointer;
-}
-
-.content {
-  padding: 20px;
 }
 
 .container_store {
@@ -132,21 +161,10 @@ body {
   text-align: center;
 }
 
-.buy-button {
-  background-color: lime;
-  color: black;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-	font-size: 100%;
-  cursor: pointer;
-  float: center; 
-}
-
 /*GAME*/
 
 
-.body_game {
+.body_gradient {
 	height: 100%;
 	background: linear-gradient(#1CEEE3 15%, red);
 	background-repeat: no-repeat;
@@ -154,15 +172,13 @@ body {
 	font-family: sans-serif;
 }
 
-.game {	
+.container_game {	
 	max-width: 50%;
 	margin: 0 auto;
 	background-color: rgba(255, 255, 255, 0.55);
 	padding: 20px;
 	border-radius: 25px;
 }
-
-
 
 .game_info {
 	display: flex;
@@ -175,4 +191,48 @@ body {
 	height: 100%;
 	margin-right: 20px;
 	border-radius: 10px;
+}
+
+/*USER*/
+
+.container_user {
+  max-width: 30%;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.55);
+	padding: 20px;
+	border-radius: 25px;	
+}
+
+.user_info {
+  display: flex;
+	padding: 8px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user_image {
+  width:	124px;
+  height: 124px;
+  border-radius: 10px;
+}
+
+.user_info_text {
+  font-size: 	18px;
+  font-weight: bold;
+}
+
+.button_container {
+  display: flex; 
+	justify-content: space-between;
+}
+
+
+.section_user {
+  background-color: #d3d3d3;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 100%;
+	min-height: 60vh;
 }
