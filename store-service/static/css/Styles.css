@@ -1,52 +1,55 @@
+/*Common*/
+
 body {
-    margin: 0;
-    font-family: inter;
+	margin: 0;
+	font-family: inter;
 }
 
 .header {
-    background-color: #1CEEE3;
-    color: #fff;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Jaro', sans-serif;
+  background-color: #1CEEE3;
+  color: #fff;
+  padding: 0 24px 0 24px ;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Jaro', sans-serif;
 }
 
+
 .title_img {
-    width:  35px;
-    height: 35px;
+  width:  35px;
+  height: 35px;
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header-left a {
-    display: inline-block;
-    margin-right: 15px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 20px;
+  display: inline-block;
+  margin-right: 15px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
 }
 
 
 .header-right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header-right a {
-    display: inline-block;
-    margin-left: 15px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 20px;
+  display: inline-block;
+  margin-left: 15px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
 }
 
 .header-right a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 
@@ -75,61 +78,8 @@ body {
   text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
 }
 
-
-.search-bar {
-    display: flex;
-    justify-content: flex-end; /* Выравнивание по правому краю */
-    align-items: center;
-    margin-bottom: 10px; /* Добавил отступ снизу */
-}
-
-.search {
-    margin-right: 10px;
-    width: 300px; /* ширина поля поиска */
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-
-.search-icon {
-    margin-left: 0; /* Убрал отступ слева */
-    /*font-size: 80px;*/
-    cursor: pointer;
-}
-
 .content {
-    padding: 20px;
-}
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-}
-
-.item {
-  width: calc(10%);
-	height: calc(10%);
-	margin: 8px;
-  background-color: black; /* Фон черный */
-  color: white;  /* Текст белый */
-  border-radius: 5px;
-  overflow: hidden; /* Чтобы изображение не вылезало за границы */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.item img {
-	width: 100%;
-	height: 100%;
-	display: block; /* Убираем лишний отступ снизу */
-}
-
-
-.item-info {
-  padding: 10px;
-	font-size: 70%;
-  text-align: center; /* Текст слева */
+  padding: 20px;
 }
 
 .buy-button {
@@ -138,7 +88,151 @@ body {
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
-	font-size: 70%;
+	font-size: 100%;
   cursor: pointer;
-  float: center; /* Кнопка справа */
+  float: center; 
+}
+
+
+.button_common {
+  background-color: #6B6B6B;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 8px;
+}
+
+/*Store*/
+
+.search-bar {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search {
+  margin-right: 10px;
+  width: 300px; 
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+.search-icon {
+  margin-left: 0; 
+  cursor: pointer;
+}
+
+.container_store {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+.item {
+  width: calc(10%);
+	height: calc(10%);
+	margin: 8px;
+  background-color: black; 
+  color: white;  
+  border-radius: 5px;
+  overflow: hidden; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+
+.item-info {
+  padding: 10px;
+	font-size: 70%;
+  text-align: center;
+}
+
+/*GAME*/
+
+
+.body_gradient {
+	height: 100%;
+	background: linear-gradient(#1CEEE3 15%, red);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	font-family: sans-serif;
+}
+
+.container_game {	
+	max-width: 50%;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.55);
+	padding: 20px;
+	border-radius: 25px;
+}
+
+.game_info {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.game_info img {
+	width: 50%;
+	height: 100%;
+	margin-right: 20px;
+	border-radius: 10px;
+}
+
+/*USER*/
+
+.container_user {
+  max-width: 30%;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.55);
+	padding: 20px;
+	border-radius: 25px;	
+}
+
+.user_info {
+  display: flex;
+	padding: 8px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user_image {
+  width:	124px;
+  height: 124px;
+  border-radius: 10px;
+}
+
+.user_info_text {
+  font-size: 	18px;
+  font-weight: bold;
+}
+
+.button_container {
+  display: flex; 
+	justify-content: space-between;
+}
+
+
+.section_user {
+  background-color: #d3d3d3;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 100%;
+	min-height: 60vh;
 }
