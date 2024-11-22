@@ -3,32 +3,35 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Game Hub</title>
-	<link rel="stylesheet" href="../static/css/Styles.css">
+
+  <title>Game Hub</title>
+
+  <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 </head>
 	
 	<body>
-			<header class="header">
-			<div class="header-left">
-				<a href="#">
-					<img src="../static//images/home.png" class="title_img" alt="home page"/>
-				</a>
-				<a href="#">
-					<img src="../static//images/Library.png" class="title_img" alt="library page"/>
-				</a>
-			</div>
+		<header class="header">
+    <div class="header-left">
+      <a href="/store">
+        <img src={{url_for('static', filename='images/home.png')}} class="title_img" alt="home page"/>
+      </a>
+      <a href="/library">
+        <img src={{url_for('static', filename='images/library.png')}} class="title_img" alt="library page"/>
+      </a>
+    </div>
 
-			<h1 class="game-hub"></h1>
+    <h1 class="game-hub"></h1>
 
-			<div class="header-right">
-				<a href="#">
-					<img src="../static//images/cart.png" class="title_img" alt="cart page"/>
-				</a>
-				<a href="#">
-					<img src="../static//images/user.png" class="title_img" alt="user page"/>
-				</a>
-			</div>
-		</header>
+    <div class="header-right">
+      <a href="/cart">
+        <img src={{url_for('static', filename='images/cart.png')}} class="title_img" alt="cart page"/>
+      </a>
+      <a href="/profile">
+        <img src={{url_for('static', filename='images/user.png')}} class="title_img" alt="user page"/>
+      </a>
+    </div>
+
+    </header>
 
 		<div class="library_container">
 			<div class="sidebar">
@@ -36,38 +39,20 @@
 				<div class="search-bar">
 					<input type="text" class="search" placeholder="Search">
 					<span class="search-icon">
-					<img src="../static/images/search.png" alt="search"/>
+					<img src={{url_for('static', filename='images/search.png')}} alt="search"/>
 					</span>
 				</div>
 
 				<ul>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 1 Game 1 Game 1 Game 1 Game 1 Game 1</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 2</a></li>
-					<li><a href="#"><img src="../static/images/board-game.png" class="game_icon"> Game 3</a></li>
-					<li><a href="#"><img src="../static/images/user.png" class="game_icon"> Game 4</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 1</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 2</a></li>
-					<li><a href="#"><img src="../static/images/board-game.png" class="game_icon"> Game 3</a></li>
-					<li><a href="#"><img src="../static/images/user.png" class="game_icon"> Game 4</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 1</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 2</a></li>
-					<li><a href="#"><img src="../static/images/board-game.png" class="game_icon"> Game 3</a></li>
-					<li><a href="#"><img src="../static/images/user.png" class="game_icon"> Game 4</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 1</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 2</a></li>
-					<li><a href="#"><img src="../static/images/board-game.png" class="game_icon"> Game 3</a></li>
-					<li><a href="#"><img src="../static/images/user.png" class="game_icon"> Game 4</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 1</a></li>
-					<li><a href="#"><img src="../static/images/dota.jpg" class="game_icon"> Game 2</a></li>
-					<li><a href="#"><img src="../static/images/board-game.png" class="game_icon"> Game 3</a></li>
-					<li><a href="#"><img src="../static/images/user.png" class="game_icon"> Game 4</a></li>
+          <li><a href="#"><img src={{url_for('static', filename='images/dota.jpg')}} class="game_icon"> DotA 2 </a></li>
+          <li><a href="#"><img src={{url_for('static', filename='images/board-game.png')}} class="game_icon"> Game 3</a></li>
 				</ul>
 				
 			</div>
 
 			<div class="container_game_mini">
 			<div class="game_info">
-			<img src="../static//images/dota.jpg" alt="Gmme Image">
+			<img src={{url_for('static', filename='images/dota.jpg')}} alt="Game Image">
 			<div class="game-info">
 			<p>Ежедневно миллионы игроков по всему миру сражаются от лица одного из более сотни героев Dota 2, и даже после тысячи часов в ней есть чему научиться. Благодаря регулярным обновлениям игра живёт своей жизнью: геймплей, возможности и герои постоянно преображаются.</p>
 			<div class="details">
@@ -79,7 +64,7 @@
 
 			<div class="game-name">
 
-				<h1>Game Name</h1>
+			<h1>Game Name</h1>
 
 			</div>
 
