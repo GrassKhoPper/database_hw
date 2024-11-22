@@ -3,37 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>Game Hub</title>
-	<link rel="stylesheet" href="Styles.css">
+
+  <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 </head>
 	
 <body class="body_gradient">
 	
 	<header class="header">
 		<div class="header-left">
-			<a href="#">
-				<img src="res/images/home.png" class="title_img" alt="home page"/>
+			<a href="/store">
+        <img src={{url_for('static', filename='images/home.png')}} class="title_img" alt="home page"/>
 			</a>
-			<a href="#">
-				<img src="res/images/Library.png" class="title_img" alt="library page"/>
+			<a href="/library">
+        <img src={{url_for('static', filename='images/library.png')}} class="title_img" alt="library page"/>
 			</a>
 		</div>
 
 		<h1 class="game-hub"></h1>
 
 		<div class="header-right">
-			<a href="#">
-				<img src="res/images/cart.png" class="title_img" alt="cart page"/>
+			<a href="/cart">
+        <img src={{url_for('static', filename='images/cart.png')}} class="title_img" alt="cart page"/>
 			</a>
-			<a href="#">
-				<img src="res/images/user.png" class="title_img" alt="user page"/>
+			<a href="/user">
+        <img src={{url_for('static', filename='images/user.png')}} class="title_img" alt="user page"/>
 			</a>
 		</div>
 	</header>
 	
+  <!-- User data -->
 	<div class="container_user">
 		<div class="user_info">
-			<img src="res/images/test_user.jpg" alt="Profile Picture" class="user_image">
+      <img src={{url_for('static', filename='images/test_user.jpg')}} alt="Profile Picture" class="user_image">
 			<div class="profile-info">
 				<div class="user_info_text ">Profile Name</div>
 			</div>
@@ -49,6 +52,7 @@
 			<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
 		</div>
 	</div>
+  <!-- END USER DATA -->
 
 	
 	

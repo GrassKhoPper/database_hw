@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from store.services.service import *
+from store.database.db_api import *
 
 routes_blueprint = Blueprint('routes', __name__)
 
@@ -13,6 +13,6 @@ def main_page():
 def add_item_route():
     return redirect(url_for('routes.main_page'))
 
-@routes_blueprint.route('/profile', method=['GET'])
+@routes_blueprint.route('/profile')
 def open_profile_page():
-    return render_temaplte('Users.html')
+    return render_template('User.html')
