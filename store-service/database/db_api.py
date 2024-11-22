@@ -9,7 +9,6 @@ def create_connection(db_file):
         conn = sqlite3.connect(db_file)
     except sqlite3.Error as e:
         print(e)
-
     return conn
 
 def execute_sql_file(conn, sql_file):
@@ -24,11 +23,12 @@ def execute_sql_file(conn, sql_file):
 
 def init_database():
     db_path = DB_PATH
-    schema  = 'database/store-db-schema.sql'
-
+    schema    = 'database/store-db-schema.sql'
+    init_file = 'database/store-init.sql'
     conn = create_connection(db_path)
     if conn:
         execute_sql_file(conn, schema)
+        execute_sql_file(conn, init_file)
         conn.close()
     else:
         print('Can not create connection to database')
