@@ -20,3 +20,7 @@ def open_profile_page():
 @routes_blueprint.route('/game')
 def open_game_page():
     return render_template('Game.html')
+
+@routes_blueprint.route('/auth')
+def open_auth_page():
+    return render_template('Authorize.html')

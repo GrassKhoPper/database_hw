@@ -1,3 +1,4 @@
+
 /*Common*/
 
 body {
@@ -14,7 +15,6 @@ body {
   justify-content: space-between;
   font-family: 'Jaro', sans-serif;
 }
-
 
 .title_img {
   width:  35px;
@@ -34,7 +34,6 @@ body {
   font-size: 20px;
 }
 
-
 .header-right {
   display: flex;
   align-items: center;
@@ -51,7 +50,6 @@ body {
 .header-right a:hover {
   text-decoration: underline;
 }
-
 
 .game-hub {
   display: inline-flex;
@@ -93,7 +91,6 @@ body {
   float: center; 
 }
 
-
 .button_common {
   background-color: #6B6B6B;
   border: none;
@@ -106,6 +103,20 @@ body {
   border-radius: 15px;
   cursor: pointer;
   margin: 8px;
+}
+
+.button_common:hover {
+	background-color: #6B6B6B;
+}
+
+.button_common.active {
+	background-color: rgb(255, 0, 0);
+	color: white;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
 }
 
 /*Store*/
@@ -124,7 +135,6 @@ body {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
 
 .search-icon {
   margin-left: 0; 
@@ -154,7 +164,6 @@ body {
 	display: block;
 }
 
-
 .item-info {
   padding: 10px;
 	font-size: 70%;
@@ -162,7 +171,6 @@ body {
 }
 
 /*GAME*/
-
 
 .body_gradient {
 	height: 100%;
@@ -227,7 +235,6 @@ body {
 	justify-content: space-between;
 }
 
-
 .section_user {
   background-color: #d3d3d3;
   padding: 8px;
@@ -236,3 +243,49 @@ body {
   height: 100%;
 	min-height: 60vh;
 }
+
+/*AUTHORISATION*/
+
+.container_authorization {
+  width: 300px;
+  margin: 100px auto; /* Center the container */
+  padding: 20px;
+  border-radius: 15px;
+	background-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.h2_authorization {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-sizing: border-box;
+	background-color: rgba(255, 255, 255, 0.55);
+}
+
+.toggle-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.button_common.authorization {
+	width: 100%;
+}
+
+.registration-field {
+	display: none; /* Hidden by default */
+}
+
+
