@@ -4,35 +4,37 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Game Hub</title>
-	<link rel="stylesheet" href="Styles.css">
+  <link rel="stylesheet" href={{url_for('static', filename='css/Styles.css')}}>
 </head>
 	
 <body class="body_gradient">
 	<header class="header">
-		<div class="header-left">
-			<a href="#">
-				<img src="res/images/home.png" class="title_img" alt="home page"/>
-			</a>
-			<a href="#">
-				<img src="res/images/Library.png" class="title_img" alt="library page"/>
-			</a>
-		</div>
+    <div class="header-left">
+      <a href="/store">
+        <img src={{url_for('static', filename='images/home.png')}} class="title_img" alt="home page"/>
+      </a>
+      <a href="/library">
+        <img src={{url_for('static', filename='images/library.png')}} class="title_img" alt="library page"/>
+      </a>
+    </div>
 
-		<h1 class="game-hub"></h1>
+    <h1 class="game-hub"></h1>
 
-		<div class="header-right">
-			<a href="#">
-				<img src="res/images/cart.png" class="title_img" alt="cart page"/>
-			</a>
-			<a href="#">
-				<img src="res/images/user.png" class="title_img" alt="user page"/>
-			</a>
-		</div>
-	</header>
+    <div class="header-right">
+      <a href="/cart">
+        <img src={{url_for('static', filename='images/cart.png')}} class="title_img" alt="cart page"/>
+      </a>
+      <a href="/profile">
+        <img src={{url_for('static', filename='images/user.png')}} class="title_img" alt="user page"/>
+      </a>
+    </div>
 
+  </header>
+
+  <!-- GAME BEGIN -->
 	<div class="container_game">
 		<div class="game_info">
-			<img src="res/images/dota.jpg" alt="DOTA 2 Image">
+      <img src={{url_for('static', filename='images/dota.jpg')}} alt="Game Image">
 			<div class="game-info">
 				<p>Ежедневно миллионы игроков по всему миру сражаются от лица одного из более сотни героев Dota 2, и даже после тысячи часов в ней есть чему научиться. Благодаря регулярным обновлениям игра живёт своей жизнью: геймплей, возможности и герои постоянно преображаются.</p>
 				<div class="details">
@@ -75,6 +77,7 @@
 			<p>Равные соревновательные возможности — главная гордость игры. Чтобы все находились в одинаковом положении, её основа — в частности, обширный список героев — доступна каждому игроку. Если хотите, вы можете коллекционировать предметы, видоизменяющие как героев, так и мир вокруг них, но всё необходимое для вашего первого матча уже есть в игре.</p>
 		</div>
 	</div>
+  <!-- GAME END -->
 	
 </body>
 </html>

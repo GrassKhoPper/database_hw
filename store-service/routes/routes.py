@@ -16,3 +16,7 @@ def add_item_route():
 @routes_blueprint.route('/profile')
 def open_profile_page():
     return render_template('User.html')
+
+@routes_blueprint.route('/game')
+def open_game_page():
+    return render_template('Game.html')
