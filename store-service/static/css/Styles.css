@@ -1,3 +1,4 @@
+
 /*Common*/
 
 body {
@@ -169,6 +170,9 @@ label {
   text-align: center;
 }
 
+
+/*GAME*/
+
 .body_gradient {
 	height: 100%;
 	background: linear-gradient(#1CEEE3 15%, red);
@@ -264,7 +268,7 @@ label {
 	margin-bottom: 15px;
 }
 
-input[type="text"], /* Насрано */
+input[type="text"],
 input[type="password"] {
 	width: 100%;
 	padding: 10px;
@@ -421,3 +425,4 @@ input[type="password"] {
 	margin-left: 10px;
 	cursor: pointer; /* Indicate it's clickable */
 }
+
