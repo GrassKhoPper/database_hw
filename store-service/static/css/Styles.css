@@ -170,6 +170,7 @@ label {
   text-align: center;
 }
 
+
 /*GAME*/
 
 .body_gradient {
@@ -177,8 +178,10 @@ label {
 	background: linear-gradient(#1CEEE3 15%, red);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	font-family: sans-serif;
 }
+
+/*GAME*/
+
 
 .container_game {	
 	max-width: 50%;
@@ -197,6 +200,7 @@ label {
 .game_info img {
 	width: 50%;
 	height: 100%;
+	vertical-align: middle;
 	margin-right: 20px;
 	border-radius: 10px;
 }
@@ -288,4 +292,137 @@ input[type="password"] {
 	display: none; /* Hidden by default */
 }
 
+/*LIBRARY*/
+
+.library_container {
+	display: flex;
+	flex-direction: row; 	/* Arrange items horizontally */
+	height: calc(100vh - 161px); 				/* Subtract header height */
+	width: 100%;
+}
+
+.sidebar {
+	width: 20%;
+	height: 100%;
+	background: linear-gradient(#1CEEE3 15%, red);
+	padding: 16px;
+	overflow-y: auto;
+	scrollbar-width: none
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar ul {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar li {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.sidebar a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	padding: 8px;
+	border-radius: 10px;
+	background-color: #fff;
+	transition: background-color 0.3s; 
+}
+
+.sidebar a:hover {
+	background-color: #ddd;
+}
+
+.game_icon {
+	width: 	32px; 
+	height: 32px; 
+	margin-right:5px;
+	vertical-align: middle;
+}
+
+/*
+.game_mini_page_gradient {
+	height: 100%;
+	background: linear-gradient(#1CEEE3 15%, red);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	overflow-y: auto;
+}
+*/
+
+.container_game_mini {	
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	background: linear-gradient(#1CEEE3 15%, red);
+	padding: 16px;
+	scrollbar-width: none
+}
+
+.container_game_mini::-webkit-scrollbar {
+  display: none;
+}
+
+/*CART*/
+
+.container_cart {
+	max-width: 30%;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.55);
+	padding: 20px;
+	border-radius: 25px;
+}
+
+.cart_info {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.total {
+	font-weight: bold;
+	font-size: 18px;
+	margin-right: 16px;
+}
+
+.button_common.pay {
+	margin: 0 0 0 auto;
+}
+
+.cart-item {
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	background-color: #D9D9D9;
+	margin-bottom: 8px;
+	padding: 8px;
+}
+
+.game-picture {
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}
+
+.game-info {
+	flex: 1; /* Item takes remaining space */
+}
+
+.item-name {
+	font-weight: bold;
+}
+
+.item-price {
+	margin-left: auto;
+}
+
+.remove-button {
+	margin-left: 10px;
+	cursor: pointer; /* Indicate it's clickable */
+}
 

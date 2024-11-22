@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Game Hub</title>
+		<link rel="stylesheet" href="../static/css/Styles.css">
+	</head>
+
+	<body class="body_gradient">
+		
+		<header class="header">
+			<div class="header-left">
+				<a href="#">
+					<img src="../static//images/home.png" class="title_img" alt="home page"/>
+				</a>
+				<a href="#">
+					<img src="../static//images/Library.png" class="title_img" alt="library page"/>
+				</a>
+			</div>
+
+			<h1 class="game-hub"></h1>
+
+			<div class="header-right">
+				<a href="#">
+					<img src="../static//images/cart.png" class="title_img" alt="cart page"/>
+				</a>
+				<a href="#">
+					<img src="../static//images/user.png" class="title_img" alt="user page"/>
+				</a>
+			</div>
+		</header>
+
+		<div class="container_authorization">
+			
+			<h2 class="h2_authorization" id="Login/Registration">Login</h2>
+			
+			<div class="toggle-buttons">
+				<button class="button_common active authorization" id="loginButton">Login</button>
+				<button class="button_common authorization" id="registerButton">Register</button>
+			</div>
+
+			<form id="loginForm">
+				<div class="form-group">
+					<label for="loginEmail">Email:</label>
+					<input type="text" id="loginEmail" name="loginEmail" required>
+				</div>
+
+				<div class="form-group">
+					<label for="loginPassword">Password:</label>
+					<input type="password" id="loginPassword" name="loginPassword" required>
+				</div>
+
+				<button class="button_common authorization" type="submit">Login</button>
+
+			</form>
+
+			<form id="registerForm" class="registration-field">
+				<div class="form-group">
+					<label for="regEmail">Email:</label>
+					<input type="text" id="regEmail" name="regEmail" required>
+				</div>
+
+				<div class="form-group">
+					<label for="regPassword">Password:</label>
+					<input type="password" id="regPassword" name="regPassword" required>
+				</div>
+
+				<div class="form-group">
+					<label for="regPasswordVerify">Verify Password:</label>
+					<input type="password" id="regPasswordVerify" name="regPasswordVerify" required>
+				</div>
+
+				<button class="button_common authorization" type="submit">Register</button>
+
+			</form>
+			
+		</div>
+
+		<script>
+			const loginButton = document.getElementById('loginButton');
+			const registerButton = document.getElementById('registerButton');
+			const loginForm = document.getElementById('loginForm');
+			const registerForm = document.getElementById('registerForm');
+			const Login_Registration_title = document.getElementById('Login/Registration');
+
+			loginButton.addEventListener('click', () => {
+				loginButton.classList.add('active');
+				registerButton.classList.remove('active');
+				loginForm.style.display = 'block';
+				registerForm.style.display = 'none';
+				Login_Registration_title.textContent = 'Login';
+			});
+
+			registerButton.addEventListener('click', () => {
+				registerButton.classList.add('active');
+				loginButton.classList.remove('active');
+				registerForm.style.display = 'block';
+				loginForm.style.display = 'none';
+				Login_Registration_title.textContent = 'Registration';
+			});
+		</script>
+
+	</body>
+</html>
