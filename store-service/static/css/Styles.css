@@ -426,3 +426,10 @@ input[type="password"] {
 	cursor: pointer; /* Indicate it's clickable */
 }
 
+.game-tag-text {
+	border: 2px solid #000;
+	border-radius: 10px;
+	padding: 5px 10px;
+	display: inline-block;
+}
+

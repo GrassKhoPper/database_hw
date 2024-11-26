@@ -32,17 +32,17 @@
 
   </header>
 
-  <!-- GAME BEGIN -->
 	<div class="container_game">
 		<div class="game_info">
       <img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Image">
 			<div class="game-info">
 				<div class="details">
-					<p><strong>Developers:</strong> <span>{{game.game_id}}</span></p>
+					<p><strong>Developers:</strong> <span>{{game.studio}}</span></p>
 					<p><strong>Tags:</strong> 
-					<span>
-						MOBA, Free
-					</span></p>
+					{% for tag in game.tags %}
+						<span class="game-tag-text">{{tag}}</span>
+					{% endfor %}
+					</p>
 					<p><strong>Price:</strong> 
 					<span>
 						{% if game.price != 0 %}
@@ -61,10 +61,9 @@
 		</div>
 
 		<div class="description">
-			<p>{{game.description}}</p>
+			<p>{{game.description | safe}}</p>
 		</div>
 	</div>
-  <!-- GAME END -->
 	
 </body>
 </html>
