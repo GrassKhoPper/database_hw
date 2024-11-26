@@ -1,13 +1,12 @@
-FROM python:3.12-alpine
+FROM python:3.12
 
-WORKDIR /app
+WORKDIR /bank
 
 COPY requirements.txt .
 
-RUN apk add --update --no-cache gcc libc-dev sqlite-dev
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . /bank
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5001"]
+CMD ["python", "app.py"]
 
