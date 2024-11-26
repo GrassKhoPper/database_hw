@@ -14,37 +14,45 @@ CREATE TABLE IF NOT EXISTS games (
   name TEXT NOT NULL UNIQUE,
   price REAL NOT NULL,
   description TEXT NOT NULL,
-  studioid INTEGER,
+  studio_id INTEGER NOT NULL,
 
-  FOREIGN KEY (studioid) REFERENCES studios(studioid)
+  FOREIGN KEY (studio_id) REFERENCES studios(id)
 );
 
-CREATE TABLE IF NOT EXISTS bank_card(
+CREATE TABLE IF NOT EXISTS games_pictures (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  userid INTEGER NOT NULL,
-  card_number TEXT NOT NULL,
-  cvc TEXT NOT NULL,
+  name TEXT NOT NULL UNIQUE,
+  game_id INTEGER NOT NULL,
+  img_type TEXT NOT NULL CHECK (img_type in ('screenshot', 'icon', 'cover', 'profile')),
+  img_fmt TEXT NOT NULL CHECK (img_fmt in ('jpg', 'ico', 'png')),
 
-  FOREIGN KEY (userid) REFERENCES users(userid)
+  -- mb UNIQUE ( gameid , img_type==icon ) and UNIQUE ( gameid, img_type=cover )
+  FOREIGN KEY (game_id) REFERENCES games(id)
 );
 
-CREATE TABLE IF NOT EXISTS cart(
+CREATE TABLE IF NOT EXISTS profiles_pictures (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  userid INTEGER,
-  gameid INTEGER,
-  
-  FOREIGN KEY (userid) REFERENCES users(userid),
-  FOREIGN KEY (gameid) REFERENCES games(gameid)
+  name TEXT NOT NULL UNIQUE,
+  user_id INTEGER NOT NULL,
+  img_fmt TEXT NOT NULL CHECK (img_fmt in ('jpg', 'png')),
+
+  UNIQUE (user_id, name),
+
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS purchases(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  userid INTEGER NOT NULL,
-  gameid INTEGER NOY NULL,
+  owner_id INTEGER NOT NULL,
+  buyer_id INTEGER NOT NULL,
+  ts INTEGER,
+  game_id INTEGER NOT NULL,
 
-  FOREIGN KEY (userid) REFERENCES users(userid),
-  FOREIGN KEY (gameid) REFERENCES games(gameid)
+  FOREIGN KEY (owner_id) REFERENCES users(id),
+  FOREIGN KEY (buyer_id) REFERENCES users(id),
+  FOREIGN KEY (game_id)  REFERENCES games(id)
 );
+CREATE UNIQUE INDEX IF NOT EXISTS idx_owner_game ON purchases (owner_id, game_id);
 
 CREATE TABLE IF NOT EXISTS tags(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,11 +60,11 @@ CREATE TABLE IF NOT EXISTS tags(
 );
 
 CREATE TABLE IF NOT EXISTS game_tags (
-  gameid INTEGER,
-  tagid  INTEGER,
-  PRIMARY KEY(gameid, tagid),
+  game_id INTEGER NOT NULL,
+  tag_id  INTEGER NOT NULL,
+  PRIMARY KEY(game_id, tag_id),
 
-  FOREIGN KEY(gameid) REFERENCES games(gameid),
-  FOREIGN KEY(tagid ) REFERENCES tags (tagid )
+  FOREIGN KEY(game_id) REFERENCES games(id),
+  FOREIGN KEY( tag_id) REFERENCES tags (id)
 );
 

@@ -1,25 +1,23 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
-from store.database.db_api import *
+from utility.Game import Game
+from database.db_api import get_games_list, get_game_by_id
 
 routes_blueprint = Blueprint('routes', __name__)
 
 @routes_blueprint.route('/')
 @routes_blueprint.route('/store')
 def main_page():
-    return render_template('Store.html')
-
-@routes_blueprint.route('/add_item', methods=['POST'])
-def add_item_route():
-    return redirect(url_for('routes.main_page'))
+    return render_template('Store.html', games=[Game(game) for game in get_games_list()])
 
 @routes_blueprint.route('/profile')
 def open_profile_page():
     return render_template('User.html')
 
-@routes_blueprint.route('/game')
-def open_game_page():
-    return render_template('Game.html')
+@routes_blueprint.route('/game/<int:game_id>')
+def open_game_page(game_id):
+    print(get_game_by_id(game_id))
+    return render_template('Game.html', game=Game(get_game_by_id(game_id)))
 
 @routes_blueprint.route('/auth')
 def open_auth_page():

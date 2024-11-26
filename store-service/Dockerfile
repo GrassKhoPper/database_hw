@@ -1,15 +1,12 @@
-FROM python:3.12-alpine
+FROM python:3.12
 
 WORKDIR /store
 
 COPY requirements.txt .
 
-RUN apk add --update --no-cache gcc libc-dev sqlite-dev
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /store
-VOLUME /store
 
-ENV PYTHONPATH "${PYTHONPATH}:/"
-CMD ["python", "-m", "store"]
+CMD ["python", "app.py"]
 

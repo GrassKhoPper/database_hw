@@ -1,4 +1,5 @@
 *.db
+.vscode
 
 *.py[co]
 __pycache__
