@@ -6,6 +6,9 @@
 
 #### TODO: FOR_THE_FUTURE
 
+#### Current logical architecture
+![logical_schema](./schema.png)
+
 ### Development Stack : Docker, Python(backend + frontend), sqlite3
 
 ### Requirements list :
