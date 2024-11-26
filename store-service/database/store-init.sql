@@ -16,6 +16,10 @@ INSERT OR IGNORE INTO studios (
 VALUES (
   1,
   'Valve corporation'
+),
+(
+  2,
+  'IDK.SOFTWARE'
 );
 
 INSERT OR IGNORE INTO games (
@@ -28,36 +32,79 @@ INSERT OR IGNORE INTO games (
 VALUES (
   1, 
   'DotA 2', 
-  0.0, 
+  0.00,
   'Another Valve game...', 
   1
+),
+(
+  2,
+  'Board Game',
+  20.00,
+  'For D&D Lovers we are here to present our brand new board game!',
+  2
 );
 
 INSERT OR IGNORE INTO tags (
   id,
   name
 ) 
-VALUES(1, 'MOBA');
-INSERT OR IGNORE INTO tags (
-  id,
-  name
-)
-VALUES(2, 'BETA');
+VALUES 
+(
+  1, 
+  'MOBA'
+),
+(
+  2, 
+  'BETA'
+);
 
 INSERT OR IGNORE INTO game_tags (
   game_id,
   tag_id
 )
-VALUES (
+VALUES 
+(
   1, 
   1
-);
-INSERT OR IGNORE INTO game_tags (
-  game_id,
-  tag_id
-)
-VALUES (
+),
+(
   1, 
   2
+);
+
+INSERT OR IGNORE INTO games_pictures (
+  id,
+  name,
+  game_id,
+  img_type,
+  img_fmt
+)
+VALUES 
+(
+  1,
+  'dota.jpg',
+  1,
+  'cover',
+  'jpg'
+),
+(
+  2,
+  'dota.ico',
+  1,
+  'icon',
+  'ico'
+);
+
+INSERT OR IGNORE INTO profiles_pictures (
+  id,
+  name,
+  user_id,
+  img_fmt
+)
+VALUES (
+  1,
+  'test_user.jpg',
+  1,
+  'jpg'
 );
 

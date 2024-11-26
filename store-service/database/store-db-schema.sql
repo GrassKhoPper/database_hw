@@ -19,15 +19,26 @@ CREATE TABLE IF NOT EXISTS games (
   FOREIGN KEY (studio_id) REFERENCES studios(id)
 );
 
-CREATE TABLE IF NOT EXISTS pictures (
+CREATE TABLE IF NOT EXISTS games_pictures (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL UNIQUE,
-  gameid INTEGER NOT NULL,
-  img_type TEXT NOT NULL CHECK (img_type in ('screenshot', 'icon', 'cover')),
+  game_id INTEGER NOT NULL,
+  img_type TEXT NOT NULL CHECK (img_type in ('screenshot', 'icon', 'cover', 'profile')),
   img_fmt TEXT NOT NULL CHECK (img_fmt in ('jpg', 'ico', 'png')),
 
   -- mb UNIQUE ( gameid , img_type==icon ) and UNIQUE ( gameid, img_type=cover )
-  FOREIGN KEY (gameid) REFERENCES games(id)
+  FOREIGN KEY (game_id) REFERENCES games(id)
+);
+
+CREATE TABLE IF NOT EXISTS profiles_pictures (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  user_id INTEGER NOT NULL,
+  img_fmt TEXT NOT NULL CHECK (img_fmt in ('jpg', 'png')),
+
+  UNIQUE (user_id, name),
+
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS purchases(
