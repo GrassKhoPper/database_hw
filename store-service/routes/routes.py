@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from store.database.db_api import *
+from database.db_api import *
 
 routes_blueprint = Blueprint('routes', __name__)
 
