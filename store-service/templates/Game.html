@@ -34,8 +34,23 @@
 
 	<div class="container_game">
 		<div class="game_info">
-      <img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Image">
-			<div class="game-info">
+			<div class="screenshots">
+				<div class="selected_screenshot">
+					<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" id="selected_screenshot" alt="Game Image">
+				</div>
+				<div class="scroll_screenshots" id="scroll_screenshots">
+					<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" class="screenshot" alt="Game Screenshot" onclick="selectScreenshot(this)">
+					<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.icon))}}"  class="screenshot" alt="Game Screenshot" onclick="selectScreenshot(this)">
+				</div>
+			</div>
+
+			<div class="brief">
+				<div class="game-name">
+					<h1>{{game.name}}</h1>
+				</div>
+				
+				<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Image">
+
 				<div class="details">
 					<p><strong>Developers:</strong> <span>{{game.studio}}</span></p>
 					<p><strong>Tags:</strong> 
@@ -56,14 +71,12 @@
 			</div>
 		</div>
 
-		<div class="game-name">
-			<h1>{{game.name}}</h1>
-		</div>
-
 		<div class="description">
 			<p>{{game.description | safe}}</p>
 		</div>
 	</div>
-	
+
+	<script src={{url_for('static', filename='javascripts/Game.js')}}></script>
+
 </body>
 </html>
