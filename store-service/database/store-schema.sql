@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS games (
   name TEXT NOT NULL UNIQUE,
   price REAL NOT NULL,
   description TEXT NOT NULL,
+  brief TEXT NOT NULL,
   studio_id INTEGER NOT NULL,
 
   FOREIGN KEY (studio_id) REFERENCES studios(id)
