@@ -98,8 +98,7 @@ VALUES
   2
 );
 
-INSERT OR IGNORE INTO games_pictures (
-  id,
+INSERT INTO games_pictures (
   name,
   game_id,
   img_type,
@@ -107,25 +106,64 @@ INSERT OR IGNORE INTO games_pictures (
 )
 VALUES 
 (
-  1,
   'dota.jpg',
   1,
   'cover',
   'jpg'
 ),
 (
-  2,
   'dota.ico',
   1,
   'icon',
   'ico'
 ),
 (
-  3,
   'board-game.png',
   2,
   'cover',
   'png'
+),
+(
+  'screen1.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen2.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen3.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen4.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen5.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen6.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen7.jpg',
+  1,
+  'screenshot',
+  'jpg'
 );
 
 INSERT OR IGNORE INTO profiles_pictures (

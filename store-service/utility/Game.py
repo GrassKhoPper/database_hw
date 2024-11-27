@@ -2,6 +2,7 @@ class Game:
 	name: str
 	price: float
 	description: str
+	brief: str
 	game_id: int
 	
 	cover: str
@@ -16,6 +17,7 @@ class Game:
 		self.game_id= data['id']
 		self.name   = data['name']
 		self.price  = data['price']
+		self.brief  = data['brief']
 		self.description = data['description']
 
 		if 'studio_name' in data:
