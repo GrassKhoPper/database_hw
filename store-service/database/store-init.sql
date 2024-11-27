@@ -5,7 +5,7 @@ INSERT OR IGNORE INTO users (
 )
 VALUES (
   1, 
-  'ad34f0c08ff8f72d11b5550778353102', 
+  '94d910bc0b4aaa49c9ebfb118f325848', 
   'seregga'
 );
 

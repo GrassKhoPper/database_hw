@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Game Hub</title>
+  <title>Game Hub: Login</title>
   
   <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 </head>
@@ -43,38 +43,37 @@
 				<button class="button_common authorization" id="registerButton">Register</button>
 			</div>
 
-			<form id="loginForm">
+			<form id="login_submit" method="post">
 				<div class="form-group">
-					<label for="loginEmail">Email:</label>
-					<input type="text" id="loginEmail" name="loginEmail" required>
+					<label for="login_username">Username:</label>
+					<input type="text" id="login_username" name="login_username" placeholder="username" required>
 				</div>
 
 				<div class="form-group">
-					<label for="loginPassword">Password:</label>
-					<input type="password" id="loginPassword" name="loginPassword" required>
+					<label for="login_password">Password:</label>
+					<input type="password" id="login_password" name="login_password" placeholder="password" required>
 				</div>
 
-				<button class="button_common authorization" type="submit">Login</button>
-
+				<button class="button_common authorization" type="submit" name="login_submit">Login</button>
 			</form>
 
-			<form id="registerForm" class="registration-field">
+			<form id="reg_submit" class="registration-field">
 				<div class="form-group">
-					<label for="regEmail">Email:</label>
-					<input type="text" id="regEmail" name="regEmail" required>
+					<label for="reg_username">Username:</label>
+					<input type="text" id="reg_username" name="reg_username" placeholder="username" required>
 				</div>
 
 				<div class="form-group">
-					<label for="regPassword">Password:</label>
-					<input type="password" id="regPassword" name="regPassword" required>
+					<label for="reg_password">Password:</label>
+					<input type="password" id="reg_password" name="reg_password" placeholder="password" required>
 				</div>
 
 				<div class="form-group">
-					<label for="regPasswordVerify">Verify Password:</label>
-					<input type="password" id="regPasswordVerify" name="regPasswordVerify" required>
+					<label for="reg_repassword">Verify Password:</label>
+					<input type="password" id="reg_repassword" name="reg_repassword" placeholder="repeat password" required>
 				</div>
 
-				<button class="button_common authorization" type="submit">Register</button>
+				<button class="button_common authorization" type="submit" name="reg_submit">Register</button>
 
 			</form>
 		</div>

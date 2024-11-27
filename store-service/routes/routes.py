@@ -1,33 +1,85 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from utility.Game import Game
-from database.db_api import get_games_list, get_game_by_id
+from utility.User import User
+
+from database.db_api import get_games_list, get_game_by_id, check_user, add_user
 
 routes_blueprint = Blueprint('routes', __name__)
 
-@routes_blueprint.route('/')
-@routes_blueprint.route('/store')
+def is_user_logged_in():
+	print('I AM IN CHECK IS USER LOGGED IN')
+	return 'user_id' in session
+
+@routes_blueprint.route('/', methods=['GET'])
+@routes_blueprint.route('/store', methods=['GET']) # post for the future(search)
 def main_page():
-    return render_template('Store.html', games=[Game(game) for game in get_games_list()])
+	return render_template('Store.html', games=[Game(game) for game in get_games_list()])
+
+@routes_blueprint.route('/game/<int:game_id>', methods=['GET'])
+def open_game_page(game_id):
+	print(get_game_by_id(game_id))
+	return render_template('Game.html', game=Game(get_game_by_id(game_id)))
+
+@routes_blueprint.route('/login', methods=['GET','POST'])
+def login_register():
+	if is_user_logged_in():
+		return redirect(url_for('routes.open_profile'))
+
+	login_error = None
+	register_error = None
+
+	if request.method == 'POST':
+		print('I AM POST QUERY')
+		if 'login_submit' in request.form:
+			username = request.form.get('login_username')
+			password = request.form.get('login_password')
+			print('I AM IN LOGIN FORM')
+			try:
+				user = User(username, password)
+				print(vars(user))
+				user_id = check_user(user)
+				print(f'user_id : {user_id}')
+				session['user_id'] = user_id
+				print(f'login user_id:{user_id}')
+
+				return redirect(url_for('routes.open_profile'))
+			except ValueError as e:
+				print(f'error in login:{e}')
+				login_error = str(e)
+				return render_template('Login.html', login_error=login_error, register_error=login_error)
+		elif 'reg_submit' in request.form:
+			username   = request.form.get('reg_username')
+			password   = request.form.get('reg_password')
+			repassword = request.form.get('reg_repassword')
+			try:
+				user = User(username, password, repassword)
+				add_user(user)
+			except ValueError as e:
+				print(f'error while creating user:{e}')
+				register_error = str(e)
+				return render_template('Login.html', login_error=login_error, register_error=register_error)
+
+	return render_template('Login.html')
+
+
+@routes_blueprint.route('/logout')
+def logout():
+	session.pop('user_id', None)
+	return redirect(url_for('routes.main_page'))
 
 @routes_blueprint.route('/profile')
-def open_profile_page():
-    return render_template('User.html')
+def open_profile():
+	if not is_user_logged_in():
+		redirect(url_for('routes.login_register'))
+	return render_template('User.html')
 
-@routes_blueprint.route('/game/<int:game_id>')
-def open_game_page(game_id):
-    print(get_game_by_id(game_id))
-    return render_template('Game.html', game=Game(get_game_by_id(game_id)))
-
-@routes_blueprint.route('/auth')
-def open_auth_page():
-    return render_template('Authorisation.html')
-
-@routes_blueprint.route('/cart')
+@routes_blueprint.route('/cart', methods=['GET'])
 def open_cart_page():
-    return render_template('Cart.html')
+	return render_template('Cart.html')
 
-@routes_blueprint.route('/library')
+@routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
-    return render_template('Library.html')
+	return render_template('Library.html')
+
 

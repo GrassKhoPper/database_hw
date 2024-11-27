@@ -2,6 +2,8 @@ import sqlite3
 import os
 from flask import g
 
+from utility.User import User
+
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
 
 def create_connection(db_file):
@@ -24,9 +26,8 @@ def execute_sql_file(conn, sql_file):
 		conn.rollback()
 
 def init_database():
-	db_path = DB_PATH
-	init_files = ['database/store-db-schema.sql', 'database/store-init.sql']
-	conn = create_connection(db_path)
+	init_files = ['database/store-schema.sql', 'database/store-init.sql']
+	conn = create_connection(DB_PATH)
 	if conn:
 		[execute_sql_file(conn, x) for x in init_files]
 		conn.close()
@@ -46,11 +47,9 @@ def get_games_list()->list[dict]:
 	try:
 		cursor.execute("""
 			SELECT g.*, s.name AS studio_name,
-      	(SELECT p.name FROM games_pictures p WHERE p.game_id = g.id AND p.img_type = 'cover') AS cover_image,
       	GROUP_CONCAT(DISTINCT p.name || ':' || p.img_type || ':' || p.img_fmt) AS pictures
 			FROM games g
 			JOIN studios s ON g.studio_id = s.id
-			LEFT JOIN game_tags gt ON g.id = gt.game_id
 			LEFT JOIN games_pictures p ON g.id = p.game_id
 			GROUP BY g.id;
 		""")
@@ -89,4 +88,22 @@ def get_game_by_id(game_id:int)->dict:
 	except sqlite3.Error as e:
 		print(f'execute game query with id={game_id}:{e}')
 		return None
+
+def check_user(user:User)->int:
+	db = get_db()
+	cursor = db.cursor()
+	try:
+		cursor.execute(
+			'SELECT * FROM users WHERE name = ?', (user.name,)
+		)
+		user_data = dict(cursor.fetchone())
+		if user_data['password_hash'] == user.phash:
+			return user_data['id']
+		else:
+			raise ValueError('wrong password')
+	except sqlite3.Error as e:
+		raise ValueError(e)
+
+def add_user(user:User)->bool:
+	return False
 
