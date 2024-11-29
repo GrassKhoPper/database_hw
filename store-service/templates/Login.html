@@ -10,7 +10,7 @@
   <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 </head>
 
-	<body class="body_gradient">
+	<body class="body_gradient" data-active-form="{{active_form}}">
 		<header class="header">
     <div class="header-left">
       <a href="/store">
@@ -43,7 +43,13 @@
 				<button class="button_common authorization" id="registerButton">Register</button>
 			</div>
 
-			<form id="login_submit" method="post">
+			<form id="login_form" method="post">
+				{% if login_error %}
+				<div class="logreg_error">
+					<p>{{login_error}}</p>
+				</div>
+				{% endif %}
+
 				<div class="form-group">
 					<label for="login_username">Username:</label>
 					<input type="text" id="login_username" name="login_username" placeholder="username" required>
@@ -57,7 +63,12 @@
 				<button class="button_common authorization" type="submit" name="login_submit">Login</button>
 			</form>
 
-			<form id="reg_submit" class="registration-field">
+			<form id="register_form" class="registration-field" method="post">
+				{% if register_error %}
+				<div class="logreg_error">
+					<p>{{register_error}}</p>
+				</div>
+				{% endif %}
 				<div class="form-group">
 					<label for="reg_username">Username:</label>
 					<input type="text" id="reg_username" name="reg_username" placeholder="username" required>
@@ -78,29 +89,7 @@
 			</form>
 		</div>
 
-		<script>
-			const loginButton = document.getElementById('loginButton');
-			const registerButton = document.getElementById('registerButton');
-			const loginForm = document.getElementById('loginForm');
-			const registerForm = document.getElementById('registerForm');
-			const Login_Registration_title = document.getElementById('Login/Registration');
-
-			loginButton.addEventListener('click', () => {
-				loginButton.classList.add('active');
-				registerButton.classList.remove('active');
-				loginForm.style.display = 'block';
-				registerForm.style.display = 'none';
-				Login_Registration_title.textContent = 'Login';
-			});
-
-			registerButton.addEventListener('click', () => {
-				registerButton.classList.add('active');
-				loginButton.classList.remove('active');
-				registerForm.style.display = 'block';
-				loginForm.style.display = 'none';
-				Login_Registration_title.textContent = 'Registration';
-			});
-		</script>
+		<script src="{{ url_for ('static', filename='javascripts/Login.js') }}" defer></script>
 
 	</body>
 </html>

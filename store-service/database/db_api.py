@@ -12,6 +12,7 @@ def create_connection(db_file):
 		conn = sqlite3.connect(db_file)
 	except sqlite3.Error as e:
 		print(f'Can not create connection to database: {e}')
+		raise e
 	return conn
 
 def execute_sql_file(conn, sql_file):
@@ -55,9 +56,6 @@ def get_games_list()->list[dict]:
 		""")
 		games_data = cursor.fetchall()
 		games = [dict(game_data) for game_data in games_data]
-		print()
-		print(games)
-		print()
 		return games
 	except sqlite3.Error as e:
 		print(f'sql execution error {e}')
@@ -96,14 +94,32 @@ def check_user(user:User)->int:
 		cursor.execute(
 			'SELECT * FROM users WHERE name = ?', (user.name,)
 		)
-		user_data = dict(cursor.fetchone())
+		user_data = cursor.fetchone()
+
+		if not user_data:
+			raise ValueError('Unknown username')
+
+		user_data = dict(user_data)
 		if user_data['password_hash'] == user.phash:
 			return user_data['id']
 		else:
-			raise ValueError('wrong password')
-	except sqlite3.Error as e:
-		raise ValueError(e)
+			raise ValueError('Wrong password')
 
-def add_user(user:User)->bool:
-	return False
+	except sqlite3.Error as e:
+		raise ValueError(str(e))
+
+def add_user(user:User):
+	db = get_db()
+	cursor = db.cursor()
+	try:
+		cursor.execute("""
+			INSERT INTO users (name, password_hash)
+			VALUES (?, ?)
+		""", (user.name, user.phash))
+		print(f'user add query was called')
+		db.commit()
+
+	except sqlite3.Error as e:
+		print(f'sqlite3 error:{e}')
+		raise ValueError(str(e))
 

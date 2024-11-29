@@ -492,3 +492,12 @@ input[type="password"] {
 	display: inline-block;
 }
 
+.logreg_error {
+	background-color: #f44336;
+  color: #fff;
+  padding: 1px;
+	margin: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+

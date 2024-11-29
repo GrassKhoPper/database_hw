@@ -7,8 +7,8 @@ from database.db_api import get_games_list, get_game_by_id, check_user, add_user
 
 routes_blueprint = Blueprint('routes', __name__)
 
-def is_user_logged_in():
-	print('I AM IN CHECK IS USER LOGGED IN')
+def is_user_logged_in()->bool:
+	print(session)
 	return 'user_id' in session
 
 @routes_blueprint.route('/', methods=['GET'])
@@ -30,24 +30,24 @@ def login_register():
 	register_error = None
 
 	if request.method == 'POST':
-		print('I AM POST QUERY')
 		if 'login_submit' in request.form:
 			username = request.form.get('login_username')
 			password = request.form.get('login_password')
-			print('I AM IN LOGIN FORM')
 			try:
 				user = User(username, password)
 				print(vars(user))
 				user_id = check_user(user)
-				print(f'user_id : {user_id}')
+
 				session['user_id'] = user_id
 				print(f'login user_id:{user_id}')
 
 				return redirect(url_for('routes.open_profile'))
+
 			except ValueError as e:
 				print(f'error in login:{e}')
 				login_error = str(e)
-				return render_template('Login.html', login_error=login_error, register_error=login_error)
+				return render_template('Login.html', login_error=login_error, register_error=login_error, active_form='login')
+
 		elif 'reg_submit' in request.form:
 			username   = request.form.get('reg_username')
 			password   = request.form.get('reg_password')
@@ -55,12 +55,15 @@ def login_register():
 			try:
 				user = User(username, password, repassword)
 				add_user(user)
-			except ValueError as e:
-				print(f'error while creating user:{e}')
-				register_error = str(e)
-				return render_template('Login.html', login_error=login_error, register_error=register_error)
+				user_id = check_user(user)
+				session['user_id'] = user_id
+				return redirect(url_for('routes.open_profile'))
 
-	return render_template('Login.html')
+			except ValueError as e:
+				register_error = str(e)
+				return render_template('Login.html', login_error=login_error, register_error=register_error, active_form='register')
+
+	return render_template('Login.html', active_form='login')
 
 
 @routes_blueprint.route('/logout')
@@ -68,8 +71,9 @@ def logout():
 	session.pop('user_id', None)
 	return redirect(url_for('routes.main_page'))
 
-@routes_blueprint.route('/profile')
+@routes_blueprint.route('/profile', methods=['GET'])
 def open_profile():
+	print(f'is user logged in:{is_user_logged_in()}')
 	if not is_user_logged_in():
 		redirect(url_for('routes.login_register'))
 	return render_template('User.html')
