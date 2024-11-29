@@ -123,3 +123,24 @@ def add_user(user:User):
 		print(f'sqlite3 error:{e}')
 		raise ValueError(str(e))
 
+def get_profile_picture(user_id:int)->str:
+	db = get_db()
+	cursor = db.cursor()
+	try:
+		cursor.execute("""
+			SELECT pp.name, pp.img_fmt
+			FROM users u
+			JOIN profiles_pictures pp ON u.id = pp.user_id
+			WHERE u.id = ?;
+		""", (user_id,))
+		user_pic = cursor.fetchone()
+		if not user_pic:
+			user_pic = 'default.jpg'
+		else:
+			user_pic = dict(user_pic)
+			user_pic = user_pic['name'] if 'name' in user_pic else 'default.jpg'
+		return user_pic
+	except sqlite3.Error as e:
+		print(f'sql error:{e}')
+		raise ValueError(str(e))
+

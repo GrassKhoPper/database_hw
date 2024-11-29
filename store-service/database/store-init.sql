@@ -174,7 +174,7 @@ INSERT OR IGNORE INTO profiles_pictures (
 )
 VALUES (
   1,
-  'test_user.jpg',
+  'default.jpg',
   1,
   'jpg'
 );
