@@ -3,12 +3,11 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from utility.Game import Game
 from utility.User import User
 
-from database.db_api import get_games_list, get_game_by_id, check_user, add_user
+from database.db_api import get_games_list, get_game_by_id, check_user, add_user, get_profile_picture
 
 routes_blueprint = Blueprint('routes', __name__)
 
 def is_user_logged_in()->bool:
-	print(session)
 	return 'user_id' in session
 
 @routes_blueprint.route('/', methods=['GET'])
@@ -69,21 +68,28 @@ def login_register():
 @routes_blueprint.route('/logout')
 def logout():
 	session.pop('user_id', None)
+	print('I AM HERE PLEASE HELP ME TO BREATH')
 	return redirect(url_for('routes.main_page'))
 
 @routes_blueprint.route('/profile', methods=['GET'])
 def open_profile():
 	print(f'is user logged in:{is_user_logged_in()}')
 	if not is_user_logged_in():
-		redirect(url_for('routes.login_register'))
-	return render_template('User.html')
+		return redirect(url_for('routes.login_register'))
+
+	pic = get_profile_picture(session['user_id'])
+	return render_template('User.html', uid=session['user_id'], upicture=pic)
 
 @routes_blueprint.route('/cart', methods=['GET'])
 def open_cart_page():
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
 	return render_template('Cart.html')
 
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
 	return render_template('Library.html')
 
 
