@@ -4,6 +4,7 @@ from routes.routes import routes_blueprint
 from database.db_api import init_database
 
 import os
+import base64
 
 # initial state of database
 init_database()
@@ -13,6 +14,7 @@ app = Flask(__name__)
 app.static_folder   = 'static'
 app.template_folder = 'templates'
 app.register_blueprint(routes_blueprint)
+app.secret_key = os.environ.get('SECRET_KEY', base64.b64encode(os.urandom(24)))
 
 # run flask application
 if __name__ == '__main__':

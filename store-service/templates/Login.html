@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Game Hub: Login</title>
+  
+  <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
+</head>
+
+	<body class="body_gradient" data-active-form="{{active_form}}">
+		<header class="header">
+    <div class="header-left">
+      <a href="/store">
+        <img src={{url_for('static', filename='images/store-icons/home.png')}} class="title_img" alt="home page"/>
+      </a>
+      <a href="/library">
+        <img src={{url_for('static', filename='images/store-icons/library.png')}} class="title_img" alt="library page"/>
+      </a>
+    </div>
+
+    <h1 class="game-hub"></h1>
+
+    <div class="header-right">
+      <a href="/cart">
+        <img src={{url_for('static', filename='images/store-icons/cart.png')}} class="title_img" alt="cart page"/>
+      </a>
+      <a href="/profile">
+        <img src={{url_for('static', filename='images/store-icons/user.png')}} class="title_img" alt="user page"/>
+      </a>
+    </div>
+
+    </header>
+
+		<div class="container_authorization">
+			
+			<h2 class="h2_authorization" id="Login/Registration">Login</h2>
+			
+			<div class="toggle-buttons">
+				<button class="button_common active authorization" id="loginButton">Login</button>
+				<button class="button_common authorization" id="registerButton">Register</button>
+			</div>
+
+			<form id="login_form" method="post">
+				{% if login_error %}
+				<div class="logreg_error">
+					<p>{{login_error}}</p>
+				</div>
+				{% endif %}
+
+				<div class="form-group">
+					<label for="login_username">Username:</label>
+					<input type="text" id="login_username" name="login_username" placeholder="username" required>
+				</div>
+
+				<div class="form-group">
+					<label for="login_password">Password:</label>
+					<input type="password" id="login_password" name="login_password" placeholder="password" required>
+				</div>
+
+				<button class="button_common authorization" type="submit" name="login_submit">Login</button>
+			</form>
+
+			<form id="register_form" class="registration-field" method="post">
+				{% if register_error %}
+				<div class="logreg_error">
+					<p>{{register_error}}</p>
+				</div>
+				{% endif %}
+				<div class="form-group">
+					<label for="reg_username">Username:</label>
+					<input type="text" id="reg_username" name="reg_username" placeholder="username" required>
+				</div>
+
+				<div class="form-group">
+					<label for="reg_password">Password:</label>
+					<input type="password" id="reg_password" name="reg_password" placeholder="password" required>
+				</div>
+
+				<div class="form-group">
+					<label for="reg_repassword">Verify Password:</label>
+					<input type="password" id="reg_repassword" name="reg_repassword" placeholder="repeat password" required>
+				</div>
+
+				<button class="button_common authorization" type="submit" name="reg_submit">Register</button>
+
+			</form>
+		</div>
+
+		<script src="{{ url_for ('static', filename='javascripts/Login.js') }}" defer></script>
+
+	</body>
+</html>
+
+

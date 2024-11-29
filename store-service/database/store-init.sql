@@ -5,7 +5,7 @@ INSERT OR IGNORE INTO users (
 )
 VALUES (
   1, 
-  'ad34f0c08ff8f72d11b5550778353102', 
+  '94d910bc0b4aaa49c9ebfb118f325848', 
   'seregga'
 );
 
@@ -27,6 +27,7 @@ INSERT OR IGNORE INTO games (
   name,
   price,
   description,
+  brief,
   studio_id
 )
 VALUES (
@@ -57,6 +58,7 @@ VALUES (
     <p>Игра может похвастаться бесконечным разнообразием героев, способностей и предметов, благодаря чему каждый матч уникален. Любой герой может исполнять множество ролей, и для каждой нужды найдутся подходящие предметы. Здесь вас ничто не ограничивает — вы сами выбираете, какой стратегии следовать.</p>
     <p>Все герои бесплатны</p>
     <p>Равные соревновательные возможности — главная гордость игры. Чтобы все находились в одинаковом положении, её основа — в частности, обширный список героев — доступна каждому игроку. Если хотите, вы можете коллекционировать предметы, видоизменяющие как героев, так и мир вокруг них, но всё необходимое для вашего первого матча уже есть в игре.</p>', 
+  'Ежедневно миллионы игроков по всему миру сражаются от лица одного из более сотни героев Dota 2, и даже после тысячи часов в ней есть чему научиться. Благодаря регулярным обновлениям игра живёт своей жизнью: геймплей, возможности и герои постоянно преображаются.',
   1
 ),
 (
@@ -64,6 +66,7 @@ VALUES (
   'Board Game',
   20.00,
   'For D&D Lovers we are here to present our brand new board game!',
+  'If you dream about new D&D like game you already in your dream!',
   2
 );
 
@@ -95,8 +98,7 @@ VALUES
   2
 );
 
-INSERT OR IGNORE INTO games_pictures (
-  id,
+INSERT INTO games_pictures (
   name,
   game_id,
   img_type,
@@ -104,25 +106,64 @@ INSERT OR IGNORE INTO games_pictures (
 )
 VALUES 
 (
-  1,
   'dota.jpg',
   1,
   'cover',
   'jpg'
 ),
 (
-  2,
   'dota.ico',
   1,
   'icon',
   'ico'
 ),
 (
-  3,
   'board-game.png',
   2,
   'cover',
   'png'
+),
+(
+  'screen1.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen2.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen3.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen4.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen5.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen6.jpg',
+  1,
+  'screenshot',
+  'jpg'
+),
+(
+  'screen7.jpg',
+  1,
+  'screenshot',
+  'jpg'
 );
 
 INSERT OR IGNORE INTO profiles_pictures (

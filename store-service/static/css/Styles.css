@@ -180,10 +180,8 @@ label {
 	background-attachment: fixed;
 }
 
-/*GAME*/
-
-
-.container_game {	
+.container_game {
+	height: 100%;	
 	max-width: 50%;
 	margin: 0 auto;
 	background-color: rgba(255, 255, 255, 0.55);
@@ -192,17 +190,78 @@ label {
 }
 
 .game_info {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	margin-bottom: 20px;
+	justify-content: space-between;
+	height: calc(100vh / 2);
+	width: 100%;
 }
 
 .game_info img {
-	width: 50%;
+	object-fit: contain;
+}
+
+.screenshots {
 	height: 100%;
-	vertical-align: middle;
-	margin-right: 20px;
-	border-radius: 10px;
+	width: 65%;
+	margin-right: 24px;
+}
+
+.selected_screenshot {
+	height: 75%;
+	width:  100%;
+	display: flex;
+	margin-bottom: 8px;
+}
+
+.selected_screenshot img {
+	border-radius: 15px;
+	margin: 0 auto;
+	height: 100%;
+	max-width: 100%;
+	align-self: center;
+}
+
+.scroll_screenshots {
+	height: 25%;
+	width: 100%;
+	display: flex;
+	overflow-x: scroll;
+}
+
+.screenshot {
+	margin: 4px;
+	border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.screenshot.selected {
+  border: 2px solid red;
+}
+
+.brief {
+	width: 35%;
+	height: 100%;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	display: block;
+}
+
+.brief h1 {
+	text-align: center;
+	margin: 0;
+}
+
+.brief img {
+	width: 100%;
+}
+.game-info_test::-webkit-scrollbar {
+	display: none;
+}
+
+.details {
+	height: 100%;
 }
 
 /*USER*/
@@ -410,7 +469,7 @@ input[type="password"] {
 }
 
 .game-info {
-	flex: 1; /* Item takes remaining space */
+	flex: 1; 
 }
 
 .item-name {
@@ -431,5 +490,14 @@ input[type="password"] {
 	border-radius: 10px;
 	padding: 5px 10px;
 	display: inline-block;
+}
+
+.logreg_error {
+	background-color: #f44336;
+  color: #fff;
+  padding: 1px;
+	margin: 5px;
+  border-radius: 5px;
+  text-align: center;
 }
 
