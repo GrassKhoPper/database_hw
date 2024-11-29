@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>store-service &#8212; GameHub 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="GameHub documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="store-service">
+<h1>store-service<a class="headerlink" href="#store-service" title="Link to this heading">¶</a></h1>
+<section id="database">
+<h2>database<a class="headerlink" href="#database" title="Link to this heading">¶</a></h2>
+<section id="module-db_api">
+<span id="db-api-py"></span><h3>db_api.py<a class="headerlink" href="#module-db_api" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.create_connection">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">create_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_api.create_connection" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.execute_sql_file">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">execute_sql_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db_api.execute_sql_file" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.get_db">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#db_api.get_db" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.get_game_by_id">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">get_game_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#db_api.get_game_by_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.get_games_list">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">get_games_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#db_api.get_games_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db_api.init_database">
+<span class="sig-prename descclassname"><span class="pre">db_api.</span></span><span class="sig-name descname"><span class="pre">init_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#db_api.init_database" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="store-db-schema-sql">
+<h3>store-db-schema.sql<a class="headerlink" href="#store-db-schema-sql" title="Link to this heading">¶</a></h3>
+</section>
+<section id="store-init-sql">
+<h3>store-init.sql<a class="headerlink" href="#store-init-sql" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<section id="routes">
+<h2>routes<a class="headerlink" href="#routes" title="Link to this heading">¶</a></h2>
+<section id="module-routes">
+<span id="routes-py"></span><h3>routes.py<a class="headerlink" href="#module-routes" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.main_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">main_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#routes.main_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.open_auth_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">open_auth_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#routes.open_auth_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.open_cart_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">open_cart_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#routes.open_cart_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.open_game_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">open_game_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routes.open_game_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.open_library_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">open_library_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#routes.open_library_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="routes.open_profile_page">
+<span class="sig-prename descclassname"><span class="pre">routes.</span></span><span class="sig-name descname"><span class="pre">open_profile_page</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#routes.open_profile_page" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="utility">
+<h2>utility<a class="headerlink" href="#utility" title="Link to this heading">¶</a></h2>
+<section id="module-DescriptionRedactor">
+<span id="descriptionredactor-py"></span><h3>DescriptionRedactor.py<a class="headerlink" href="#module-DescriptionRedactor" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="DescriptionRedactor.sanitize_html">
+<span class="sig-prename descclassname"><span class="pre">DescriptionRedactor.</span></span><span class="sig-name descname"><span class="pre">sanitize_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DescriptionRedactor.sanitize_html" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-Game">
+<span id="game-py"></span><h3>Game.py<a class="headerlink" href="#module-Game" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="Game.Game">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Game.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game.Game" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.cover">
+<span class="sig-name descname"><span class="pre">cover</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Game.Game.cover" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Game.Game.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#Game.Game.game_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.icon">
+<span class="sig-name descname"><span class="pre">icon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Game.Game.icon" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Game.Game.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.price">
+<span class="sig-name descname"><span class="pre">price</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#Game.Game.price" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.screenshots">
+<span class="sig-name descname"><span class="pre">screenshots</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#Game.Game.screenshots" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.studio">
+<span class="sig-name descname"><span class="pre">studio</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Game.Game.studio" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Game.Game.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#Game.Game.tags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="templates">
+<h2>templates<a class="headerlink" href="#templates" title="Link to this heading">¶</a></h2>
+<section id="authorisation-html">
+<h3>Authorisation.html<a class="headerlink" href="#authorisation-html" title="Link to this heading">¶</a></h3>
+</section>
+<section id="cart-html">
+<h3>Cart.html<a class="headerlink" href="#cart-html" title="Link to this heading">¶</a></h3>
+</section>
+<section id="game-html">
+<h3>Game.html<a class="headerlink" href="#game-html" title="Link to this heading">¶</a></h3>
+</section>
+<section id="library-html">
+<h3>Library.html<a class="headerlink" href="#library-html" title="Link to this heading">¶</a></h3>
+</section>
+<section id="store-html">
+<h3>Store.html<a class="headerlink" href="#store-html" title="Link to this heading">¶</a></h3>
+</section>
+<section id="user-html">
+<h3>User.html<a class="headerlink" href="#user-html" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GameHub</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">store-service</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#database">database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-db_api">db_api.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#store-db-schema-sql">store-db-schema.sql</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#store-init-sql">store-init.sql</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#routes">routes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-routes">routes.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility">utility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-DescriptionRedactor">DescriptionRedactor.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Game">Game.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#templates">templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#authorisation-html">Authorisation.html</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cart-html">Cart.html</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game-html">Game.html</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#library-html">Library.html</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#store-html">Store.html</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-html">User.html</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">GameHub documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Gubanov, Khrol, Potapova.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/routes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
