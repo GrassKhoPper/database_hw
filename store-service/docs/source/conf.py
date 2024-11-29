@@ -43,3 +43,7 @@ exclude_patterns = []
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+latex_documents = [
+ ('index', 'yourdoc.tex', u'DocName', u'YourName', 'manual'),
+]

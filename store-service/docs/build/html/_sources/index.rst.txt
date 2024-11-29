@@ -6,14 +6,31 @@
 GameHub documentation
 =====================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Game Hub is online service for digital distribution of computer games and programs
+
+Main features:
+
+- User authentication system
+- User profiles with avatars
+- Storing password hashes for security
+- Personal account
+- Library of purchased games
+- Shopping system
+- Information about the development companies
+- Communication of studios and games
+- Name, price, detailed description, link to the developer studio, cover for games
+- Tag system for categorizing games
+
+Project structure:
+__________________
 
 
 .. toctree::
    :maxdepth: 3
+
+
    :caption: Contents:
+
 
    ./store-service.rst
    ./bank-service.rst

@@ -34,11 +34,23 @@
             
   <section id="gamehub-documentation">
 <h1>GameHub documentation<a class="headerlink" href="#gamehub-documentation" title="Link to this heading">¶</a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+<p>Game Hub is online service for digital distribution of computer games and programs</p>
+<p>Main features:</p>
+<ul class="simple">
+<li><p>User authentication system</p></li>
+<li><p>User profiles with avatars</p></li>
+<li><p>Storing password hashes for security</p></li>
+<li><p>Personal account</p></li>
+<li><p>Library of purchased games</p></li>
+<li><p>Shopping system</p></li>
+<li><p>Information about the development companies</p></li>
+<li><p>Communication of studios and games</p></li>
+<li><p>Name, price, detailed description, link to the developer studio, cover for games</p></li>
+<li><p>Tag system for categorizing games</p></li>
+</ul>
+<section id="project-structure">
+<h2>Project structure:<a class="headerlink" href="#project-structure" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="store-service.html">store-service</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="store-service.html#database">database</a><ul>
@@ -53,33 +65,20 @@ documentation for details.</p>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="store-service.html#utility">utility</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="store-service.html#module-DescriptionRedactor">DescriptionRedactor.py</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#module-Game">Game.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="store-service.html#game-py">Game.py</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="store-service.html#templates">templates</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#authorisation-html">Authorisation.html</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#cart-html">Cart.html</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#game-html">Game.html</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#library-html">Library.html</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#store-html">Store.html</a></li>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#user-html">User.html</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="store-service.html#app">app</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="store-service.html#module-app">app.py</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="store-service.html#templates">templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="store-service.html#app-py">app.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bank-service.html">bank-service</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bank-service.html#app">app</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bank-service.html#module-app">app.py</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="bank-service.html#app-py">app.py</a></li>
 </ul>
 </li>
 </ul>
 </div>
+</section>
 </section>
 
 
@@ -108,7 +107,6 @@ documentation for details.</p>
     </div>
 </search>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="store-service.html">store-service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bank-service.html">bank-service</a></li>

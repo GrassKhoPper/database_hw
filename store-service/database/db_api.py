@@ -1,3 +1,8 @@
+
+"""
+Database operations module for the game store. This module provides functions for database initialization and data retrieval operations.
+"""
+
 import sqlite3
 import os
 from flask import g
@@ -5,6 +10,15 @@ from flask import g
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
 
 def create_connection(db_file):
+	"""
+    Create a database connection to the SQLite database.
+
+    Args:
+        db_file (str): Path to the SQLite database file
+
+    Returns:
+        sqlite3.Connection: Database connection object or None if connection fails
+    """
 	conn = None
 	try:
 		conn = sqlite3.connect(db_file)
@@ -13,6 +27,16 @@ def create_connection(db_file):
 	return conn
 
 def execute_sql_file(conn, sql_file):
+	"""
+    Execute SQL commands from a file.
+
+    Args:
+        conn (sqlite3.Connection): Database connection object
+        sql_file (str): Path to the SQL file to execute
+
+    Returns:
+        None
+    """
 	try:
 		with open(sql_file, 'r') as file:
 			sql_script = file.read()
@@ -24,6 +48,14 @@ def execute_sql_file(conn, sql_file):
 		conn.rollback()
 
 def init_database():
+	"""
+    Initialize the database with schema and initial data.
+    
+    Executes SQL files containing schema and initial data definitions.
+    
+    Returns:
+        None
+    """
 	db_path = DB_PATH
 	init_files = ['database/store-db-schema.sql', 'database/store-init.sql']
 	conn = create_connection(db_path)
@@ -34,6 +66,12 @@ def init_database():
 		print('Can not create connection to database')
 
 def get_db():
+	"""
+    Get or create database connection for the current context.
+
+    Returns:
+        sqlite3.Connection
+    """
 	if 'db' not in g:
 		g.db = sqlite3.connect(DB_PATH)
 		g.db.isolation_level = None
@@ -41,6 +79,13 @@ def get_db():
 	return g.db
 
 def get_games_list()->list[dict]:
+	"""
+    Retrieve list of all games with related information.
+
+    Returns:
+        list[dict]: List of dictionaries containing game information including:
+        None if there's an error
+    """
 	db = get_db()
 	cursor = db.cursor()
 	try:
@@ -65,6 +110,16 @@ def get_games_list()->list[dict]:
 		return None
 
 def get_game_by_id(game_id:int)->dict:
+	"""
+    Retrieve detailed information about a specific game.
+
+    Args:
+        game_id (int): The ID of the game to retrieve
+
+    Returns:
+        dict: Dictionary containing game information including:
+        None if game not found or there's an error
+    """
 	db = get_db()
 	cursor = db.cursor()
 

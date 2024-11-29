@@ -1,3 +1,10 @@
+"""
+Main module for the Game Store.
+
+It handles application configuration, database initialization,
+and starts the web server.
+
+"""
 from flask import Flask
 
 from routes.routes import routes_blueprint
