@@ -49,7 +49,7 @@
         <div class="item-info">
           <p>{{game.name}}</p>
           <a href="/game/{{game.game_id}}">
-            <button class="buy-button">
+            <button class="buy-button_store">
                 {% if game.price != 0 %}
                   {{ game.price }} RUB
                 {% else %}
@@ -60,6 +60,7 @@
         </div>
       </div>
       {% endfor %}
+      
     </div>
   </main>
     

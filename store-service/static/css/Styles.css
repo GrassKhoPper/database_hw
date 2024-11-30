@@ -145,42 +145,40 @@ label {
 
 .container_store {
 	display: flex;
-	flex-wrap: wrap; /* Allow wrapping to next line */
-	justify-content: flex-start; /* Align items to the start */
+	flex-wrap: wrap; 
+	justify-content: flex-start;
 }
 
 .item {
-	width: 15%; /* Adjust as needed */
-	min-width: 200px; /* Minimum width to prevent squeezing */
+	width: 10%; 
+	min-width: 140px;
 	margin: 8px;
 	background-color: black;
 	color: white;
-	border-radius: 5px;
+	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	display: flex; /* Enable flexbox for the card */
-	flex-direction: column; /* Stack content vertically */
+	display: flex; 
+	flex-direction: column;
 }
 
 .item img {
-	width: 100%; /* Image takes full width of card */
-	height: 70%; /* Maintain aspect ratio */
-	display: block; /* Prevent default spacing */
-	border-radius: 5px 5px 0 0; /* Rounded top corners */
-
+	width: 100%; 
+	height: 65%; 
+	display: block; 
+	border-radius: 8px; /* Rounded top corners */
 }
 
 .item-info {
-	flex-grow: 1; /* Allow info to expand to fill available space */
-	display: flex; /* Use flexbox for vertical alignment */
+	flex-grow: 1; 
+	display: flex;
 	flex-direction: column;
-	padding: 8px; /* Add some padding */
-	overflow: hidden; /* Hide overflowing text */
-	border-radius: 0 0 5px 5px; /* Rounded bottom corners */
+	padding: 8px; 
+	overflow: hidden;
 	justify-content: space-between;
 }
 
 .item-info p {
-	font-size: 1.5rem; /* Use rem for font size */
+	font-size: 1.5rem; 
 	margin: 8px 0;
 	text-align: center;
 }
@@ -189,8 +187,8 @@ label {
 	align-self: center;
 }
 
-.buy-button_test {
-	font-size: 1.5rem; /* Use rem for font size */
+.buy-button_store {
+	font-size: 1rem; 
 	background-color: lime;
 	color: black;
 	border: none;
