@@ -98,7 +98,7 @@ VALUES
   2
 );
 
-INSERT INTO games_pictures (
+INSERT OR IGNORE INTO games_pictures (
   name,
   game_id,
   img_type,
@@ -177,5 +177,18 @@ VALUES (
   'default.jpg',
   1,
   'jpg'
+);
+
+INSERT OR IGNORE INTO purchases (
+  owner_id,
+  buyer_id,
+  ts,
+  game_id
+)
+VALUES (
+  1,
+  1, 
+  123,
+  1
 );
 

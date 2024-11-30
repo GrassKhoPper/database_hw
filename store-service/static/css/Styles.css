@@ -381,16 +381,19 @@ input[type="password"] {
 .sidebar li {
 	display: flex;
 	margin-bottom: 10px;
+	text-decoration: none;
+	color: #000;
+	padding: 8px;
+	text-align:center;
+	align-items:center;
+	border-radius: 10px;
+	background-color: #fff;
+	transition: background-color 0.3s; 
 }
 
 .sidebar a {
 	display: block;
-	text-decoration: none;
-	color: #000;
-	padding: 8px;
-	border-radius: 10px;
-	background-color: #fff;
-	transition: background-color 0.3s; 
+
 }
 
 .sidebar a:hover {
@@ -447,7 +450,7 @@ input[type="password"] {
 	font-weight: bold;
 	font-size: 18px;
 	margin-right: 16px;
-}
+} </a>
 
 .button_common.pay {
 	margin: 0 0 0 auto;
