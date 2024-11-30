@@ -3,8 +3,23 @@ import os
 from flask import g
 
 from utility.User import User
+from utility.Game import Game
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
+
+# def init_database_from_csv(db_path:str, csv_folder:str):
+# 	tables = {
+# 		'games' : 'games.csv',
+# 		'studios' : 'studios.csv',
+# 		'tags' : 'tags.csv',
+# 		'game_tags' : 'game_tags.csv',
+# 		'games_pictures' : 'games_pictures.csv',
+# 		'profiles_pictures': 'profiles_pictures.csv'
+# 	}
+# 	try:
+# 		pass
+# 	except:
+# 		pass
 
 def create_connection(db_file):
 	conn = None
@@ -142,5 +157,31 @@ def get_profile_picture(user_id:int)->str:
 		return user_pic
 	except sqlite3.Error as e:
 		print(f'sql error:{e}')
+		raise ValueError(str(e))
+
+def get_games_for_library(uid:int)->list[Game]:
+	db = get_db()
+	cursor = db.cursor()
+	try:
+		cursor.execute("""
+			SELECT g.*, s.name AS studio_name,
+				GROUP_CONCAT(DISTINCT t.name) AS tags,
+				GROUP_CONCAT(DISTINCT p.name || ':' || p.img_type || ':' || p.img_fmt) AS pictures,
+				(SELECT p.name FROM games_pictures p WHERE p.game_id = g.id AND p.img_type = 'cover') AS cover_image
+			FROM games g
+			JOIN studios s ON g.studio_id = s.id
+			LEFT JOIN game_tags gt ON g.id = gt.game_id
+			LEFT JOIN tags t ON gt.tag_id = t.id
+			LEFT JOIN games_pictures p ON g.id = p.game_id
+			JOIN purchases pur ON g.id = pur.game_id 
+			WHERE pur.owner_id = ?
+			GROUP BY g.id;
+		""", (uid,))
+		games_data = cursor.fetchall()
+		games_data = [Game(dict(game)) for game in games_data] if games_data else []
+		print(games_data)
+		return games_data
+
+	except sqlite3.Error as e:
 		raise ValueError(str(e))
 

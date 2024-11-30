@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
 
 from utility.Game import Game
 from utility.User import User
 
-from database.db_api import get_games_list, get_game_by_id, check_user, add_user, get_profile_picture
+from app import cache
+
+from database.db_api import get_games_list, get_game_by_id, check_user, add_user, get_profile_picture, get_games_for_library
 
 routes_blueprint = Blueprint('routes', __name__)
 
@@ -64,7 +66,6 @@ def login_register():
 
 	return render_template('Login.html', active_form='login')
 
-
 @routes_blueprint.route('/logout')
 def logout():
 	session.pop('user_id', None)
@@ -86,10 +87,19 @@ def open_cart_page():
 		return redirect(url_for('routes.login_register'))
 	return render_template('Cart.html')
 
+@routes_blueprint.route('/game-details/<int:game_id')
+def game_details(game_id:int):
+	
+	pass
+
+@cache.cached(timeout=50, key_prefix='get_all_games_with_cover_view')
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
 	if not is_user_logged_in():
 		return redirect(url_for('routes.login_register'))
-	return render_template('Library.html')
+	user_games = get_games_for_library(session['user_id'])
+	user_games = [jsonify(game.__dict__) for game in user_games]
+	print(user_games)
+	return render_template('Library.html', user_games=user_games)
 
 
