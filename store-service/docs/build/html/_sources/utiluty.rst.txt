@@ -1,5 +1,0 @@
-Views2
-======
-
-.. automodule:: Game1
-   :members:
