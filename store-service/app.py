@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Cache
 
 from routes.routes import routes_blueprint
 from database.db_api import init_database

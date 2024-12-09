@@ -3,8 +3,6 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from utility.Game import Game
 from utility.User import User
 
-# from app import cache
-
 from database.db_api import ( 
 	get_games_list, 
 	get_game_info, 
@@ -108,14 +106,12 @@ def open_cart_page():
 def game_details(game_id:int):
 	pass
 
-# @cache.cached(timeout=50, key_prefix='get_all_games_with_cover_view')
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
 	if not is_user_logged_in():
 		return redirect(url_for('routes.login_register'))
+
 	user_games = get_user_games_in_library(session['user_id'])
 	# user_games = [jsonify(game.__dict__) for game in user_games]
 	# print(user_games)
 	return render_template('Library.html', user_games=[Game(x) for x in user_games])
-
-

@@ -3,6 +3,7 @@ import os
 from flask import g
 
 from utility.User import User
+from utility.Game import Game
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
 
