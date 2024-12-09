@@ -13,7 +13,7 @@ class Game:
 	studio: str
 
 	def __init__(self, data:dict):
-		print(data)
+		# print(data)
 		self.game_id= data['id']
 		self.name   = data['name']
 		self.price  = data['price']
@@ -23,18 +23,17 @@ class Game:
 		if 'studio_name' in data:
 			self.studio = data['studio_name']
 		if 'tags' in data:
-			self.tags   = data['tags'].split(',') if data['tags'] else []
+			self.tags   = data['tags'] if data['tags'] else []
 		if 'pictures' in data:
-			pic_data = data['pictures'].split(',') if data['pictures'] else []
+			pic_data = data['pictures'] if data['pictures'] else []
 			self.screenshots = []
 			for pic in pic_data:
-				info = pic.split(':')
-				match info[1]:
+				match pic['img_type']:
 					case 'cover':
-						self.cover = info[0]
+						self.cover = pic['name']
 					case 'icon':
-						self.icon = info[0]
+						self.icon = pic['name']
 					case 'screenshot':
-						self.screenshots.append(info[0])
+						self.screenshots.append(pic['name'])
 
-		print(vars(self))
+		# print(vars(self))

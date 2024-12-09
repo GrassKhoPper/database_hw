@@ -19,7 +19,7 @@ config = {
 app = Flask(__name__)
 app.config.from_mapping(config)
 
-cache = Cache(app)
+# cache = Cache(app)
 
 app.static_folder   = 'static'
 app.template_folder = 'templates'
