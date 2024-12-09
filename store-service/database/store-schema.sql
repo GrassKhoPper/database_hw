@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS users(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   password_hash TEXT NOT NULL,
-  name TEXT NOT NULL UNIQUE
+  name TEXT NOT NULL UNIQUE,
+  wallet REAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS studios(
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS purchases(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   owner_id INTEGER NOT NULL,
   buyer_id INTEGER NOT NULL,
-  ts INTEGER,
+  ts INTEGER, -- make it zero if game not buyed yet but in cart already
   game_id INTEGER NOT NULL,
 
   FOREIGN KEY (owner_id) REFERENCES users(id),

@@ -3,23 +3,8 @@ import os
 from flask import g
 
 from utility.User import User
-from utility.Game import Game
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
-
-# def init_database_from_csv(db_path:str, csv_folder:str):
-# 	tables = {
-# 		'games' : 'games.csv',
-# 		'studios' : 'studios.csv',
-# 		'tags' : 'tags.csv',
-# 		'game_tags' : 'game_tags.csv',
-# 		'games_pictures' : 'games_pictures.csv',
-# 		'profiles_pictures': 'profiles_pictures.csv'
-# 	}
-# 	try:
-# 		pass
-# 	except:
-# 		pass
 
 def create_connection(db_file):
 	conn = None
@@ -58,46 +43,36 @@ def get_db():
 	return g.db
 
 def get_games_list()->list[dict]:
-	db = get_db()
-	cursor = db.cursor()
+	cursor = get_db().cursor()
 	try:
 		cursor.execute("""
-			SELECT g.*, s.name AS studio_name,
-      	GROUP_CONCAT(DISTINCT p.name || ':' || p.img_type || ':' || p.img_fmt) AS pictures
-			FROM games g
-			JOIN studios s ON g.studio_id = s.id
-			LEFT JOIN games_pictures p ON g.id = p.game_id
-			GROUP BY g.id;
+			SELECT id 
+			FROM games;
 		""")
-		games_data = cursor.fetchall()
-		games = [dict(game_data) for game_data in games_data]
+		game_ids = cursor.fetchall()
+		# TODO: not optimal to get elements one by one ( but mb it is better cause we can load games from id_beg to id_end)
+		games = [get_game_info(game_id['id']) for game_id in game_ids]
 		return games
 	except sqlite3.Error as e:
 		print(f'sql execution error {e}')
 		return None
 
-def get_game_by_id(game_id:int)->dict:
-	db = get_db()
-	cursor = db.cursor()
-
+def get_game_info(game_id:int)->dict:
+	tags = get_tags_by_game_id(game_id)
+	pictures = get_pictures_by_game_id(game_id)
+	
+	cursor = get_db().cursor()
 	try:
 		cursor.execute("""
-			SELECT g.*, s.name AS studio_name,
-				GROUP_CONCAT(DISTINCT t.name) AS tags,
-				GROUP_CONCAT(DISTINCT p.name || ':' || p.img_type || ':' || p.img_fmt) AS pictures
+			SELECT g.*, s.name AS studio_name
 			FROM games g
-			JOIN studios s ON g.studio_id = s.id
-			LEFT JOIN game_tags gt ON g.id = gt.game_id
-			LEFT JOIN tags t ON gt.tag_id = t.id
-			LEFT JOIN games_pictures p ON g.id = p.game_id
-			WHERE g.id = ?
+			JOIN studios s ON s.id = g.studio_id
+			WHERE g.id = (?);
 		""", (game_id,))
-
-		game_data = dict(cursor.fetchone())
-		if game_data:
-			return game_data
-		else:
-			return None
+		data = dict(cursor.fetchone())
+		data['tags'] = tags
+		data['pictures'] = pictures		
+		return data
 	except sqlite3.Error as e:
 		print(f'execute game query with id={game_id}:{e}')
 		return None
@@ -107,7 +82,7 @@ def check_user(user:User)->int:
 	cursor = db.cursor()
 	try:
 		cursor.execute(
-			'SELECT * FROM users WHERE name = ?', (user.name,)
+			'SELECT * FROM users WHERE name = (?);', (user.name,)
 		)
 		user_data = cursor.fetchone()
 
@@ -128,9 +103,9 @@ def add_user(user:User):
 	cursor = db.cursor()
 	try:
 		cursor.execute("""
-			INSERT INTO users (name, password_hash)
-			VALUES (?, ?)
-		""", (user.name, user.phash))
+			INSERT INTO users (name, password_hash, wallet)
+			VALUES (?, ?, ?)
+		""", (user.name, user.phash, 0))
 		print(f'user add query was called')
 		db.commit()
 
@@ -139,8 +114,7 @@ def add_user(user:User):
 		raise ValueError(str(e))
 
 def get_profile_picture(user_id:int)->str:
-	db = get_db()
-	cursor = db.cursor()
+	cursor = get_db().cursor()
 	try:
 		cursor.execute("""
 			SELECT pp.name, pp.img_fmt
@@ -159,29 +133,54 @@ def get_profile_picture(user_id:int)->str:
 		print(f'sql error:{e}')
 		raise ValueError(str(e))
 
-def get_games_for_library(uid:int)->list[Game]:
-	db = get_db()
-	cursor = db.cursor()
+def get_user_games_in_library(user_id:int)->list[dict]:
+	try:
+		user_game_ids = get_user_games(user_id)
+		games = [get_game_info(game_id) for game_id in user_game_ids]
+		return games
+	except :
+		raise ValueError(str('strange get games for library error'))
+
+def get_user_games(user_id:int)->list[int]:
+	cursor = get_db().cursor()
 	try:
 		cursor.execute("""
-			SELECT g.*, s.name AS studio_name,
-				GROUP_CONCAT(DISTINCT t.name) AS tags,
-				GROUP_CONCAT(DISTINCT p.name || ':' || p.img_type || ':' || p.img_fmt) AS pictures,
-				(SELECT p.name FROM games_pictures p WHERE p.game_id = g.id AND p.img_type = 'cover') AS cover_image
-			FROM games g
-			JOIN studios s ON g.studio_id = s.id
-			LEFT JOIN game_tags gt ON g.id = gt.game_id
-			LEFT JOIN tags t ON gt.tag_id = t.id
-			LEFT JOIN games_pictures p ON g.id = p.game_id
-			JOIN purchases pur ON g.id = pur.game_id 
-			WHERE pur.owner_id = ?
-			GROUP BY g.id;
-		""", (uid,))
-		games_data = cursor.fetchall()
-		games_data = [Game(dict(game)) for game in games_data] if games_data else []
-		print(games_data)
-		return games_data
+			SELECT game_id 
+			FROM purchases 
+			WHERE owner_id = (?) AND ts IS NOT NULL;
+		""", (user_id,))
 
+		return [x['game_id'] for x in cursor.fetchall()]
 	except sqlite3.Error as e:
-		raise ValueError(str(e))
+		print(f'sqlite error:{e}')
+		raise ValueError(f'{e}')
+
+def get_tags_by_game_id(game_id:int)->list[str]:
+	cursor = get_db().cursor()
+	try:
+		cursor.execute("""
+			SELECT t.name
+			FROM game_tags gt
+			JOIN tags t ON gt.tag_id = t.id
+			WHERE gt.game_id = ?;
+		""", (game_id,))
+		data = cursor.fetchall()
+		tags = [tag['name'] for tag in data]
+		return tags
+	except:
+		raise ValueError(f'error on getting game tags')
+
+def get_pictures_by_game_id(game_id:int)->list[str]:
+	cursor = get_db().cursor()
+	try:
+		cursor.execute("""
+			SELECT name, img_type, img_fmt
+			FROM games_pictures 
+			WHERE game_id = ?;
+		""", (game_id,))
+		data = cursor.fetchall()
+		return data
+	except:
+		raise ValueError(f'suddenly causing error')
+
 

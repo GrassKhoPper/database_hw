@@ -1,12 +1,14 @@
 INSERT OR IGNORE INTO users (
   id,
   password_hash,
-  name
+  name,
+  wallet
 )
 VALUES (
   1, 
   '94d910bc0b4aaa49c9ebfb118f325848', 
-  'seregga'
+  'seregga',
+  100.
 );
 
 INSERT OR IGNORE INTO studios (
@@ -190,5 +192,11 @@ VALUES (
   1, 
   123,
   1
+),
+(
+  1,
+  1,
+  NULL,
+  2
 );
 

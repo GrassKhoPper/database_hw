@@ -1,4 +1,4 @@
-from flask import Flask, Cache
+from flask import Flask
 
 from routes.routes import routes_blueprint
 from database.db_api import init_database
@@ -19,7 +19,7 @@ config = {
 app = Flask(__name__)
 app.config.from_mapping(config)
 
-cache = Cache(app)
+# cache = Cache(app)
 
 app.static_folder   = 'static'
 app.template_folder = 'templates'

@@ -3,9 +3,19 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from utility.Game import Game
 from utility.User import User
 
-from app import cache
+# from app import cache
 
-from database.db_api import get_games_list, get_game_by_id, check_user, add_user, get_profile_picture, get_games_for_library
+from database.db_api import ( 
+	get_games_list, 
+	get_game_info, 
+	check_user, 
+	add_user, 
+	get_profile_picture, 
+	get_user_games_in_library, 
+	get_user_games,
+	get_pictures_by_game_id,
+	get_tags_by_game_id
+)
 
 routes_blueprint = Blueprint('routes', __name__)
 
@@ -15,12 +25,17 @@ def is_user_logged_in()->bool:
 @routes_blueprint.route('/', methods=['GET'])
 @routes_blueprint.route('/store', methods=['GET']) # post for the future(search)
 def main_page():
-	return render_template('Store.html', games=[Game(game) for game in get_games_list()])
+	print(get_user_games(1))
+	# return render_template('Store.html', games=[])
+	games = get_games_list()
+	print([dict(x) for x in games])
+	
+	return render_template('Store.html', games=[Game(game) for game in games])
 
 @routes_blueprint.route('/game/<int:game_id>', methods=['GET'])
 def open_game_page(game_id):
-	print(get_game_by_id(game_id))
-	return render_template('Game.html', game=Game(get_game_by_id(game_id)))
+	# print(get_game_by_id(game_id))
+	return render_template('Game.html', game=Game(get_game_info(game_id)))
 
 @routes_blueprint.route('/login', methods=['GET','POST'])
 def login_register():
@@ -36,7 +51,7 @@ def login_register():
 			password = request.form.get('login_password')
 			try:
 				user = User(username, password)
-				print(vars(user))
+				# print(vars(user))
 				user_id = check_user(user)
 
 				session['user_id'] = user_id
@@ -45,7 +60,7 @@ def login_register():
 				return redirect(url_for('routes.open_profile'))
 
 			except ValueError as e:
-				print(f'error in login:{e}')
+				# print(f'error in login:{e}')
 				login_error = str(e)
 				return render_template('Login.html', login_error=login_error, register_error=login_error, active_form='login')
 
@@ -85,21 +100,22 @@ def open_profile():
 def open_cart_page():
 	if not is_user_logged_in():
 		return redirect(url_for('routes.login_register'))
-	return render_template('Cart.html')
+	# game_list = get_cart_games_for_user(session['user_id'])
+	# print(game_list)
+	return render_template('Cart.html')#, games=game_list)
 
-@routes_blueprint.route('/game-details/<int:game_id')
+@routes_blueprint.route('/game-details/<int:game_id>')
 def game_details(game_id:int):
-	
 	pass
 
-@cache.cached(timeout=50, key_prefix='get_all_games_with_cover_view')
+# @cache.cached(timeout=50, key_prefix='get_all_games_with_cover_view')
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
 	if not is_user_logged_in():
 		return redirect(url_for('routes.login_register'))
-	user_games = get_games_for_library(session['user_id'])
-	user_games = [jsonify(game.__dict__) for game in user_games]
-	print(user_games)
-	return render_template('Library.html', user_games=user_games)
+	user_games = get_user_games_in_library(session['user_id'])
+	# user_games = [jsonify(game.__dict__) for game in user_games]
+	# print(user_games)
+	return render_template('Library.html', user_games=[Game(x) for x in user_games])
 
 
