@@ -1,4 +1,11 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
+from flask import (
+	Blueprint, 
+	render_template, 
+	request, 
+	session, 
+	redirect, 
+	url_for
+)
 
 from utility.Game import Game
 from utility.User import User
@@ -10,9 +17,7 @@ from database.db_api import (
 	add_user, 
 	get_profile_picture, 
 	get_user_games_in_library, 
-	get_user_games,
-	get_pictures_by_game_id,
-	get_tags_by_game_id
+	get_user_games
 )
 
 routes_blueprint = Blueprint('routes', __name__)
@@ -21,7 +26,7 @@ def is_user_logged_in()->bool:
 	return 'user_id' in session
 
 @routes_blueprint.route('/', methods=['GET'])
-@routes_blueprint.route('/store', methods=['GET']) # post for the future(search)
+@routes_blueprint.route('/store', methods=['GET'])
 def main_page():
 	print(get_user_games(1))
 	# return render_template('Store.html', games=[])
@@ -60,7 +65,12 @@ def login_register():
 			except ValueError as e:
 				# print(f'error in login:{e}')
 				login_error = str(e)
-				return render_template('Login.html', login_error=login_error, register_error=login_error, active_form='login')
+				return render_template(
+					'Login.html', 
+					login_error=login_error, 
+					register_error=login_error, 
+					active_form='login'
+				)
 
 		elif 'reg_submit' in request.form:
 			username   = request.form.get('reg_username')
@@ -75,7 +85,12 @@ def login_register():
 
 			except ValueError as e:
 				register_error = str(e)
-				return render_template('Login.html', login_error=login_error, register_error=register_error, active_form='register')
+				return render_template(
+					'Login.html', 
+					login_error=login_error, 
+					register_error=register_error, 
+					active_form='register'
+				)
 
 	return render_template('Login.html', active_form='login')
 
@@ -104,7 +119,7 @@ def open_cart_page():
 
 @routes_blueprint.route('/game-details/<int:game_id>')
 def game_details(game_id:int):
-	pass
+	print(game_id)
 
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():

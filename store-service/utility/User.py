@@ -12,10 +12,12 @@ class User():
 
 	def __init__(self, name:str, password:str, repassword:str = None):
 		if len(name) < User.min_name_length or len(name) > User.max_name_length :
-			raise ValueError(f'Username length error: length must be {User.min_name_name}-{User.max_name_length}')
+			raise ValueError('Username length error: length must be',
+										f'{User.min_name_length}-{User.max_name_length}')
 
 		if len(password) < User.min_pass_length or len(name) > User.max_pass_length :
-			raise ValueError(f'Password length error: length must be {User.min_pass_length}-{User.max_pass_length}')
+			raise ValueError('Password length error: length must be', 
+										f'{User.min_pass_length}-{User.max_pass_length}')
 
 		if not re.match(self.regexp, name):
 			raise ValueError('Username must have only letters, numbers or _ symbol')
