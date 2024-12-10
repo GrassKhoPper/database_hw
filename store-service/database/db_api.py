@@ -3,7 +3,6 @@ import os
 from flask import g
 
 from utility.User import User
-from utility.Game import Game
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
 
@@ -18,7 +17,7 @@ def create_connection(db_file):
 
 def execute_sql_file(conn, sql_file):
 	try:
-		with open(sql_file, 'r') as file:
+		with open(sql_file, 'r', encoding='UTF-8') as file:
 			sql_script = file.read()
 		cursor = conn.cursor()
 		cursor.executescript(sql_script)
@@ -31,7 +30,7 @@ def init_database():
 	init_files = ['database/store-schema.sql', 'database/store-init.sql']
 	conn = create_connection(DB_PATH)
 	if conn:
-		[execute_sql_file(conn, x) for x in init_files]
+		_ = [execute_sql_file(conn, x) for x in init_files]
 		conn.close()
 	else:
 		print('Can not create connection to database')
@@ -51,7 +50,8 @@ def get_games_list()->list[dict]:
 			FROM games;
 		""")
 		game_ids = cursor.fetchall()
-		# TODO: not optimal to get elements one by one ( but mb it is better cause we can load games from id_beg to id_end)
+		# TODO: not optimal to get elements one by one 
+		# ( but mb it is better cause we can load games from id_beg to id_end)
 		games = [get_game_info(game_id['id']) for game_id in game_ids]
 		return games
 	except sqlite3.Error as e:
@@ -93,11 +93,10 @@ def check_user(user:User)->int:
 		user_data = dict(user_data)
 		if user_data['password_hash'] == user.phash:
 			return user_data['id']
-		else:
-			raise ValueError('Wrong password')
+		raise ValueError('Wrong password')
 
 	except sqlite3.Error as e:
-		raise ValueError(str(e))
+		raise ValueError(str(e)) from e
 
 def add_user(user:User):
 	db = get_db()
@@ -107,12 +106,12 @@ def add_user(user:User):
 			INSERT INTO users (name, password_hash, wallet)
 			VALUES (?, ?, ?)
 		""", (user.name, user.phash, 0))
-		print(f'user add query was called')
+		print('user add query was called')
 		db.commit()
 
 	except sqlite3.Error as e:
 		print(f'sqlite3 error:{e}')
-		raise ValueError(str(e))
+		raise ValueError(str(e)) from e
 
 def get_profile_picture(user_id:int)->str:
 	cursor = get_db().cursor()
@@ -132,15 +131,15 @@ def get_profile_picture(user_id:int)->str:
 		return user_pic
 	except sqlite3.Error as e:
 		print(f'sql error:{e}')
-		raise ValueError(str(e))
+		raise ValueError(str(e)) from e
 
 def get_user_games_in_library(user_id:int)->list[dict]:
 	try:
 		user_game_ids = get_user_games(user_id)
 		games = [get_game_info(game_id) for game_id in user_game_ids]
 		return games
-	except :
-		raise ValueError(str('strange get games for library error'))
+	except Exception as e:
+		raise ValueError('strange get games for library error') from e
 
 def get_user_games(user_id:int)->list[int]:
 	cursor = get_db().cursor()
@@ -154,7 +153,7 @@ def get_user_games(user_id:int)->list[int]:
 		return [x['game_id'] for x in cursor.fetchall()]
 	except sqlite3.Error as e:
 		print(f'sqlite error:{e}')
-		raise ValueError(f'{e}')
+		raise ValueError(f'{e}') from e
 
 def get_tags_by_game_id(game_id:int)->list[str]:
 	cursor = get_db().cursor()
@@ -168,8 +167,8 @@ def get_tags_by_game_id(game_id:int)->list[str]:
 		data = cursor.fetchall()
 		tags = [tag['name'] for tag in data]
 		return tags
-	except:
-		raise ValueError(f'error on getting game tags')
+	except Exception as e:
+		raise ValueError('error on getting game tags') from e
 
 def get_pictures_by_game_id(game_id:int)->list[str]:
 	cursor = get_db().cursor()
@@ -181,7 +180,5 @@ def get_pictures_by_game_id(game_id:int)->list[str]:
 		""", (game_id,))
 		data = cursor.fetchall()
 		return data
-	except:
-		raise ValueError(f'suddenly causing error')
-
-
+	except Exception as e:
+		raise ValueError('suddenly causing error') from e

@@ -13,7 +13,6 @@ class Game:
 	studio: str
 
 	def __init__(self, data:dict):
-		# print(data)
 		self.game_id= data['id']
 		self.name   = data['name']
 		self.price  = data['price']
@@ -35,5 +34,3 @@ class Game:
 						self.icon = pic['name']
 					case 'screenshot':
 						self.screenshots.append(pic['name'])
-
-		# print(vars(self))
