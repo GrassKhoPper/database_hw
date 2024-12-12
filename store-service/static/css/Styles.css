@@ -285,12 +285,9 @@ label {
 .brief img {
 	width: 100%;
 }
+
 .game-info_test::-webkit-scrollbar {
 	display: none;
-}
-
-.details {
-	height: 100%;
 }
 
 /*USER*/
@@ -479,7 +476,7 @@ input[type="password"] {
 	font-weight: bold;
 	font-size: 18px;
 	margin-right: 16px;
-} </a>
+}
 
 .button_common.pay {
 	margin: 0 0 0 auto;
