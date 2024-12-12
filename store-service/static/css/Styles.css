@@ -1,5 +1,10 @@
-
 /*Common*/
+:root {
+  --header-bg: #1CEEE3;
+  --gradient-end: red;
+  --header-height: 60px;
+}
+
 body {
   margin: 0;
   font-family: inter;
@@ -11,11 +16,13 @@ body {
 .header {
   background-color: #1CEEE3;
   color: #fff;
-  padding: 0 24px 0 24px ;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: 'Jaro', sans-serif;
+  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .title_img {
@@ -23,9 +30,11 @@ body {
   height: 35px;
 }
 
-.header-left {
+.header-left, .header-right {
   display: flex;
   align-items: center;
+  gap: 15px; 
+  flex-shrink: 0; 
 }
 
 .header-left a {
@@ -34,11 +43,6 @@ body {
   text-decoration: none;
   color: #fff;
   font-size: 20px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
 }
 
 .header-right a {
@@ -58,10 +62,11 @@ body {
   align-items: center;
   border-radius: 5px;
   font-family: sans-serif;
-  font-size: 3em;
+  font-size: clamp(1.5em, 5vw, 3em);
   font-weight: bold;
   color: white;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  white-space: nowrap;
 }
 
 .game-hub::before {
@@ -76,6 +81,37 @@ body {
   padding: 5px 10px;
   border-radius: 25px;
   text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 10px 16px;
+  }
+  
+  .title_img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .header-left a, .header-right a {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .header-left, .header-right {
+    gap: 10px;
+  }
+  
+  .title_img {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .content {
