@@ -315,8 +315,9 @@ label {
 }
 
 .user_info_text {
-  font-size: 	18px;
+  font-size: 	24px;
   font-weight: bold;
+	text-align: center;
 }
 
 .button_container {
@@ -325,12 +326,12 @@ label {
 }
 
 .section_user {
-  background-color: #d3d3d3;
+  background-color: rgb(26 186 230 / 30%);
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 10px;
   height: 100%;
-	min-height: 60vh;
+  min-height: 60vh;
 }
 
 /*AUTHORISATION*/
@@ -530,3 +531,40 @@ input[type="password"] {
   text-align: center;
 }
 
+/*STUDIO*/
+
+.games_section {
+	height: 100%;
+	padding: 16px;
+	overflow-y: auto;
+	scrollbar-width: none
+}
+
+.games_section ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+.games_section li {
+	display: flex;
+	margin-bottom: 10px;
+	text-decoration: none;
+	color: #000;
+	padding: 8px;
+	text-align:center;
+	align-items:center;
+	border-radius: 10px;
+	background-color: #ffffffd9;
+	transition: background-color 0.3s; 
+}
+.games_section h2 {
+	padding: 0;
+}
+
+.game-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: flex-start;
+}
