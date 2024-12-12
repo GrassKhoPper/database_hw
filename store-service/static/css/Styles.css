@@ -1,9 +1,11 @@
 
 /*Common*/
-
 body {
-	margin: 0;
-	font-family: inter;
+  margin: 0;
+  font-family: inter;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -77,8 +79,11 @@ body {
 }
 
 .content {
-	height: 100vh;
+  flex: 1;
   padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .buy-button {
@@ -203,10 +208,12 @@ label {
 /*GAME*/
 
 .body_gradient {
-	height: 100%;
-	background: linear-gradient(#1CEEE3 15%, red);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+  min-height: 100vh;
+  background: linear-gradient(#1CEEE3 15%, red);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
 }
 
 .container_game {
@@ -294,30 +301,66 @@ label {
 
 .container_user {
   max-width: 30%;
-	margin: 0 auto;
-	background-color: rgba(255, 255, 255, 0.55);
-	padding: 20px;
-	border-radius: 25px;	
+  min-width: 300px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.55);
+  padding: 20px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user_info {
   display: flex;
-	padding: 8px;
+  padding: 8px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  gap: 8px; 
+  flex-wrap: wrap; 
 }
 
 .user_image {
-  width:	124px;
+  width: 124px;
   height: 124px;
   border-radius: 10px;
+  flex-shrink: 0; 
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .user_info_text {
-  font-size: 	24px;
+  font-size: 20px; 
   font-weight: bold;
-	text-align: center;
+  text-align: center;
+  max-width: 100%; 
+}
+
+.user_info .button_common {
+  padding: 6px 12px; 
+  font-size: 12px; 
+  white-space: nowrap;
+  min-width: 60px; 
+}
+
+@media (max-width: 768px) {
+  .user_info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-info {
+    margin: 10px 0;
+  }
+
+  .user_info_text {
+    font-size: 18px;
+  }
 }
 
 .button_container {
@@ -330,8 +373,9 @@ label {
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 10px;
-  height: 100%;
+  flex: 1;
   min-height: 60vh;
+  overflow-y: auto;
 }
 
 /*AUTHORISATION*/
@@ -393,7 +437,7 @@ input[type="password"] {
 	background: linear-gradient(#1CEEE3 15%, red);
 	padding: 16px;
 	overflow-y: auto;
-	scrollbar-width: none
+	scrollbar-width: none;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -450,7 +494,7 @@ input[type="password"] {
 	overflow-y: auto;
 	background: linear-gradient(#1CEEE3 15%, red);
 	padding: 16px;
-	scrollbar-width: none
+	scrollbar-width: none;
 }
 
 .container_game_mini::-webkit-scrollbar {
@@ -534,10 +578,11 @@ input[type="password"] {
 /*STUDIO*/
 
 .games_section {
-	height: 100%;
-	padding: 16px;
-	overflow-y: auto;
-	scrollbar-width: none
+  height: auto;
+  min-height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+	scrollbar-width: none;
 }
 
 .games_section ul {
