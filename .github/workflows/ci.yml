@@ -50,7 +50,10 @@ jobs:
           pip install pylint sqlfluff
 
       - name: Run pylint on bank-service
-        run : pylint bank-service/*.py
+        run : pylint bank-service/*.py bank-service/*/*.py
+
+      - name: Check SQL schema in bank-service
+        run : sqlfluff lint  --dialect sqlite bank-service/database/bank-schema.sql
       
   all_test_success:
     runs-on: ubuntu-latest

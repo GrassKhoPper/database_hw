@@ -1,3 +1,5 @@
+version: '2'
+
 services:
   store-service:
     build: store-service
@@ -8,7 +10,7 @@ services:
     environment:
       BANK_SERVICE_URL: http://bank-service:5001
     volumes:
-      - db-data:/var/store-db
+      - store-db-data:/var/store-db
     networks:
       - my-network
 
@@ -16,6 +18,8 @@ services:
     build: bank-service
     ports:
       - "5001:5001"
+    volumes:
+      - bank-db-data:/var/bank-db
     networks:
       - my-network
 
@@ -23,5 +27,6 @@ networks:
   my-network:
 
 volumes:
-  db-data:
+  store-db-data:
+  bank-db-data:
 
