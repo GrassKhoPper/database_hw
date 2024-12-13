@@ -92,7 +92,7 @@ def check_user(user:User)->int:
 
 		user_data = dict(user_data)
 		if user_data['password_hash'] == user.phash:
-			return user_data['id']
+			return user_data['id'], user_data['balance']
 		raise ValueError('Wrong password')
 
 	except sqlite3.Error as e:
@@ -103,7 +103,7 @@ def add_user(user:User):
 	cursor = db.cursor()
 	try:
 		cursor.execute("""
-			INSERT INTO users (name, password_hash, wallet)
+			INSERT INTO users (name, password_hash, balance)
 			VALUES (?, ?, ?)
 		""", (user.name, user.phash, 0))
 		print('user add query was called')
@@ -182,3 +182,53 @@ def get_pictures_by_game_id(game_id:int)->list[str]:
 		return data
 	except Exception as e:
 		raise ValueError('suddenly causing error') from e
+	
+def buy_cart(user_id:int, total:int, games_ids:list[int]):
+	conn = get_db()
+	cursor = conn.cursor()
+	print(f'games_ids:{games_ids}')
+	try:
+		placeholders = ', '.join(['?'] * len(games_ids))
+		# change purchases
+		cursor.execute(f"""
+			UPDATE purchases 
+			SET ts = STRFTIME('%s', 'now')
+			WHERE owner_id = (?) AND game_id IN ({placeholders}) AND ts IS NULL;
+		""", [user_id] + games_ids)
+		# change balance
+		cursor.execute("""
+			UPDATE users
+			SET balance = balance - (?)
+			WHERE id = (?);
+		""", (total, user_id,))
+		conn.commit()
+	except sqlite3.Error as e:
+		conn.rollback()
+		print('something went wrong')
+		raise e from e
+
+def remove_from_cart(user_id:int, game_id:int):
+	conn   = get_db()
+	cursor = conn.cursor()
+	try:
+		cursor.execute("""
+			DELETE FROM purchases 
+			WHERE owner_id = (?) AND game_id = (?) AND ts IS NULL;
+		""", (user_id, game_id,))
+		conn.commit()
+	except sqlite3.Error as e:
+		conn.rollback()
+		raise ValueError(e) from e
+
+def get_user_cart_games(user_id:int)->list[dict]:
+	cursor = get_db().cursor()
+	try:
+		cursor.execute("""
+			SELECT game_id 
+			FROM purchases 
+			WHERE owner_id == (?) and ts IS NULL;
+		""", (user_id,))
+		data = cursor.fetchall()
+		return data
+	except sqlite3.error as e:
+		raise ValueError(f'sqlite3 error: {e}') from e

@@ -35,7 +35,7 @@ INSERT OR IGNORE INTO games (
 VALUES (
   1, 
   'DotA 2', 
-  0.00,
+  0,
   ' <p>Самая популярная игра в Steam</p>
 	  <p>Ежедневно миллионы игроков по всему миру сражаются от лица одного из более сотни героев Dota 2, и даже после тысячи часов в ней есть чему научиться. Благодаря регулярным обновлениям игра живёт своей жизнью: геймплей, возможности и герои постоянно преображаются.</p>
     <p>Одно поле боя, неиссякаемые возможности</p>
@@ -66,7 +66,7 @@ VALUES (
 (
   2,
   'Board Game',
-  20.00,
+  2000,
   'For D&D Lovers we are here to present our brand new board game!',
   'If you dream about new D&D like game you already in your dream!',
   2
