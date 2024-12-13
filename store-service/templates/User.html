@@ -42,23 +42,68 @@
 					<div class="user_info_text ">Profile Name</div>
 				</div>
 				<div class="user_info_text ">Cash:<br/>0$</div>
-				<button class="button_common">Edit</button>
+				<button class="button_common button_form" data-form="edit">Edit</button>
 			</div>
 
 			<div class="button_container">
-				<button class="button_common">Something</button>
+				<button class="button_common button_form" data-form="replenishment">Replenishment</button>
 				<button class="button_common">Workshop</button>
 				<a href="{{url_for('routes.logout')}}">
 					<button class="button_common">Logout</button>
 				</a>
 			</div>
+
+
 			<div class="section_user">
-				<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
+				<div class="form active" id="initial-greeting">
+					<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
+				</div>
+
+				<div class="form" id="replenishment">
+					<input 	id="replenishment_nput" 
+									placeholder="Enter the amount to replenish" 
+									type="tel" 
+									step="1" 
+									onchange="this.value = check_int(this.value)">
+					<div class="chose-buttons">
+						<button type="submit" class="button_common">Save</button>
+						<button class="button_common button_form" data-form="initial-greeting">Cancel</button>
+					</div>
+				</div>
+
+				<div class="form" id="edit">
+					<label for="profile-avatar">Profile Avatar:</label>
+					<div class="file-upload-container">
+						<input type="file" id="profile-avatar" name="avatar" accept="image/*">
+						<label for="profile-avatar" class="file-upload-label">
+								Click for download
+						</label>
+					</div>
+
+					<div class="form-group">
+						<label for="reg_password">Password:</label>
+						<input type="password" id="reg_password" name="reg_password" placeholder="password" required>
+					</div>
+
+					<div class="form-group">
+						<label for="reg_repassword">Verify Password:</label>
+						<input type="password" id="reg_repassword" name="reg_repassword" placeholder="repeat password" required>
+					</div>
+					
+					<div class="chose-buttons">
+						<button type="submit" class="button_common">Save</button>
+						<button class="button_common button_form" data-form="initial-greeting">Cancel</button>
+					</div>
+				</div>
+
 			</div>
+
+
 		</div>
   <!-- END USER DATA -->
   </div>
 	
-	
+	<script src="{{url_for('static', filename='javascripts/User.js')}}"></script>
+
 </body>
 </html>

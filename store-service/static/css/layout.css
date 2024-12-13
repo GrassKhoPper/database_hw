@@ -22,18 +22,6 @@
   margin: 0 auto;
 }
 
-.container_store {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-
-.container_game {
-  max-width: 50%;
-  height: 100%;
-  padding: var(--spacing-lg);
-}
-
 .container_user,
 .container_cart, 
 .container_library {
@@ -42,7 +30,7 @@
 
 .container_user,
 .container_cart {
-  max-width: 30%;
+  width: 30vw;
   min-width: 300px;
   display: flex;
   flex-direction: column;
@@ -81,4 +69,16 @@
         - var(--spacing-lg)
         - var(--spacing-sm));
   margin-bottom: var(--spacing-sm);
+}
+
+.container_store {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.container_game {
+  max-width: 50%;
+  height: 100%;
+  padding: var(--spacing-lg);
 }

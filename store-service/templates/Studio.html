@@ -54,9 +54,12 @@
 						<ul>
 							{# TODO:
 							{% for game in user_games % }
-								<li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li>
+								<!-- <li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li> -->
 							{% endfor % }
 							#}
+              {%for i in range(20)%}
+              <li><img src="static/images/games/1/dota.ico" class="game_icon"><span title="DOTA-2">DOTA-2</span></li>
+              {%endfor%}
 						</ul>
         </div>
 
@@ -80,7 +83,7 @@
     </div>
   </main>
 
-  <script src={{url_for('static', filename='javascripts/Studio.js')}}></script>
+  <script src="{{url_for('static', filename='javascripts/Studio.js')}}"></script>
 
 </body>
 </html>
