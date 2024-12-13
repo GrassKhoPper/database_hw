@@ -17,7 +17,10 @@ from database.db_api import (
 	add_user, 
 	get_profile_picture, 
 	get_user_games_in_library, 
-	get_user_games
+	get_user_games,
+	get_user_cart_games,
+	remove_from_cart,
+	buy_cart
 )
 
 routes_blueprint = Blueprint('routes', __name__)
@@ -54,10 +57,10 @@ def login_register():
 			password = request.form.get('login_password')
 			try:
 				user = User(username, password)
-				# print(vars(user))
-				user_id = check_user(user)
+				user_id, balance = check_user(user)
 
 				session['user_id'] = user_id
+				session['balance'] = balance
 				print(f'login user_id:{user_id}')
 
 				return redirect(url_for('routes.open_profile'))
@@ -79,9 +82,7 @@ def login_register():
 			try:
 				user = User(username, password, repassword)
 				add_user(user)
-				user_id = check_user(user)
-				session['user_id'] = user_id
-				return redirect(url_for('routes.open_profile'))
+				return redirect(url_for('routes.login_register'))
 
 			except ValueError as e:
 				register_error = str(e)
@@ -97,7 +98,6 @@ def login_register():
 @routes_blueprint.route('/logout')
 def logout():
 	session.pop('user_id', None)
-	print('I AM HERE PLEASE HELP ME TO BREATH')
 	return redirect(url_for('routes.main_page'))
 
 @routes_blueprint.route('/profile', methods=['GET'])
@@ -113,9 +113,41 @@ def open_profile():
 def open_cart_page():
 	if not is_user_logged_in():
 		return redirect(url_for('routes.login_register'))
-	# game_list = get_cart_games_for_user(session['user_id'])
-	# print(game_list)
-	return render_template('Cart.html')#, games=game_list)
+	game_list, games = get_user_cart_games(session['user_id']), []
+	total_sum = 0
+	for game in game_list:
+		t = Game(get_game_info(game['game_id']))
+		total_sum += t.price
+		games.append(t)
+	return render_template('Cart.html', games=games, total=total_sum)
+
+@routes_blueprint.route('/cart/pay', methods=['POST'])
+def buy_cart_user():
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
+	games_list, total, games = get_user_cart_games(session['user_id']), 0, []
+	games_list = [get_game_info(game['game_id']) for game in games_list]
+	print([dict(x) for x in games_list])
+	for game in games_list:
+		total += game['price']
+		games.append(game['id'])
+	if  total <= session['balance']:
+		try:
+			buy_cart(session['user_id'], total, games)
+			session['balance'] -= total
+		except ValueError as e:
+			print(f'error:{e}')
+	return redirect(url_for('routes.open_cart_page'))
+
+@routes_blueprint.route('/cart/remove/<int:game_id>', methods=['POST'])
+def remove_game_from_user_cart(game_id:int):
+	if not is_user_logged_in():
+		return redirect('/login')
+	try:
+		remove_from_cart(session['user_id'], game_id)
+	except ValueError as e:
+		print(f'exception:{e}')
+	return redirect(url_for('routes.open_cart_page'))
 
 @routes_blueprint.route('/game-details/<int:game_id>')
 def game_details(game_id:int):
@@ -127,6 +159,4 @@ def open_library_page():
 		return redirect(url_for('routes.login_register'))
 
 	user_games = get_user_games_in_library(session['user_id'])
-	# user_games = [jsonify(game.__dict__) for game in user_games]
-	# print(user_games)
 	return render_template('Library.html', user_games=[Game(x) for x in user_games])

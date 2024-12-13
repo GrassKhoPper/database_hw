@@ -4,6 +4,7 @@ import re
 class User():
 	name : str
 	phash: str
+	balance: int
 	regexp = r"^[a-zA-Z0-9_]+$"
 	max_pass_length = 32
 	min_pass_length = 4
