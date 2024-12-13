@@ -9,7 +9,7 @@
   <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 </head>
 	
-<body class="body_gradient">
+<body>
 	
 	<header class="header">
 		<div class="header-left">
@@ -32,31 +32,32 @@
 			</a>
 		</div>
 	</header>
-  <main class="content">
-  <!-- User data -->
-	<div class="container_user">
-		<div class="user_info">
-      <img src="{{ url_for('static', filename='images/profiles/{upic}'.format(upic=upicture)) }}" alt="Profile Picture" class="user_image">
-			<div class="profile-info">
-				<div class="user_info_text ">Profile Name</div>
-			</div>
-			<div class="user_info_text ">Cash:<br/>0$</div>
-			<button class="button_common">Edit</button>
-		</div>
 
-		<div class="button_container">
-			<button class="button_common">Something</button>
-			<button class="button_common">Workshop</button>
-			<a href="{{url_for('routes.logout')}}">
-				<button class="button_common">Logout</button>
-			</a>
+  <div class="main-content">
+  <!-- User data -->
+		<div class="container_user">
+			<div class="user_info">
+				<img src="{{ url_for('static', filename='images/profiles/{upic}'.format(upic=upicture)) }}" alt="Profile Picture" class="user_image">
+				<div class="profile-info">
+					<div class="user_info_text ">Profile Name</div>
+				</div>
+				<div class="user_info_text ">Cash:<br/>0$</div>
+				<button class="button_common">Edit</button>
+			</div>
+
+			<div class="button_container">
+				<button class="button_common">Something</button>
+				<button class="button_common">Workshop</button>
+				<a href="{{url_for('routes.logout')}}">
+					<button class="button_common">Logout</button>
+				</a>
+			</div>
+			<div class="section_user">
+				<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
+			</div>
 		</div>
-		<div class="section_user">
-			<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
-		</div>
-	</div>
   <!-- END USER DATA -->
-  </main>
+  </div>
 	
 	
 </body>

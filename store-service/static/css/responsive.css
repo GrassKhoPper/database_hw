@@ -1,0 +1,134 @@
+@import 'variables.css';
+
+@media screen and (max-width: 768px) {
+  :root {
+    --font-size-base: 14px;
+  }
+
+  .header {
+    height: var(--header-height-tablet);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .title_img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .main-content {
+    margin-top: var(--header-height-tablet);
+    min-height: calc(100vh - var(--header-height-tablet) - var(--spacing-md));
+    padding-top: var(--spacing-md);
+  }
+
+  .user_info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-info {
+    margin: var(--spacing-md) 0;
+  }
+
+  .user_info_text {
+    font-size: var(--font-size-lg);
+  }
+
+  .container_cart {
+    height: calc(100vh 
+              - var(--header-height-mobile) 
+              - var(--spacing-md) 
+              - var(--spacing-sm));
+  }
+
+  .container_library {
+    height: calc(100vh - var(--header-height-tablet) - var(--spacing-md));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    --font-size-base: 12px;
+  }
+
+  .header {
+    height: var(--header-height-mobile);
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+  
+  .header-left,
+  .header-right {
+    gap: var(--spacing-sm);
+  }
+  
+  .title_img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .main-content {
+    margin-top: var(--header-height-mobile);
+    min-height: calc(100vh - var(--header-height-mobile) - var(--spacing-sm));
+    padding-top: var(--spacing-sm);
+  }
+
+  .game-hub {
+    font-size: min(var(--font-size-2xl), 5vw);
+    padding: 0 var(--spacing-sm);
+  }
+
+  .game_info {
+    flex-direction: column; 
+    height: auto;  
+  }
+  .screenshots {
+    margin-right: 0;
+    width: 100%;
+    height: 50vh;
+  }
+
+  .brief {
+    width: 100%;
+    padding: 0;
+    padding-top: var(--spacing-md);
+  }
+
+  .container_cart {
+    height: calc(100vh 
+              - var(--header-height-mobile) 
+              - var(--spacing-sm) 
+              - var(--spacing-sm));
+  }
+
+  .container_library {
+    height: calc(100vh - var(--header-height-mobile) - var(--spacing-sm));
+  }
+
+  .search-icon img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .sidebar {
+    width: 35vw;
+    padding: var(--spacing-sm);
+  }
+
+  .sidebar li{
+    flex-direction: column;
+  }
+
+  .cart-item {
+    padding: var(--spacing-xs);
+  }
+
+  .game-picture {
+    width: 35px;
+    height: 35px;
+  }
+
+  .game_info {
+    font-size: var(--font-size-sm);
+  }
+}
