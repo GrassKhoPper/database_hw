@@ -9,48 +9,54 @@
 
   </head>
 	
-	<body class="body_gradient">
+	<body>
 		<header class="header">
-    <div class="header-left">
-      <a href="/store">
-        <img src={{url_for('static', filename='images/store-icons/home.png')}} class="title_img" alt="home page"/>
-      </a>
-      <a href="/library">
-        <img src={{url_for('static', filename='images/store-icons/library.png')}} class="title_img" alt="library page"/>
-      </a>
-    </div>
+      <div class="header-left">
+        <a href="/store">
+          <img src={{url_for('static', filename='images/store-icons/home.png')}} class="title_img" alt="home page"/>
+        </a>
+        <a href="/library">
+          <img src={{url_for('static', filename='images/store-icons/library.png')}} class="title_img" alt="library page"/>
+        </a>
+      </div>
 
-    <h1 class="game-hub"></h1>
+      <h1 class="game-hub"></h1>
 
-    <div class="header-right">
-      <a href="/cart">
-        <img src={{url_for('static', filename='images/store-icons/cart.png')}} class="title_img" alt="cart page"/>
-      </a>
-      <a href="/profile">
-        <img src={{url_for('static', filename='images/store-icons/user.png')}} class="title_img" alt="user page"/>
-      </a>
-    </div>
+      <div class="header-right">
+        <a href="/cart">
+          <img src={{url_for('static', filename='images/store-icons/cart.png')}} class="title_img" alt="cart page"/>
+        </a>
+        <a href="/profile">
+          <img src={{url_for('static', filename='images/store-icons/user.png')}} class="title_img" alt="user page"/>
+        </a>
+     </div>
 
     </header>
 		
-		<div class="container_cart">
-			
-			<div class="cart_info">
-        <div class="total">Estimated total: </div>
-				<div class="total">10000$</div>
-        <button class="button_common pay">Pay</button>
-      </div>
-
-      <div class="cart-item">
-        <img src={{url_for('static',filename='images/games/2/board-game.png')}} alt="Game Icon" class="game-picture">
-        <div class="game-info">
-          <div class="item-name">Game name</div>
-          <div class="item-price">Game price</div>
+    <div class="main-content">
+      <div class="container_cart">
+        
+        <div class="cart_info">
+          <div class="total">Estimated total: </div>
+          <div class="total">10000$</div>
+          <button class="button_common pay">Pay</button>
         </div>
-        <span class="remove-button">×</span>
+        
+        <div class="cart-list">
+          {% for i in range(100) %}
+          <div class="cart-item">
+            <img src={{url_for('static',filename='images/games/2/board-game.png')}} alt="Game Icon" class="game-picture">
+            <div class="game-info">
+              <div class="item-name">Game name</div>
+              <div class="item-price">Game price</div>
+            </div>
+            <span class="remove-button">×</span>
+          </div>
+          {% endfor %}
+        </div>
+        
       </div>
-
-	</div>
+    </div>
 
 	</body>
 </html>

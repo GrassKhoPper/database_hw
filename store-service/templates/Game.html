@@ -8,7 +8,7 @@
   <link rel="stylesheet" href={{url_for('static', filename='css/Styles.css')}}>
 </head>
 	
-<body class="body_gradient">
+<body>
 	<header class="header">
     <div class="header-left">
       <a href="/store">
@@ -32,49 +32,51 @@
 
   </header>
 
-	<div class="container_game">
-		<div class="game_info">
-			<div class="screenshots">
-				<div class="selected_screenshot">
-					<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" id="selected_screenshot" alt="Game Image">
+	<div class="main-content">
+		<div class="container_game">
+			<div class="game_info">
+				<div class="screenshots">
+					<div class="selected_screenshot">
+						<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" id="selected_screenshot" alt="Game Image">
+					</div>
+					<div class="scroll_screenshots" id="scroll_screenshots">
+						{% for screenshot in game.screenshots %}
+							<img src="{{url_for('static', filename='images/games/{game_id}/{name}'.format(game_id=game.game_id, name=screenshot))}}" class="screenshot" alt="Game Screenshot" onclick="selectScreenshot(this)">
+						{% endfor %}
+					</div>
 				</div>
-				<div class="scroll_screenshots" id="scroll_screenshots">
-					{% for screenshot in game.screenshots %}
-						<img src="{{url_for('static', filename='images/games/{game_id}/{name}'.format(game_id=game.game_id, name=screenshot))}}" class="screenshot" alt="Game Screenshot" onclick="selectScreenshot(this)">
-					{% endfor %}
+
+				<div class="brief">
+					<div class="game-name">
+						<h1>{{game.name}}</h1>
+					</div>
+					
+					<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Image">
+
+					<div class="details">
+						<p align="justify">{{game.brief}}</p>
+						<p><strong>Developers:</strong> <span>{{game.studio}}</span></p>
+						<p><strong>Tags:</strong> 
+						{% for tag in game.tags %}
+							<span class="game-tag-text">{{tag}}</span>
+						{% endfor %}
+						</p>
+						<p><strong>Price:</strong> 
+						<span>
+							{% if game.price != 0 %}
+								{{ game.price }} RUB
+							{% else %}
+								FREE
+							{% endif %}
+						</span></p>
+						<button class="buy-button">Buy</button>
+					</div>
 				</div>
 			</div>
 
-			<div class="brief">
-				<div class="game-name">
-					<h1>{{game.name}}</h1>
-				</div>
-				
-				<img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Image">
-
-				<div class="details">
-					<p align="justify">{{game.brief}}</p>
-					<p><strong>Developers:</strong> <span>{{game.studio}}</span></p>
-					<p><strong>Tags:</strong> 
-					{% for tag in game.tags %}
-						<span class="game-tag-text">{{tag}}</span>
-					{% endfor %}
-					</p>
-					<p><strong>Price:</strong> 
-					<span>
-						{% if game.price != 0 %}
-							{{ game.price }} RUB
-						{% else %}
-							FREE
-						{% endif %}
-					</span></p>
-				 	<button class="buy-button">Buy</button>
-				</div>
+			<div class="description">
+				<p>{{game.description | safe}}</p>
 			</div>
-		</div>
-
-		<div class="description">
-			<p>{{game.description | safe}}</p>
 		</div>
 	</div>
 

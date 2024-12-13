@@ -6,7 +6,8 @@
   <title>Game Hub: {# TODO: {studio.name}#}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/Styles.css') }}">
 </head>
-<body class="body_gradient">
+
+<body>
   <header class="header">
     <div class="header-left">
       <a href="/store">
@@ -29,7 +30,7 @@
     </div>
   </header>
 
-  <main class="content">
+  <main class="main-content">
     <div class="container_user">
       <div class="user_info">
         {# TODO: <img src="{{ url_for('static', filename='images/studios/{avatar}'.format(avatar=studio.avatar)) }}" alt="Studio Logo" class="user_image"> #}
@@ -50,43 +51,15 @@
       <div class="section_user">
         <div class="games_section" id="games-section">
           <h2>Games by Studio Name{# TODO: {studio.name}#}</h2>
-          <div class="game-list">
+          <!-- <div class="game-list"> -->
 						<ul>
-							{#
+							{# TODO:
 							{% for game in user_games % }
-								<li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon">{{game.name}}</li>
+								<li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li>
 							{% endfor % }
 							#}
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
-							<li><img src="static/images/games/1/dota.ico" class="game_icon">DoTa2</li>
 						</ul>
-          </div>
+          <!-- </div> -->
         </div>
 
         <div id="edit-form" style="display: none;">
