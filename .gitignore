@@ -1,5 +1,6 @@
 *.db
 .vscode
+*.csv
 
 *.py[co]
 __pycache__
