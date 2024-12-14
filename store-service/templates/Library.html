@@ -47,11 +47,10 @@
 
 					<ul>
 						{% for game in user_games %}
-							<li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span>{{game.name}}</span></li>
-						{% endfor %}
-						<li><img src="static/images/games/1/dota.ico" class="game_icon"><span>{% for i in range(20) %}DoTa2 {% endfor %}</span></li>
-						{% for i in range(20) %}
-							<li><img src="static/images/games/1/dota.ico" class="game_icon"><span>DoTa2</span></li>
+							<li onclick="loadGameDetails('{{ game.name }}') ">
+								<img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon">
+								<span>{{game.name}}</span>
+							</li>
 						{% endfor %}
 					</ul>
 					
@@ -64,4 +63,11 @@
 		</div>
 
 	</body>
+
+	<script>
+		function loadGameDetails(name, tags) {
+			console.log(name);
+			console.log(Math.floor(Math.random() * 6) + 1);
+		}
+	</script>
 </html>

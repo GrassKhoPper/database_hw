@@ -6,6 +6,11 @@
 
 #### TODO: FOR_THE_FUTURE
 
+#### To generate random test data use(and modify):
+```
+python3 deGenerator.py
+```
+
 #### Current architecture
 ![logical_store_schema](./store-schema.png)
 
