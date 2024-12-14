@@ -48,3 +48,11 @@
   min-height: 60vh;
   overflow-y: auto;
 }
+
+.section_user input[type="tel"] {
+  width: 100%;
+}
+
+.section_user input[type=file]::file-selector-button {
+  display: none;
+}

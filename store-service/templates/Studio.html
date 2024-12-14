@@ -51,15 +51,16 @@
       <div class="section_user">
         <div class="games_section" id="games-section">
           <h2>Games by Studio Name{# TODO: {studio.name}#}</h2>
-          <!-- <div class="game-list"> -->
 						<ul>
 							{# TODO:
 							{% for game in user_games % }
-								<li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li>
+								<!-- <li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li> -->
 							{% endfor % }
 							#}
+              {%for i in range(20)%}
+              <li><img src="static/images/games/1/dota.ico" class="game_icon"><span title="DOTA-2">DOTA-2</span></li>
+              {%endfor%}
 						</ul>
-          <!-- </div> -->
         </div>
 
         <div id="edit-form" style="display: none;">
@@ -77,22 +78,12 @@
             <button type="button" class="button_common" onclick="toggleEditMode()">Cancel</button>
           </form>
         </div>
+
       </div>
     </div>
   </main>
 
-  <script>
-    function toggleEditMode() {
-      var gamesSection = document.getElementById('games-section');
-      var editForm = document.getElementById('edit-form');
-      if (gamesSection.style.display === 'none') {
-        gamesSection.style.display = 'block';
-        editForm.style.display = 'none';
-      } else {
-        gamesSection.style.display = 'none';
-        editForm.style.display = 'block';
-      }
-    }
-  </script>
+  <script src="{{url_for('static', filename='javascripts/Studio.js')}}"></script>
+
 </body>
 </html>
