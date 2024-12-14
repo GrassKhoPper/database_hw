@@ -63,6 +63,16 @@ input[type="password"] {
   background-color: var(--white-transparent);
 }
 
+input[type="tel"] {
+  width: 100%;
+  border-radius: var(--border-radius-sm);
+}
+
+textarea {
+  width: 100%;
+  border-radius: var(--border-radius-md);
+}
+
 .form {
   display: none;
 }
