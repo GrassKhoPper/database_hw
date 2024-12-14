@@ -160,3 +160,13 @@ def open_library_page():
 
 	user_games = get_user_games_in_library(session['user_id'])
 	return render_template('Library.html', user_games=[Game(x) for x in user_games])
+
+
+@routes_blueprint.route('/studio', methods=['GET'])
+def open_studio_page():
+	print(f'is user logged in:{is_user_logged_in()}')
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
+	# TODO:
+	# pic = get_profile_picture(session['user_id'])
+	return render_template('Studio.html', """ TODO: uid=session['user_id'], upicture=pic """)

@@ -47,7 +47,9 @@
 
 			<div class="button_container">
 				<button class="button_common button_form" data-form="replenishment">Replenishment</button>
-				<button class="button_common">Workshop</button>
+				<form action="/studio">
+					<button class="button_common">Workshop</button>
+				</form>
 				<a href="{{url_for('routes.logout')}}">
 					<button class="button_common">Logout</button>
 				</a>
@@ -97,7 +99,6 @@
 				</div>
 
 			</div>
-
 
 		</div>
   <!-- END USER DATA -->
