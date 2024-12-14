@@ -169,4 +169,5 @@ def open_studio_page():
 		return redirect(url_for('routes.login_register'))
 	# TODO:
 	# pic = get_profile_picture(session['user_id'])
-	return render_template('Studio.html', """ TODO: uid=session['user_id'], upicture=pic """)
+	# TODO: add to render_template uid=session['user_id'], upicture=pic
+	return render_template('Studio.html')
