@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-  <title>Game Hub</title>
-  <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game Hub</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
 
   </head>
 	
-	<body>
+  <body>
 		<header class="header">
       <div class="header-left">
         <a href="/store">
@@ -29,7 +29,7 @@
         <a href="/profile">
           <img src={{url_for('static', filename='images/store-icons/user.png')}} class="title_img" alt="user page"/>
         </a>
-     </div>
+      </div>
 
     </header>
 
@@ -61,7 +61,7 @@
         </div>
         {% endfor %}
       </div>
-	</div>
-
+	  </div>
+  </div>
 	</body>
 </html>

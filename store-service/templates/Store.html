@@ -43,7 +43,7 @@
     </div>
 
     <div class="container_store">
-      {% for i in range(100) %}
+      {% for i in range(1) %}
       {% for game in games %}
       <div class="item">
         <img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Picture"> 

@@ -17,7 +17,6 @@ from database.db_api import (
 	add_user, 
 	get_profile_picture, 
 	get_user_games_in_library, 
-	get_user_games,
 	get_user_cart_games,
 	remove_from_cart,
 	buy_cart
@@ -31,11 +30,7 @@ def is_user_logged_in()->bool:
 @routes_blueprint.route('/', methods=['GET'])
 @routes_blueprint.route('/store', methods=['GET'])
 def main_page():
-	print(get_user_games(1))
-	# return render_template('Store.html', games=[])
 	games = get_games_list()
-	print([dict(x) for x in games])
-	
 	return render_template('Store.html', games=[Game(game) for game in games])
 
 @routes_blueprint.route('/game/<int:game_id>', methods=['GET'])
@@ -61,6 +56,7 @@ def login_register():
 
 				session['user_id'] = user_id
 				session['balance'] = balance
+				session['username']= username
 				print(f'login user_id:{user_id}')
 
 				return redirect(url_for('routes.open_profile'))
@@ -107,7 +103,13 @@ def open_profile():
 		return redirect(url_for('routes.login_register'))
 
 	pic = get_profile_picture(session['user_id'])
-	return render_template('User.html', uid=session['user_id'], upicture=pic)
+	return render_template(
+		'User.html',
+		username=session['username'], 
+		balance=session['balance'],
+		uid=session['user_id'], 
+		upicture=pic
+	)
 
 @routes_blueprint.route('/cart', methods=['GET'])
 def open_cart_page():
