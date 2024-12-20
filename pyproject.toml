@@ -1,0 +1,16 @@
+[tool.pylint.MASTER]
+
+disable = [
+	"missing-module-docstring",
+	"missing-class-docstring",
+	"missing-function-docstring",
+	"trailing-whitespace",
+	"invalid-name",
+	"too-few-public-methods",
+	"fixme",
+	"W0311",
+	"C0305",
+]
+
+max-attributes = 10 
+max-locals = 16

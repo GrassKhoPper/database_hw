@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS accounts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    balance INTEGER NOT NULL DEFAULT 0,
+    uuid TEXT NOT NULL UNIQUE,
+    phash TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts DATATIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount INTEGER NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES accounts (user_id),
+
+    FOREIGN KEY (user_id) REFERENCES accounts
+);
+
+-- CREATE INDEX idx_transactions_user_id ON transactions (user_id);

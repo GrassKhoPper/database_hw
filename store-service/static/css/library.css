@@ -1,0 +1,50 @@
+@import 'variables.css';
+
+.sidebar {
+  width: 20vw;
+  padding: var(--spacing-md);
+  padding-bottom: 0;
+  margin-bottom: var(--spacing-sm);
+  overflow-y: auto;
+  scrollbar-width: none;
+  background-color: var(--white-transparent);
+  border-radius: var(--border-radius-xl);
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  display: flex;
+  margin-bottom: var(--spacing-sm);
+  text-decoration: none;
+  color: black;
+  padding: var(--spacing-sm);
+  text-align: center;
+  align-items: center;
+  border-radius: var(--border-radius-md);
+  background-color: #ffffffd9;
+  transition: background-color 0.3s;
+  flex-wrap: nowrap;
+}
+
+.sidebar a {
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: #ddd;
+}
+
+.game_icon {
+  width: 32px;
+  height: 32px;
+  margin-right: var(--spacing-sm);
+  vertical-align: middle;
+}
