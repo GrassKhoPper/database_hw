@@ -48,9 +48,3 @@ function check_int(value) {
   value = Math.max(0, Math.min(2147483647 , parseInt(value)));
   return isNaN(value) ? 0 : value;;
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-
-
-
-});
