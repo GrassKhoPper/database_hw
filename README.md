@@ -50,6 +50,7 @@ curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{
   * docker
   * docker-compose
   * openssl ( for certificates )
+  * curl ( for interaction with bank service )
 
 ## The composition of our team:
   * Gubanov Peter (@gubanovpm)

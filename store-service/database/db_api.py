@@ -192,9 +192,9 @@ def add_user(user:User):
 		""", (user.name, user.phash, 0))
 		print('user add query was called')
 		db.commit()
-
 	except sqlite3.Error as e:
 		print(f'sqlite3 error:{e}')
+		db.rollback()
 		raise ValueError(str(e)) from e
 
 def get_profile_picture(user_id:int)->str:
@@ -314,5 +314,32 @@ def get_user_cart_games(user_id:int)->list[dict]:
 		""", (user_id,))
 		data = cursor.fetchall()
 		return data
+	except sqlite3.error as e:
+		raise ValueError(f'sqlite3 error: {e}') from e
+
+def add_game_to_cart(user_id:int, game_id:int):
+	conn = get_db()
+	cursor = conn.cursor()
+	try:
+		cursor.execute("""
+			INSERT INTO purchases (owner_id, buyer_id, ts, game_id) 
+			VALUES (?, ?, ?, ?);
+		""", (user_id, user_id, None, game_id,))
+		conn.commit()
+	except sqlite3.error as e:
+		conn.rollback()
+		raise ValueError(f'sqlite3 error: {e}') from e
+
+def check_own_game(user_id:int, game_id:int)->bool:
+	cursor = get_db().cursor()
+	try:
+		cursor.execute("""
+			SELECT id FROM purchases 
+			WHERE game_id == (?) and owner_id == (?);
+		""", (game_id, user_id,))
+		result = cursor.fetchone()
+		if result : 
+			return True
+		return False
 	except sqlite3.error as e:
 		raise ValueError(f'sqlite3 error: {e}') from e
