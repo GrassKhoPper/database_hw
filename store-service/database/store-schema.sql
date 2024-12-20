@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS games (
 
 CREATE TABLE IF NOT EXISTS games_pictures (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     game_id INTEGER NOT NULL,
     img_type TEXT NOT NULL CHECK (
         img_type IN ('screenshot', 'icon', 'cover', 'profile')

@@ -1,19 +1,68 @@
 import sqlite3
 import os
+import csv
+import base64
+import io
+
+from PIL import Image
 from flask import g
 
 from utility.User import User
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
 
-def create_connection(db_file):
-	conn = None
+def init_from_csv(db_file:str, csv_file:str, table_name:str):
+	conn = sqlite3.connect(db_file)
+	cursor = conn.cursor()
 	try:
-		conn = sqlite3.connect(db_file)
-	except sqlite3.Error as e:
-		print(f'Can not create connection to database: {e}')
-		raise e
-	return conn
+		with open(csv_file, 'r', encoding='UTF-8') as file:
+			reader = csv.reader(file)
+			headers = next(reader)
+			query = f"""
+				INSERT OR IGNORE INTO {table_name} ({','.join(headers)})
+				VALUES ({','.join(['?'] * len(headers))});
+			"""
+			for row in reader:
+				data = [None if x == 'NULL' else x for x in row]
+				cursor.execute(query, data)
+			conn.commit()
+			conn.close()
+	except Exception as e:
+		print(f'error:{e}')
+		conn.rollback()
+		conn.close()
+		raise ValueError(str(e)) from e
+
+def init_pics_from_csv(db_file:str, csv_file:str, table_name:str, save_to:str):
+	conn = sqlite3.connect(db_file)
+	cursor = conn.cursor()
+	try:
+		with open(csv_file, 'r', encoding='UTF-8') as file:
+			reader = csv.reader(file)
+			headers = next(reader)[:-1]
+			query = f"""
+				INSERT OR IGNORE INTO {table_name} ({','.join(headers)})
+				VALUES ({','.join(['?'] * len(headers))});
+			"""	
+			for row in reader:
+				if save_to == 'profiles':
+					img, data, path = base64.b64decode(row[-1]), row[:-1], f'{row[0]}.png'
+					img = Image.open(io.BytesIO(img))
+					img.save(f'static/images/{save_to}/{path}')
+				else :
+					img, data = base64.b64decode(row[-1]), row[:-1]
+					img = Image.open(io.BytesIO(img))
+					game_id, path = data[2], data[1] 
+					os.makedirs(f'static/images/{save_to}/{game_id}', exist_ok=True)
+					img.save(f'static/images/{save_to}/{game_id}/{path}')
+				cursor.execute(query, data)
+			conn.commit()
+			conn.close()
+	except Exception as e:
+		print(f'sqlite error:{e}')
+		conn.rollback()
+		conn.close()
+		raise ValueError(str(e)) from e
 
 def execute_sql_file(conn, sql_file):
 	try:
@@ -27,13 +76,44 @@ def execute_sql_file(conn, sql_file):
 		conn.rollback()
 
 def init_database():
-	init_files = ['database/store-schema.sql', 'database/store-init.sql']
-	conn = create_connection(DB_PATH)
+	schema_file = 'database/store-schema.sql'
+	conn = sqlite3.connect(DB_PATH)
 	if conn:
-		_ = [execute_sql_file(conn, x) for x in init_files]
-		conn.close()
-	else:
-		print('Can not create connection to database')
+		execute_sql_file(conn, schema_file)
+		conn.commit()
+	conn.close()
+	init_csvs = [
+		{'file': 'database/csv-init/init-data-users.csv',     'table':'users'},
+		{'file': 'database/csv-init/init-data-studios.csv',   'table':'studios'},
+		{'file': 'database/csv-init/init-data-games.csv',     'table':'games'},
+		{'file': 'database/csv-init/init-data-tags.csv',      'table':'tags'},
+		{'file': 'database/csv-init/init-data-game-tags.csv', 'table':'game_tags'},
+		{'file': 'database/csv-init/init-data-purchases.csv', 'table':'purchases'}
+	]
+	init_pics_csvs = [{
+		'file': 'database/csv-init/init-profile-pictures.csv', 
+		'table':'profiles_pictures',
+		'save_to' : 'profiles'
+	},{
+		'file': 'database/csv-init/init-games-pictures.csv', 
+		'table':'games_pictures',
+		'save_to' : 'games'
+	}]
+	try:
+		_ = [init_from_csv(
+			db_file=DB_PATH, 
+			csv_file=init_data['file'], 
+			table_name=init_data['table']
+		) for init_data in init_csvs]
+
+		_ = [init_pics_from_csv(
+			db_file=DB_PATH, 
+			csv_file=init_pics['file'], 
+			table_name=init_pics['table'], 
+			save_to=init_pics['save_to']
+		) for init_pics in init_pics_csvs]
+	except ValueError as e:
+		print(f'I have an error:{e}')
 
 def get_db():
 	if 'db' not in g:
@@ -70,9 +150,13 @@ def get_game_info(game_id:int)->dict:
 			JOIN studios s ON s.id = g.studio_id
 			WHERE g.id = (?);
 		""", (game_id,))
-		data = dict(cursor.fetchone())
-		data['tags'] = tags
-		data['pictures'] = pictures		
+		data = cursor.fetchone()
+		if data:
+			data = dict(data)
+			data['tags'] = tags
+			data['pictures'] = pictures
+		else:
+			print(game_id)
 		return data
 	except sqlite3.Error as e:
 		print(f'execute game query with id={game_id}:{e}')

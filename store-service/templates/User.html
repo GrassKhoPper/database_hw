@@ -39,9 +39,9 @@
 			<div class="user_info">
 				<img src="{{ url_for('static', filename='images/profiles/{upic}'.format(upic=upicture)) }}" alt="Profile Picture" class="user_image">
 				<div class="profile-info">
-					<div class="user_info_text ">Profile Name</div>
+					<div class="user_info_text ">{{username}}</div>
 				</div>
-				<div class="user_info_text ">Cash:<br/>0$</div>
+				<div class="user_info_text ">Wallet:<br/>{{balance//100}}.{{balance%100}} RUB</div>
 				<button class="button_common button_form" data-form="edit">Edit</button>
 			</div>
 
@@ -67,6 +67,7 @@
 									type="tel" 
 									step="1" 
 									onchange="this.value = check_int(this.value)">
+					<input id="bank_uuid" placeholder="bank uuid">
 					<div class="chose-buttons">
 						<button type="submit" class="button_common">Save</button>
 						<button class="button_common button_form" data-form="initial-greeting">Cancel</button>
