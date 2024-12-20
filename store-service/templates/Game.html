@@ -64,12 +64,21 @@
 						<p><strong>Price:</strong> 
 						<span>
 							{% if game.price != 0 %}
-								{{ game.price }} RUB
+								{{ game.price // 100 }}.{{ game.price % 100 }} RUB
 							{% else %}
 								FREE
 							{% endif %}
 						</span></p>
-						<button class="buy-button">Buy</button>
+						{% if add_err %}
+							<p class="logreg_error">{{add_err}}</p>
+						{% endif %}
+						{% if is_own %}
+							<button class="buy-button">Already added</button>
+						{% else %}
+							<form action="/game/add_to_cart/{{game.game_id}}" method="POST">
+								<button class="buy-button">Add to cart</button>
+							</form>
+						{% endif %}
 					</div>
 				</div>
 			</div>

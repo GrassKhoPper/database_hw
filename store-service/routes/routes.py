@@ -19,7 +19,9 @@ from database.db_api import (
 	get_user_games_in_library, 
 	get_user_cart_games,
 	remove_from_cart,
-	buy_cart
+	buy_cart,
+	add_game_to_cart,
+	check_own_game
 )
 
 routes_blueprint = Blueprint('routes', __name__)
@@ -35,8 +37,19 @@ def main_page():
 
 @routes_blueprint.route('/game/<int:game_id>', methods=['GET'])
 def open_game_page(game_id):
-	# print(get_game_by_id(game_id))
-	return render_template('Game.html', game=Game(get_game_info(game_id)))
+	is_own  = False
+	add_err = None
+	if 'user_id' in session:
+		try:
+			is_own = check_own_game(session['user_id'], game_id)
+		except ValueError as e:
+			add_err = str(e)
+	return render_template(
+		'Game.html', 
+		game=Game(get_game_info(game_id)), 
+		add_err=add_err, 
+		is_own=is_own
+	)
 
 @routes_blueprint.route('/login', methods=['GET','POST'])
 def login_register():
@@ -163,6 +176,17 @@ def open_library_page():
 	user_games = get_user_games_in_library(session['user_id'])
 	return render_template('Library.html', user_games=[Game(x) for x in user_games])
 
+@routes_blueprint.route('/game/add_to_cart/<int:game_id>', methods=['POST'])
+def add_game_to_user_cart(game_id:int):
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
+	add_err = None
+	try:
+		add_game_to_cart(session['user_id'], game_id)
+	except ValueError as e:
+		add_err = str(e)
+		return render_template('Game.html', game=Game(get_game_info(game_id)), add_err=add_err)
+	return redirect(url_for('routes.open_game_page', game_id=game_id))
 
 @routes_blueprint.route('/studio', methods=['GET'])
 def open_studio_page():

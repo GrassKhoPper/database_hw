@@ -52,7 +52,7 @@
           <a href="/game/{{game.game_id}}">
             <button class="buy-button">
                 {% if game.price != 0 %}
-                  {{ game.price }} RUB
+                  {{ game.price // 100 }}.{{ game.price % 100 }} RUB
                 {% else %}
                   FREE
                 {% endif %}
