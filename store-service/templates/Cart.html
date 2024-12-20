@@ -33,19 +33,20 @@
 
     </header>
 
-    <div class="main-content">
-      <div class="container_cart">
-        
-        <div class="cart_info">
-          <div class="total">Cost total: </div>
-          <div class="total">{{total // 100}}.{{total % 100}} RUB</div>
-          <form action="/cart/pay" method="POST">
-            <button class="button_common pay" type="submit">
-              Pay
-            </button>
-          </form>
-        </div>
+  <div class="main-content">
+		<div class="container_cart">
+			
+			<div class="cart_info">
+        <div class="total">Cost total: </div>
+				<div class="total">{{total // 100}}.{{total % 100}} RUB</div>
+        <form action="/cart/pay" method="POST">
+          <button class="button_common pay" type="submit">
+            Pay
+          </button>
+        </form>
+      </div>
 
+      <div class="cart-list">
         {% for game in games %}
         <div class="cart-item">
           <img src={{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}} alt="Game Icon" class="game-picture">
@@ -59,8 +60,9 @@
           </form>
         </div>
         {% endfor %}
-
       </div>
-    </div>
+	  </div>
+  </div>
+    
 	</body>
 </html>

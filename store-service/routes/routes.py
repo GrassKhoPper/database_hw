@@ -187,3 +187,13 @@ def add_game_to_user_cart(game_id:int):
 		add_err = str(e)
 		return render_template('Game.html', game=Game(get_game_info(game_id)), add_err=add_err)
 	return redirect(url_for('routes.open_game_page', game_id=game_id))
+
+@routes_blueprint.route('/studio', methods=['GET'])
+def open_studio_page():
+	print(f'is user logged in:{is_user_logged_in()}')
+	if not is_user_logged_in():
+		return redirect(url_for('routes.login_register'))
+	# TODO:
+	# pic = get_profile_picture(session['user_id'])
+	# TODO: add to render_template uid=session['user_id'], upicture=pic
+	return render_template('Studio.html')
