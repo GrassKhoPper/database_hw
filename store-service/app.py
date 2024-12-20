@@ -18,4 +18,5 @@ app.secret_key = os.environ.get('SECRET_KEY', base64.b64encode(os.urandom(24)))
 
 # run flask application
 if __name__ == '__main__':
-  app.run('0.0.0.0', port=5000, debug=True)
+  ssl_context = ('store.crt', 'store.key')
+  app.run('0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)
