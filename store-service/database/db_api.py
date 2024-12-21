@@ -122,16 +122,24 @@ def get_db():
 		g.db.row_factory = sqlite3.Row
 	return g.db
 
-def get_games_list()->list[dict]:
+def get_games_list(last_game_id:int, page_sz:int)->list[dict]:
 	cursor = get_db().cursor()
 	try:
-		cursor.execute("""
+		queue, params = ("""
 			SELECT id 
-			FROM games;
-		""")
+			FROM games
+			ORDER BY id 
+			LIMIT (?);
+		""", (page_sz,)) if last_game_id is None else ("""
+			SELECT id
+			FROM GAMES 
+			WHERE id > (?)
+			ORDER BY id
+			LIMIT (?);
+		""", (last_game_id, page_sz,))
+		cursor.execute(queue, params)
 		game_ids = cursor.fetchall()
-		# TODO: not optimal to get elements one by one 
-		# ( but mb it is better cause we can load games from id_beg to id_end)
+
 		games = [get_game_info(game_id['id']) for game_id in game_ids]
 		return games
 	except sqlite3.Error as e:

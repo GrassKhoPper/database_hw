@@ -29,11 +29,36 @@ routes_blueprint = Blueprint('routes', __name__)
 def is_user_logged_in()->bool:
 	return 'user_id' in session
 
+GAMES_PER_PAGE = 20
+
 @routes_blueprint.route('/', methods=['GET'])
 @routes_blueprint.route('/store', methods=['GET'])
 def main_page():
-	games = get_games_list()
-	return render_template('Store.html', games=[Game(game) for game in games])
+	games = get_games_list(None, GAMES_PER_PAGE)
+	print([dict(game) for game in games])
+	last_game_id = games[-1]['id'] if games else None
+	return render_template(
+		'Store.html', 
+		games=[Game(game) for game in games], 
+		last_game_id=last_game_id
+	)
+
+@routes_blueprint.route('/load-more-games', methods=['GET'])
+def load_more_games():
+	last_game_id = request.args.get('last_game_id')
+	if last_game_id is not None:
+		last_game_id = int(last_game_id)
+	
+	games = get_games_list(last_game_id, GAMES_PER_PAGE)
+	if not games:
+		return '', 204
+	
+	last_game_id = games[-1]['id']
+	return render_template(
+		'game_list_items.html', 
+		games=[Game(game) for game in games], 
+		last_game_id=last_game_id
+	)
 
 @routes_blueprint.route('/game/<int:game_id>', methods=['GET'])
 def open_game_page(game_id):
@@ -166,7 +191,11 @@ def remove_game_from_user_cart(game_id:int):
 
 @routes_blueprint.route('/game-details/<int:game_id>')
 def game_details(game_id:int):
-	print(game_id)
+	try:
+		game = Game(get_game_info(game_id))
+		return render_template('game_details.html', game=game)
+	except ValueError as e:
+		return f'<p>error: {e}</p>'
 
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():
