@@ -38,16 +38,13 @@
   align-self: center;
 }
 
-/* TODO: */
 .item .buy-button {
   font-size: var(--font-size-base);
-  /* background-color: var(--success); */
-  /* color: black; */
-  /* border: none; */
-  /* padding: var(--spacing-sm) var(--spacing-md); */
-  /* border-radius: var(--border-radius-sm); */
-  /* cursor: pointer; */
-  /* text-align: center; */
   width: auto;
   align-self: center;
+}
+
+.button_common.store {
+  width: 30%;
+  margin: var(--spacing-sm) auto;
 }
