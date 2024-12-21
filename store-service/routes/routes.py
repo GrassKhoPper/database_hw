@@ -166,7 +166,11 @@ def remove_game_from_user_cart(game_id:int):
 
 @routes_blueprint.route('/game-details/<int:game_id>')
 def game_details(game_id:int):
-	print(game_id)
+	try:
+		game = Game(get_game_info(game_id))
+		return render_template('game_details.html', game=game)
+	except ValueError as e:
+		return f'<p>error: {e}</p>'
 
 @routes_blueprint.route('/library', methods=['GET'])
 def open_library_page():

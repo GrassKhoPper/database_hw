@@ -47,7 +47,7 @@
 
 					<ul>
 						{% for game in user_games %}
-							<li onclick="loadGameDetails('{{ game.name }}') ">
+							<li onclick="loadGameDetails({{ game.game_id }})">
 								<img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon">
 								<span>{{game.name}}</span>
 							</li>
@@ -56,18 +56,14 @@
 					
 				</div>
 
-				<div class="container_game_mini">
-					
+				<div id="game-details-container" class="container_game_mini">
 				</div>
+					
 			</div>
 		</div>
 
 	</body>
 
-	<script>
-		function loadGameDetails(name, tags) {
-			console.log(name);
-			console.log(Math.floor(Math.random() * 6) + 1);
-		}
-	</script>
+	<script src={{url_for('static', filename='javascripts/Library.js')}}></script>
+	<script src={{url_for('static', filename='javascripts/Game.js')}}></script>
 </html>
