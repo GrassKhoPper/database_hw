@@ -18,6 +18,7 @@
   .main-content {
     margin-top: var(--header-height-tablet);
     min-height: calc(100vh - var(--header-height-tablet) - var(--spacing-md));
+    background: linear-gradient(var(--header-bg) 25%, var(--gradient-end));
     padding-top: var(--spacing-md);
   }
 
@@ -43,6 +44,10 @@
 
   .container_library {
     height: calc(100vh - var(--header-height-tablet) - var(--spacing-md));
+  }
+
+  .error-container {
+    min-height: calc(100vh - var(--header-height-tablet));
   }
 }
 
@@ -130,5 +135,13 @@
 
   .game_info {
     font-size: var(--font-size-sm);
+  }
+
+  .error-container {
+    min-height: calc(100vh - var(--header-height-mobile));
+  }
+  
+  .error-description {
+    font-size: var(--font-size-base);
   }
 }
