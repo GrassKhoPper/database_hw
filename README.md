@@ -6,9 +6,12 @@
 
 #### TODO: FOR_THE_FUTURE
 
-#### To generate random test data use(and modify):
+#### Generate test data
+##### Requierements for generator:
+  * python3
+  * python-pillow
+##### To generate random test data use(modify before running constants in deGenerator.py file):
 ```
-mkdir store-service/database/csv-init
 python3 deGenerator.py
 ```
 

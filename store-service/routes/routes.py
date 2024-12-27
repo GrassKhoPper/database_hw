@@ -1,10 +1,14 @@
+import time
+from collections import deque
+
 from flask import (
 	Blueprint, 
 	render_template, 
 	request, 
 	session, 
 	redirect, 
-	url_for
+	url_for,
+	abort
 )
 
 from utility.Game import Game
@@ -26,6 +30,36 @@ from database.db_api import (
 
 routes_blueprint = Blueprint('routes', __name__)
 
+RATE_LIMIT_CONFIG = {
+  'global' : {'requests': 100, 'seconds': 60},
+  '/cart/pay': {'requests': 20, 'seconds': 60},
+  '/login' : {'requests': 50, 'seconds': 60},
+  '/game/add_to_cart' : {'requests': 40, 'seconds': 60}
+}
+rate_limits = {}
+
+def get_rate_limit(endpoint: str):
+  return RATE_LIMIT_CONFIG.get(endpoint, RATE_LIMIT_CONFIG['global'])
+
+def before_request():
+	ip_address = request.remote_addr
+	endpoint = request.endpoint or 'global'
+	rate_limit = get_rate_limit(endpoint)
+
+	key = f"{ip_address}:{endpoint}"
+	now = time.time()
+
+	if key not in rate_limits:
+		rate_limits[key] = deque()
+
+	rate_limits[key].append(now)
+	while rate_limits[key] and rate_limits[key][0] < now - rate_limit["seconds"]:
+		rate_limits[key].popleft()
+
+	if len(rate_limits[key]) > rate_limit["requests"]:
+		print(f"Rate limit exceeded for IP: {ip_address}, Endpoint: {endpoint}")
+		abort(429)
+
 def is_user_logged_in()->bool:
 	return 'user_id' in session
 
@@ -35,7 +69,6 @@ GAMES_PER_PAGE = 20
 @routes_blueprint.route('/store', methods=['GET'])
 def main_page():
 	games = get_games_list(None, GAMES_PER_PAGE)
-	print([dict(game) for game in games])
 	last_game_id = games[-1]['id'] if games else None
 	return render_template(
 		'Store.html', 
