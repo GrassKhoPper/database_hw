@@ -1,9 +1,11 @@
 import csv
 import hashlib
 import random
-from PIL import Image, ImageFont, ImageDraw
 import io
+import os
 import base64
+
+from PIL import Image, ImageFont, ImageDraw
 
 USERS_COUNT  = 100
 init_users_csv  = './store-service/database/csv-init/init-data-users.csv'
@@ -150,6 +152,7 @@ def generate_file(
 		writer.writerows(data)
 
 try:
+	os.makedirs('./store-service/database/csv-init', exist_ok=True)
 	generate_file(count=USERS_COUNT, csv_out=init_users_csv, headers=users_headers, datagen=generate_user)
 	print('Users csv file generated!')
 	generate_file(count=STUDIO_COUNT, csv_out=init_studio_csv, headers=studios_headers, datagen=generate_studio)
