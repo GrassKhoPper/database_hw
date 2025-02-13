@@ -31,10 +31,10 @@ from database.db_api import (
 routes_blueprint = Blueprint('routes', __name__)
 
 RATE_LIMIT_CONFIG = {
-  'global' : {'requests': 100, 'seconds': 60},
-  '/cart/pay': {'requests': 20, 'seconds': 60},
+  'global' : {'requests': 500, 'seconds': 60},
+  '/cart/pay': {'requests': 50, 'seconds': 60},
   '/login' : {'requests': 50, 'seconds': 60},
-  '/game/add_to_cart' : {'requests': 40, 'seconds': 60}
+  '/game/add_to_cart' : {'requests': 100, 'seconds': 60}
 }
 rate_limits = {}
 

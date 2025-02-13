@@ -78,7 +78,7 @@ def create_image_with_text(text:str):
 	WIDTH, HEIGHT = 250, 250
 	img = Image.new('RGB', (WIDTH, HEIGHT), (255, 255, 255))
 	draw = ImageDraw.Draw(img)
-	font = ImageFont.truetype('FreeMono', 30) # replace with your font
+	font = ImageFont.load_default(size=30)
 	text_width = draw.textlength(text, font=font)
 	try:
 		ascent, descent = font.getmetrics()

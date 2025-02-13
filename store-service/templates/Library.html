@@ -1,68 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="main-content">
+	<div class="container_library">
+		<div class="sidebar">
 
-  <title>Game Hub</title>
-
-  <link rel="stylesheet" href={{ url_for('static', filename='css/Styles.css') }}>
-</head>
-	
-	<body>
-		<header class="header">
-			<div class="header-left">
-				<a href="/store">
-					<img src={{url_for('static', filename='images/store-icons/home.png')}} class="title_img" alt="home page"/>
-				</a>
-				<a href="/library">
-					<img src={{url_for('static', filename='images/store-icons/library.png')}} class="title_img" alt="library page"/>
-				</a>
-			</div>
-
-			<h1 class="game-hub"></h1>
-
-			<div class="header-right">
-				<a href="/cart">
-					<img src={{url_for('static', filename='images/store-icons/cart.png')}} class="title_img" alt="cart page"/>
-				</a>
-				<a href="/profile">
-					<img src={{url_for('static', filename='images/store-icons/user.png')}} class="title_img" alt="user page"/>
-				</a>
-			</div>
-
-    </header>
-
-		<div class="main-content">
-			<div class="container_library">
-				<div class="sidebar">
-
-					<div class="search-bar">
-						<input type="text" class="search" placeholder="Search">
-						<span class="search-icon">
+			<div class="search-bar">
+				<input type="text" class="search" placeholder="Search">
+					<span class="search-icon">
 						<img src={{url_for('static', filename='images/store-icons/search.png')}} alt="search"/>
-						</span>
-					</div>
-
-					<ul>
-						{% for game in user_games %}
-							<li onclick="loadGameDetails({{ game.game_id }})">
-								<img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon">
-								<span>{{game.name}}</span>
-							</li>
-						{% endfor %}
-					</ul>
-					
-				</div>
-
-				<div id="game-details-container" class="container_game_mini">
-				</div>
-					
+					</span>
 			</div>
+
+			<ul>
+				{% for game in user_games %}
+					<li onclick="loadGameDetails({{ game.game_id }})">
+						<img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon">
+						<span>{{game.name}}</span>
+					</li>
+				{% endfor %}
+			</ul>
+					
 		</div>
 
-	</body>
+		<div id="game-details-container" class="container_game_mini"></div>
+					
+	</div>
+</div>
 
-	<script src={{url_for('static', filename='javascripts/Library.js')}}></script>
-</html>
+<script src={{url_for('static', filename='javascripts/Library.js')}}></script>
+
+{% endblock %}
