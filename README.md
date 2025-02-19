@@ -7,15 +7,20 @@
 #### TODO: FOR_THE_FUTURE
 
 #### Generate test data
+
 ##### Requierements for generator:
-  * python3
-  * python-pillow
+
+- python3
+- python-pillow
+
 ##### To generate random test data use(modify before running constants in deGenerator.py file):
+
 ```
 python3 deGenerator.py
 ```
 
 #### Current architecture
+
 ![logical_store_schema](./store-schema.png)
 
 ![logical_bank_schema](./bank-schema.png)
@@ -23,42 +28,46 @@ python3 deGenerator.py
 #### About bank-service api
 
 ##### How to get user balance ( example )
+
 ```
 curl --insecure -X GET -H 'Content-Type: application/json' -u "seregga:seregga" "https://127.0.0.1:5001/api/balance"
 ```
 
 ##### How to add account in our great bank ( example )
+
 ```
 curl --insecure -X POST -H 'Content-Type: application/json' -d '{"uuid" : "test", "password" : "test"}' "https://127.0.0.1:5001/api/add-account"
 ```
 
 ##### How to delete bank account ( example )
+
 ```
 curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" "https://127.0.0.1:5001/api/delete-account"
 ```
 
 ##### How to transfer money from one account to another ( example )
+
 ```
 curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{"uuid_to" : "seregga", "amount" : 500 }' "https://127.0.0.1:5001/api/transfer"
 ```
 
 ##### Return codes for bank api service
-  * 401 -- authorization failed
-  * 402 -- wrong requested data
-  * 404 -- wrong request
+
+- 401 -- authorization failed
+- 402 -- wrong requested data
+- 404 -- wrong request
 
 ### Development Stack : Docker, Python(backend + frontend), sqlite3
 
 ### Requirements list for running services on the local server :
-  * docker
-  * docker-compose
-  * openssl ( for certificates )
-  * curl ( for interaction with bank service )
+
+- docker
+- docker-compose
+- openssl ( for certificates )
+- curl ( for interaction with bank service )
 
 ## The composition of our team:
-  * Gubanov Peter (@gubanovpm)
-  * Khrol Ivan    (@ent1r)
-  * Potapova Anna (@ann37)
 
-
-
+- Gubanov Peter (@gubanovpm)
+- Khrol Ivan (@ent1r)
+- Potapova Anna (@ann37)

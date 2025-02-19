@@ -1,17 +1,17 @@
 {% for game in games %}
 <div class="item">
-    <img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Picture"> 
-    <div class="item-info">
-        <p>{{game.name}}</p>
-        <a href="/game/{{game.game_id}}">
-        <button class="buy-button">
-            {% if game.price != 0 %}
-            {{ game.price // 100 }}.{{ game.price % 100 }} RUB
-            {% else %}
-            FREE
-            {% endif %}
-        </button>
-        </a>
-    </div>
+	<img
+		src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}"
+		alt="Game Picture"
+	/>
+	<div class="item-info">
+		<p>{{game.name}}</p>
+		<a href="/game/{{game.game_id}}">
+			<button class="buy-button">
+				{% if game.price != 0 %} {{ game.price // 100 }}.{{ game.price % 100 }}
+				RUB {% else %} FREE {% endif %}
+			</button>
+		</a>
+	</div>
 </div>
 {% endfor %}

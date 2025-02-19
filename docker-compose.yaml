@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 
 services:
   store-service:
@@ -29,4 +29,3 @@ networks:
 volumes:
   store-db-data:
   bank-db-data:
-

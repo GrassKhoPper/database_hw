@@ -1,66 +1,104 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="main-content">
-  <div class="container_user">
-    <div class="user_info">
-      {# TODO: <img src="{{ url_for('static', filename='images/studios/{avatar}'.format(avatar=studio.avatar)) }}" alt="Studio Logo" class="user_image"> #}
-			<img src="static/images/studio/default.jpg" alt="Studio Logo" class="user_image">
-      <div class="profile-info">
-        <div class="user_info_text">Studio Name{# TODO: {studio.name}#}</div>
-      </div>
-      <div class="user_info_text">Games:<br/>5{# TODO: {studio.games|length} #}</div>
-      <button class="button_common button_form" data-form="edit-section">Edit</button>
-    </div>
+	<div class="container_user">
+		<div class="user_info">
+			{# TODO:
+			<img
+				src="{{ url_for('static', filename='images/studios/{avatar}'.format(avatar=studio.avatar)) }}"
+				alt="Studio Logo"
+				class="user_image"
+			/>
+			#}
+			<img
+				src="static/images/studio/default.jpg"
+				alt="Studio Logo"
+				class="user_image"
+			/>
+			<div class="profile-info">
+				<div class="user_info_text">Studio Name{# TODO: {studio.name}#}</div>
+			</div>
+			<div class="user_info_text">
+				Games:<br />5{# TODO: {studio.games|length} #}
+			</div>
+			<button class="button_common button_form" data-form="edit-section">
+				Edit
+			</button>
+		</div>
 
-    <div class="button_container">
-      <button class="button_common button_form active" data-form="games-section">Games</button>
-      <button class="button_common button_form" data-form="about-section">About</button>
-      <button class="button_common">Add game</button>
-    </div>
+		<div class="button_container">
+			<button
+				class="button_common button_form active"
+				data-form="games-section"
+			>
+				Games
+			</button>
+			<button class="button_common button_form" data-form="about-section">
+				About
+			</button>
+			<button class="button_common">Add game</button>
+		</div>
 
-    <div class="section_user">
-      <div class="games_section form active" id="games-section">
-        <h2>Games by Studio Name{# TODO: {studio.name}#}</h2>
-					<ul>
-						{# TODO:
-						{% for game in user_games % }
-							<!-- <li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li> -->
-						{% endfor % }
-						#}
-          {%for i in range(20)%}
-            <li><img src="static/images/games/1/dota.ico" class="game_icon"><span title="DOTA-2">DOTA-2</span></li>
-          {%endfor%}
-					</ul>
-      </div>
+		<div class="section_user">
+			<div class="games_section form active" id="games-section">
+				<h2>Games by Studio Name{# TODO: {studio.name}#}</h2>
+				<ul>
+					{# TODO: {% for game in user_games % }
+					<!-- <li onclick="loadGameDetails( {{ game }} )"><img src={{url_for('static', filename='images/games/{gid}/{gpic}'.format(gid=game.game_id, gpic=game.icon))}} class="game_icon"><span title="{{game.name}}">{{game.name}}</span></li> -->
+					{% endfor % } #} {%for i in range(20)%}
+					<li>
+						<img src="static/images/games/1/dota.ico" class="game_icon" /><span
+							title="DOTA-2"
+							>DOTA-2</span
+						>
+					</li>
+					{%endfor%}
+				</ul>
+			</div>
 
 			<div class="form" id="about-section">
-        <p>About studio...</p>
-      </div>
+				<p>About studio...</p>
+			</div>
 
-      <div class="form" id="edit-section">
-        <form action="{# TODO:{url_for('update_studio', studio_id=studio.id)}#}" method="POST" enctype="multipart/form-data">
+			<div class="form" id="edit-section">
+				<form
+					action="{# TODO:{url_for('update_studio', studio_id=studio.id)}#}"
+					method="POST"
+					enctype="multipart/form-data"
+				>
+					<label for="studio-description">Description:</label>
+					<textarea
+						id="studio-description"
+						name="description"
+						rows="4"
+						required
+					>
+{# TODO:{studio.description}#}</textarea
+					>
 
-          <label for="studio-description">Description:</label>
-          <textarea id="studio-description" name="description" rows="4" required>{# TODO:{studio.description}#}</textarea>
-            
-          <label for="studio-avatar">Studio Avatar:</label>
-          <div class="file-upload-container">
-            <input type="file" id="studio-avatar" name="avatar" accept="image/*">
-            <label for="studio-avatar" class="file-upload-label">
-              Click for download
-            </label>
-          </div>
-            
-          <div class="chose-buttons">
-            <button type="submit" class="button_common">Save</button>
-          	<button class="button_common button_form" data-form="games-section">Cancel</button>
-          </div>
-        </form>
+					<label for="studio-avatar">Studio Avatar:</label>
+					<div class="file-upload-container">
+						<input
+							type="file"
+							id="studio-avatar"
+							name="avatar"
+							accept="image/*"
+						/>
+						<label for="studio-avatar" class="file-upload-label">
+							Click for download
+						</label>
+					</div>
 
-      </div>
-    </div>
-  </div>
+					<div class="chose-buttons">
+						<button type="submit" class="button_common">Save</button>
+						<button class="button_common button_form" data-form="games-section">
+							Cancel
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="{{url_for('static', filename='javascripts/Studio.js')}}"></script>

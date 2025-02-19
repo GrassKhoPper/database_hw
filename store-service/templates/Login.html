@@ -1,63 +1,109 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="main-content">
 	<div class="container_authorization">
-				
 		<h2 class="h2_authorization" id="Login/Registration">Login</h2>
-				
+
 		<div class="toggle-buttons">
-			<button class="button_common active authorization" id="loginButton">Login</button>
-			<button class="button_common authorization" id="registerButton">Register</button>
+			<button class="button_common active authorization" id="loginButton">
+				Login
+			</button>
+			<button class="button_common authorization" id="registerButton">
+				Register
+			</button>
 		</div>
 
 		<form id="login_form" method="post">
 			{% if login_error %}
-				<div class="logreg_error">
-					<p>{{login_error}}</p>
-				</div>
+			<div class="logreg_error">
+				<p>{{login_error}}</p>
+			</div>
 			{% endif %}
 
 			<div class="form-group">
 				<label for="login_username">Username:</label>
-				<input type="text" id="login_username" name="login_username" placeholder="username" required>
+				<input
+					type="text"
+					id="login_username"
+					name="login_username"
+					placeholder="username"
+					required
+				/>
 			</div>
 
 			<div class="form-group">
 				<label for="login_password">Password:</label>
-				<input type="password" id="login_password" name="login_password" placeholder="password" required>
+				<input
+					type="password"
+					id="login_password"
+					name="login_password"
+					placeholder="password"
+					required
+				/>
 			</div>
 
-			<button class="button_common authorization" type="submit" name="login_submit">Login</button>
+			<button
+				class="button_common authorization"
+				type="submit"
+				name="login_submit"
+			>
+				Login
+			</button>
 		</form>
 
 		<form id="register_form" class="registration-field" method="post">
 			{% if register_error %}
-				<div class="logreg_error">
-					<p>{{register_error}}</p>
-				</div>
+			<div class="logreg_error">
+				<p>{{register_error}}</p>
+			</div>
 			{% endif %}
 			<div class="form-group">
 				<label for="reg_username">Username:</label>
-				<input type="text" id="reg_username" name="reg_username" placeholder="username" required>
+				<input
+					type="text"
+					id="reg_username"
+					name="reg_username"
+					placeholder="username"
+					required
+				/>
 			</div>
 
 			<div class="form-group">
 				<label for="reg_password">Password:</label>
-				<input type="password" id="reg_password" name="reg_password" placeholder="password" required>
+				<input
+					type="password"
+					id="reg_password"
+					name="reg_password"
+					placeholder="password"
+					required
+				/>
 			</div>
 
 			<div class="form-group">
 				<label for="reg_repassword">Verify Password:</label>
-				<input type="password" id="reg_repassword" name="reg_repassword" placeholder="repeat password" required>
+				<input
+					type="password"
+					id="reg_repassword"
+					name="reg_repassword"
+					placeholder="repeat password"
+					required
+				/>
 			</div>
 
-			<button class="button_common authorization" type="submit" name="reg_submit">Register</button>
-
+			<button
+				class="button_common authorization"
+				type="submit"
+				name="reg_submit"
+			>
+				Register
+			</button>
 		</form>
 	</div>
 </div>
-		
-<script src="{{ url_for ('static', filename='javascripts/Login.js') }}" defer></script>
+
+<script
+	src="{{ url_for ('static', filename='javascripts/Login.js') }}"
+	defer
+></script>
 
 {% endblock %}

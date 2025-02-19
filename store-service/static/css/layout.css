@@ -1,84 +1,81 @@
-@import 'variables.css';
+@import "variables.css";
 
 .main-content {
-  margin-top: var(--header-height-desktop);
-  min-height: calc(100vh - var(--header-height-desktop) - var(--spacing-lg));
-  padding-top: var(--spacing-lg);
-  background: linear-gradient(var(--header-bg) 20%, var(--gradient-end));
-  background-attachment: fixed;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1;
+	margin-top: var(--header-height-desktop);
+	min-height: calc(100vh - var(--header-height-desktop) - var(--spacing-lg));
+	padding-top: var(--spacing-lg);
+	background: linear-gradient(var(--header-bg) 20%, var(--gradient-end));
+	background-attachment: fixed;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	z-index: 1;
 }
 
 .container_game,
 .container_user,
 .container_cart,
 .container_authorization {
-  background-color: var(--white-transparent);
-  border-radius: var(--border-radius-xl);
-  margin: 0 auto;
+	background-color: var(--white-transparent);
+	border-radius: var(--border-radius-xl);
+	margin: 0 auto;
 }
 
 .container_user,
-.container_cart, 
+.container_cart,
 .container_library {
-  display: flex;
+	display: flex;
 }
 
 .container_user,
 .container_cart {
-  width: 30vw;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
+	width: 30vw;
+	min-width: 300px;
+	display: flex;
+	flex-direction: column;
 }
 
 .container_authorization {
-  width: 300px;
-  margin: 100px auto;
-  box-shadow: var(--shadow-md);
-  padding: var(--spacing-lg);
+	width: 300px;
+	margin: 100px auto;
+	box-shadow: var(--shadow-md);
+	padding: var(--spacing-lg);
 }
 
 .container_library {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: calc(100vh 
-              - var(--header-height-desktop) 
-              - var(--spacing-lg));
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: calc(100vh - var(--header-height-desktop) - var(--spacing-lg));
 }
 
 .container_game_mini {
-  width: 100%;
-  overflow-y: auto;
-  padding: var(--spacing-md);
-  scrollbar-width: none;
+	width: 100%;
+	overflow-y: auto;
+	padding: var(--spacing-md);
+	scrollbar-width: none;
 }
 
 .container_game_mini::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .container_cart {
-  height: calc(100vh 
-        - var(--header-height-desktop) 
-        - var(--spacing-lg)
-        - var(--spacing-sm));
-  margin-bottom: var(--spacing-sm);
+	height: calc(
+		100vh - var(--header-height-desktop) - var(--spacing-lg) - var(--spacing-sm)
+	);
+	margin-bottom: var(--spacing-sm);
 }
 
 .container_store {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .container_game {
-  max-width: 50%;
-  height: 100%;
-  padding: var(--spacing-lg);
+	max-width: 50%;
+	height: 100%;
+	padding: var(--spacing-lg);
 }

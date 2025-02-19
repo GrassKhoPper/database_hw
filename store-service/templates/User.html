@@ -1,20 +1,27 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="main-content">
-<!-- User data -->
+	<!-- User data -->
 	<div class="container_user">
 		<div class="user_info">
-			<img src="{{ url_for('static', filename='images/profiles/{upic}'.format(upic=upicture)) }}" alt="Profile Picture" class="user_image">
+			<img
+				src="{{ url_for('static', filename='images/profiles/{upic}'.format(upic=upicture)) }}"
+				alt="Profile Picture"
+				class="user_image"
+			/>
 			<div class="profile-info">
-				<div class="user_info_text ">{{username}}</div>
+				<div class="user_info_text">{{username}}</div>
 			</div>
-			<div class="user_info_text ">Wallet:<br/>{{balance//100}}.{{balance%100}} RUB</div>
+			<div class="user_info_text">
+				Wallet:<br />{{balance//100}}.{{balance%100}} RUB
+			</div>
 			<button class="button_common button_form" data-form="edit">Edit</button>
 		</div>
 
 		<div class="button_container">
-			<button class="button_common button_form" data-form="replenishment">Replenishment</button>
+			<button class="button_common button_form" data-form="replenishment">
+				Replenishment
+			</button>
 			<form action="/studio">
 				<button class="button_common">Workshop</button>
 			</form>
@@ -23,29 +30,43 @@
 			</a>
 		</div>
 
-
 		<div class="section_user">
 			<div class="form active" id="initial-greeting">
-				<p>Placeholder Content (will change based on button click - you'll implement this logic)</p>
+				<p>
+					Placeholder Content (will change based on button click - you'll
+					implement this logic)
+				</p>
 			</div>
 
 			<div class="form" id="replenishment">
-				<input 	id="replenishment_nput" 
-								placeholder="Enter the amount to replenish" 
-								type="tel" 
-								step="1" 
-								onchange="this.value = check_int(this.value)">
-				<input id="bank_uuid" placeholder="bank uuid">
+				<input
+					id="replenishment_nput"
+					placeholder="Enter the amount to replenish"
+					type="tel"
+					step="1"
+					onchange="this.value = check_int(this.value)"
+				/>
+				<input id="bank_uuid" placeholder="bank uuid" />
 				<div class="chose-buttons">
 					<button type="submit" class="button_common">Save</button>
-					<button class="button_common button_form" data-form="initial-greeting">Cancel</button>
+					<button
+						class="button_common button_form"
+						data-form="initial-greeting"
+					>
+						Cancel
+					</button>
 				</div>
 			</div>
 
 			<div class="form" id="edit">
 				<label for="profile-avatar">Profile Avatar:</label>
 				<div class="file-upload-container">
-					<input type="file" id="profile-avatar" name="avatar" accept="image/*">
+					<input
+						type="file"
+						id="profile-avatar"
+						name="avatar"
+						accept="image/*"
+					/>
 					<label for="profile-avatar" class="file-upload-label">
 						Click for download
 					</label>
@@ -53,25 +74,41 @@
 
 				<div class="form-group">
 					<label for="reg_password">Password:</label>
-					<input type="password" id="reg_password" name="reg_password" placeholder="password" required>
+					<input
+						type="password"
+						id="reg_password"
+						name="reg_password"
+						placeholder="password"
+						required
+					/>
 				</div>
 
 				<div class="form-group">
 					<label for="reg_repassword">Verify Password:</label>
-					<input type="password" id="reg_repassword" name="reg_repassword" placeholder="repeat password" required>
+					<input
+						type="password"
+						id="reg_repassword"
+						name="reg_repassword"
+						placeholder="repeat password"
+						required
+					/>
 				</div>
-					
+
 				<div class="chose-buttons">
 					<button type="submit" class="button_common">Save</button>
-					<button class="button_common button_form" data-form="initial-greeting">Cancel</button>
+					<button
+						class="button_common button_form"
+						data-form="initial-greeting"
+					>
+						Cancel
+					</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
-  <!-- END USER DATA -->
+	<!-- END USER DATA -->
 </div>
-	
+
 <script src="{{url_for('static', filename='javascripts/User.js')}}"></script>
 
 {% endblock %}

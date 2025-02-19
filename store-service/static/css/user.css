@@ -1,50 +1,50 @@
-@import 'variables.css';
+@import "variables.css";
 
 .user_info {
-  display: flex;
-  padding: var(--spacing-sm);
-  justify-content: center;
-  align-items: center;
-  margin-bottom: var(--spacing-lg);
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
+	display: flex;
+	padding: var(--spacing-sm);
+	justify-content: center;
+	align-items: center;
+	margin-bottom: var(--spacing-lg);
+	gap: var(--spacing-sm);
+	flex-wrap: wrap;
 }
 
 .user_image {
-  width: 124px;
-  height: 124px;
-  border-radius: var(--border-radius-md);
-  flex-shrink: 0;
+	width: 124px;
+	height: 124px;
+	border-radius: var(--border-radius-md);
+	flex-shrink: 0;
 }
 
 .profile-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .user_info_text {
-  font-size: var(--font-size-xl);
-  font-weight: bold;
-  text-align: center;
-  max-width: 100%;
+	font-size: var(--font-size-xl);
+	font-weight: bold;
+	text-align: center;
+	max-width: 100%;
 }
 
 .button_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .section_user {
-  background-color: var(--cyan-transparent);
-  padding: var(--spacing-sm);
-  margin: var(--spacing-md);
-  border-radius: var(--border-radius-sm);
-  margin-bottom: var(--spacing-md);
-  flex: 1;
-  min-height: 60vh;
-  overflow-y: auto;
+	background-color: var(--cyan-transparent);
+	padding: var(--spacing-sm);
+	margin: var(--spacing-md);
+	border-radius: var(--border-radius-sm);
+	margin-bottom: var(--spacing-md);
+	flex: 1;
+	min-height: 60vh;
+	overflow-y: auto;
 }
