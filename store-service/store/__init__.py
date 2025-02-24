@@ -3,8 +3,8 @@ import base64
 
 from flask import Flask, render_template
 
-from routes.routes import routes_blueprint, before_request
-from database.db_api import init_database
+from store.routes.routes import routes_blueprint, before_request
+from store.database.db_api import init_database
 
 # initial state of database
 init_database()
@@ -49,7 +49,3 @@ def handle_exception(e):
     error_msg  = str(e)
   ), 500
 
-# run flask application
-if __name__ == '__main__':
-  ssl_context = ('store.crt', 'store.key')
-  app.run('0.0.0.0', port=5000, debug=True, ssl_context=ssl_context)

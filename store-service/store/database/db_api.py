@@ -7,9 +7,12 @@ import io
 from PIL import Image
 from flask import g
 
-from utility.User import User
+from store.utility.User import User
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
+SCHEMA_PATH = os.environ.get('SCHEME_PATH', '/store/store/database/store-schema.sql')
+INIT_CSV_PATH = os.environ.get('INIT_CSV_PATH', '/store/store/database/csv-init')
+STATIC_PATH = os.environ.get('STATIC_PATH', '/store/store/static')
 
 def init_from_csv(db_file:str, csv_file:str, table_name:str):
 	conn = sqlite3.connect(db_file)
@@ -48,13 +51,13 @@ def init_pics_from_csv(db_file:str, csv_file:str, table_name:str, save_to:str):
 				if save_to == 'profiles':
 					img, data, path = base64.b64decode(row[-1]), row[:-1], f'{row[0]}.png'
 					img = Image.open(io.BytesIO(img))
-					img.save(f'static/images/{save_to}/{path}')
+					img.save(f'{STATIC_PATH}/images/{save_to}/{path}')
 				else :
 					img, data = base64.b64decode(row[-1]), row[:-1]
 					img = Image.open(io.BytesIO(img))
 					game_id, path = data[2], data[1] 
-					os.makedirs(f'static/images/{save_to}/{game_id}', exist_ok=True)
-					img.save(f'static/images/{save_to}/{game_id}/{path}')
+					os.makedirs(f'{STATIC_PATH}/images/{save_to}/{game_id}', exist_ok=True)
+					img.save(f'{STATIC_PATH}/images/{save_to}/{game_id}/{path}')
 				cursor.execute(query, data)
 			conn.commit()
 			conn.close()
@@ -76,26 +79,26 @@ def execute_sql_file(conn, sql_file):
 		conn.rollback()
 
 def init_database():
-	schema_file = 'database/store-schema.sql'
+	schema_file = SCHEMA_PATH
 	conn = sqlite3.connect(DB_PATH)
 	if conn:
 		execute_sql_file(conn, schema_file)
 		conn.commit()
 	conn.close()
 	init_csvs = [
-		{'file': 'database/csv-init/init-data-users.csv',     'table':'users'},
-		{'file': 'database/csv-init/init-data-studios.csv',   'table':'studios'},
-		{'file': 'database/csv-init/init-data-games.csv',     'table':'games'},
-		{'file': 'database/csv-init/init-data-tags.csv',      'table':'tags'},
-		{'file': 'database/csv-init/init-data-game-tags.csv', 'table':'game_tags'},
-		{'file': 'database/csv-init/init-data-purchases.csv', 'table':'purchases'}
+		{'file': f'{INIT_CSV_PATH}/init-data-users.csv',     'table':'users'},
+		{'file': f'{INIT_CSV_PATH}/init-data-studios.csv',   'table':'studios'},
+		{'file': f'{INIT_CSV_PATH}/init-data-games.csv',     'table':'games'},
+		{'file': f'{INIT_CSV_PATH}/init-data-tags.csv',      'table':'tags'},
+		{'file': f'{INIT_CSV_PATH}/init-data-game-tags.csv', 'table':'game_tags'},
+		{'file': f'{INIT_CSV_PATH}/init-data-purchases.csv', 'table':'purchases'}
 	]
 	init_pics_csvs = [{
-		'file': 'database/csv-init/init-profile-pictures.csv', 
+		'file': f'{INIT_CSV_PATH}/init-profile-pictures.csv', 
 		'table':'profiles_pictures',
 		'save_to' : 'profiles'
 	},{
-		'file': 'database/csv-init/init-games-pictures.csv', 
+		'file': f'{INIT_CSV_PATH}/init-games-pictures.csv', 
 		'table':'games_pictures',
 		'save_to' : 'games'
 	}]

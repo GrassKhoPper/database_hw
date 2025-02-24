@@ -11,10 +11,10 @@ from flask import (
 	abort
 )
 
-from utility.Game import Game
-from utility.User import User
+from store.utility.Game import Game
+from store.utility.User import User
 
-from database.db_api import ( 
+from store.database.db_api import ( 
 	get_games_list, 
 	get_game_info, 
 	check_user, 

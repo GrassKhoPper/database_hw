@@ -7,32 +7,34 @@ import base64
 
 from PIL import Image, ImageFont, ImageDraw
 
+csv_default_path = './store-service/store/database/csv-init'
+
 USERS_COUNT  = 100
-init_users_csv  = './store-service/database/csv-init/init-data-users.csv'
-users_headers    = ['id', 'password_hash', 'name', 'balance']
-init_profile_pictures_csv = './store-service/database/csv-init/init-profile-pictures.csv'
+init_users_csv = f'{csv_default_path}/init-data-users.csv'
+users_headers = ['id', 'password_hash', 'name', 'balance']
+init_profile_pictures_csv = f'{csv_default_path}/init-profile-pictures.csv'
 profile_pictures_headers = ['id', 'name', 'user_id', 'img_fmt', 'img']
 
 STUDIO_COUNT = 10
-init_studio_csv = './store-service/database/csv-init/init-data-studios.csv'
+init_studio_csv = f'{csv_default_path}/init-data-studios.csv'
 studios_headers = ['id', 'name']
 
 TAGS_COUNT = 20
-init_tags_csv = './store-service/database/csv-init/init-data-tags.csv'
+init_tags_csv = f'{csv_default_path}/init-data-tags.csv'
 tags_headers  = ['id', 'name']
 
 GAMES_COUNT, MAX_SCREENSHOT_COUNT = 100, 8
-init_games_csv = './store-service/database/csv-init/init-data-games.csv'
+init_games_csv = f'{csv_default_path}/init-data-games.csv'
 games_headers  = ['id', 'name', 'price', 'description', 'brief', 'studio_id']
-init_games_pictures_csv = './store-service/database/csv-init/init-games-pictures.csv'
+init_games_pictures_csv = f'{csv_default_path}/init-games-pictures.csv'
 games_pictures_headers = ['id', 'name', 'game_id', 'img_type', 'img_fmt', 'img']
 
 GAME_TAGS_COUNT = 1000
-init_game_tags_csv = './store-service/database/csv-init/init-data-game-tags.csv'
+init_game_tags_csv = f'{csv_default_path}/init-data-game-tags.csv'
 game_tags_headers  = ['game_id', 'tag_id']
 
 PURCHASES_COUNT = 1000
-init_purchases_csv = './store-service/database/csv-init/init-data-purchases.csv'
+init_purchases_csv = f'{csv_default_path}/init-data-purchases.csv'
 purchases_headers = ['id', 'owner_id', 'buyer_id', 'ts', 'game_id']
 
 def generate_user(idx:int):
@@ -152,7 +154,7 @@ def generate_file(
 		writer.writerows(data)
 
 try:
-	os.makedirs('./store-service/database/csv-init', exist_ok=True)
+	os.makedirs(csv_default_path, exist_ok=True)
 	generate_file(count=USERS_COUNT, csv_out=init_users_csv, headers=users_headers, datagen=generate_user)
 	print('Users csv file generated!')
 	generate_file(count=STUDIO_COUNT, csv_out=init_studio_csv, headers=studios_headers, datagen=generate_studio)
