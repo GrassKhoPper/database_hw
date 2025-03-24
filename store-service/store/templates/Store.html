@@ -9,7 +9,7 @@
       </span>
   </div>
 
-  <div id="games-container" class="container_store">
+  <div id="games-container" class="container_store" data-last-game-id="{{ last_game_id }}">
   	{% for game in games %}
       <div class="item">
         <img src="{{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}}" alt="Game Picture"> 
@@ -30,7 +30,6 @@
       
   </div>
     
-  <button id="load-more-button" class="button_common store" data-last-game-id="{{ last_game_id }}">Show more</button>
 </div>
 
 <script src="{{ url_for ('static', filename='javascripts/Store.js') }}" defer></script>
