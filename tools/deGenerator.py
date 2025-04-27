@@ -7,7 +7,7 @@ import base64
 
 from PIL import Image, ImageFont, ImageDraw
 
-csv_default_path = './store-service/store/database/csv-init'
+csv_default_path = './database/store-init-csvs'
 
 USERS_COUNT  = 100
 init_users_csv = f'{csv_default_path}/init-data-users.csv'

@@ -8,6 +8,18 @@
 
 #### Generate test data
 
+##### Environment set
+
+###### You need to set environment variables into .env file like this
+
+```
+DB_NAME=postgre
+SECRET_KEY=secret
+USER_NAME=postgre
+
+DB_PORT=51488
+```
+
 ##### Requierements for generator:
 
 - python3

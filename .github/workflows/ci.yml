@@ -21,6 +21,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pylint sqlfluff
+	
+  # check_database_service:
+  #   run-on: ubuntu-latest
+  #   needs: setup
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Install dependencies
+  #       run: |
+  #         pip install sqlfluff
 
   check_store_service:
     runs-on: ubuntu-latest
