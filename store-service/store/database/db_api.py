@@ -10,31 +10,8 @@ from flask import g
 from store.utility.User import User
 
 DB_PATH = os.environ.get('DB_PATH', '/var/store-db/store.sql3.db')
-SCHEMA_PATH = os.environ.get('SCHEME_PATH', '/store/store/database/store-schema.sql')
-INIT_CSV_PATH = os.environ.get('INIT_CSV_PATH', '/store/store/database/csv-init')
+INIT_CSV_PATH = os.environ.get('INIT_CSV_PATH', '/tmp/init-csvs')
 STATIC_PATH = os.environ.get('STATIC_PATH', '/store/store/static')
-
-def init_from_csv(db_file:str, csv_file:str, table_name:str):
-	conn = sqlite3.connect(db_file)
-	cursor = conn.cursor()
-	try:
-		with open(csv_file, 'r', encoding='UTF-8') as file:
-			reader = csv.reader(file)
-			headers = next(reader)
-			query = f"""
-				INSERT OR IGNORE INTO {table_name} ({','.join(headers)})
-				VALUES ({','.join(['?'] * len(headers))});
-			"""
-			for row in reader:
-				data = [None if x == 'NULL' else x for x in row]
-				cursor.execute(query, data)
-			conn.commit()
-			conn.close()
-	except Exception as e:
-		print(f'error:{e}')
-		conn.rollback()
-		conn.close()
-		raise ValueError(str(e)) from e
 
 def init_pics_from_csv(db_file:str, csv_file:str, table_name:str, save_to:str):
 	conn = sqlite3.connect(db_file)
@@ -79,20 +56,6 @@ def execute_sql_file(conn, sql_file):
 		conn.rollback()
 
 def init_database():
-	schema_file = SCHEMA_PATH
-	conn = sqlite3.connect(DB_PATH)
-	if conn:
-		execute_sql_file(conn, schema_file)
-		conn.commit()
-	conn.close()
-	init_csvs = [
-		{'file': f'{INIT_CSV_PATH}/init-data-users.csv',     'table':'users'},
-		{'file': f'{INIT_CSV_PATH}/init-data-studios.csv',   'table':'studios'},
-		{'file': f'{INIT_CSV_PATH}/init-data-games.csv',     'table':'games'},
-		{'file': f'{INIT_CSV_PATH}/init-data-tags.csv',      'table':'tags'},
-		{'file': f'{INIT_CSV_PATH}/init-data-game-tags.csv', 'table':'game_tags'},
-		{'file': f'{INIT_CSV_PATH}/init-data-purchases.csv', 'table':'purchases'}
-	]
 	init_pics_csvs = [{
 		'file': f'{INIT_CSV_PATH}/init-profile-pictures.csv', 
 		'table':'profiles_pictures',

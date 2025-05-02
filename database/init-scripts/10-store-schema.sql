@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS purchases (
     id INTEGER PRIMARY KEY,
     owner_id INTEGER NOT NULL,
     buyer_id INTEGER NOT NULL,
-    ts INTEGER, -- make it zero if game not buyed yet but in cart already
+    ts INTEGER, -- make it NULL if game not buyed yet but in cart already
     game_id INTEGER NOT NULL,
 
     FOREIGN KEY (owner_id) REFERENCES users (id),

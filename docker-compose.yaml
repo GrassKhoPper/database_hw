@@ -29,11 +29,10 @@ services:
       - "5000:5000"
     depends_on:
       - db
-      - bank-service
     environment:
       BANK_SERVICE_URL: http://bank-service:5001
     volumes:
-      - store-db-data:/var/store-db
+      - ./database/store-init-csvs:/tmp/init-csvs/
     networks:
       - my-network
 
