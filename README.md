@@ -13,9 +13,13 @@
 ###### You need to set environment variables into .env file like this
 
 ```
-DB_NAME=postgre
-SECRET_KEY=secret
-USER_NAME=postgre
+STORE_DB_NAME=store-db
+STORE_DB_PSWD=store-pswd
+STORE_DB_USER=store-user
+
+BANK_DB_NAME=bank-db
+BANK_DB_PSWD=bank-store
+BANK_DB_USER=bank-user
 
 DB_PORT=51488
 ```

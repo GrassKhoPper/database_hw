@@ -6,9 +6,9 @@ services:
     env_file: .env
     container_name: gamehub-db
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${SECRET_KEY}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${STORE_DB_USER}
+      POSTGRES_PASSWORD: ${STORE_DB_PSWD}
+      POSTGRES_DB: ${STORE_DB_NAME}
       PGPORT: ${DB_PORT}
     expose:
       - "${DB_PORT}"
@@ -31,6 +31,11 @@ services:
       - db
     environment:
       BANK_SERVICE_URL: http://bank-service:5001
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${STORE_DB_NAME}
+      DB_USER: ${STORE_DB_USER}
+      DB_PSWD: ${STORE_DB_PSWD}
     volumes:
       - ./database/store-init-csvs:/tmp/init-csvs/
     networks:

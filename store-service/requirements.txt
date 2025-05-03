@@ -2,4 +2,4 @@ flask
 uwsgi
 bleach
 pillow
-psycopg
+psycopg[binary,pool]

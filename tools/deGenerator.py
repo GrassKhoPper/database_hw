@@ -51,11 +51,11 @@ def generate_studio(idx:int):
 def generate_tag(idx:int):
 	return [idx, f'tag{idx}']
 
-def generate_game_tag(idx:int):
-	return [
-		round(random.uniform(1, GAMES_COUNT)),
-		round(random.uniform(1,  TAGS_COUNT))
-	]
+def generate_game_tags_data():
+	all_pairs = [(g, t) for g in range(1, GAMES_COUNT + 1) for t in range(1, TAGS_COUNT + 1)]
+
+	random.shuffle(all_pairs)
+	return all_pairs[:GAME_TAGS_COUNT]
 
 def generate_game(idx:int):
 	return [
@@ -163,10 +163,17 @@ try:
 	print('Games csv file generated!')
 	generate_file(count=TAGS_COUNT, csv_out=init_tags_csv, headers=tags_headers, datagen=generate_tag)
 	print('Tags csv file generated!')
-	generate_file(count=GAME_TAGS_COUNT, csv_out=init_game_tags_csv, headers=game_tags_headers, datagen=generate_game_tag)
+	
+	game_tags_data = generate_game_tags_data()
+	with open(init_game_tags_csv, 'w') as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(game_tags_headers)
+		writer.writerows(game_tags_data)
 	print('Game tags csv generated!')
+
 	generate_file(count=PURCHASES_COUNT, csv_out=init_purchases_csv, headers=purchases_headers, datagen=generate_purchase)
 	print('Purchases csv file generated!')
+
 	generate_file(count=USERS_COUNT, csv_out=init_profile_pictures_csv, headers=profile_pictures_headers, datagen=generate_profile_picture)
 	print('Profile pictures csv generated!')
 	generate_games_pictures()

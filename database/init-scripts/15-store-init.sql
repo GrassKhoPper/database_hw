@@ -14,14 +14,13 @@ COPY games(id, name, price, description, brief, studio_id)
 FROM '/store-init-csvs/init-data-games.csv'
 WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
--- generator can generate duplicates for this categories
--- COPY game_tags(game_id, tag_id)
--- FROM '/store-init-csvs/init-data-game-tags.csv'
--- WITH (FORMAT CSV, HEADER, DELIMITER ',');
+COPY game_tags(game_id, tag_id)
+FROM '/store-init-csvs/init-data-game-tags.csv'
+WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
--- COPY purchases(id, owner_id, buyer_id, ts, game_id)
--- FROM '/store-init-csvs/init-data-purchases.csv'
--- WITH (FORMAT CSV, HEADER, DELIMITER ',', NULL 'NULL');
+COPY purchases(id, owner_id, buyer_id, ts, game_id)
+FROM '/store-init-csvs/init-data-purchases.csv'
+WITH (FORMAT CSV, HEADER, DELIMITER ',', NULL 'NULL');
 
 -- create temporary table for games pictures to transform csv
 CREATE TEMP TABLE temp4gpictures (
