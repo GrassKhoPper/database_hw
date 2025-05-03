@@ -67,14 +67,22 @@ def generate_game(idx:int):
 		round(random.uniform(1, STUDIO_COUNT))
 	]
 
+PURCHASES_SET = set()
 def generate_purchase(idx:int):
-	return [
-		idx,
-		round(random.uniform(1, USERS_COUNT)),
-		round(random.uniform(1, USERS_COUNT)),
-		'NULL' if round(random.uniform(0,2)) == 0 else round(random.uniform(1, 100000)),
-		round(random.uniform(1, GAMES_COUNT)) 
-	]
+	while True:
+		x = [
+			idx,
+			round(random.uniform(1, USERS_COUNT)),
+			round(random.uniform(1, USERS_COUNT)),
+			'NULL' if round(random.uniform(0,2)) == 0 else round(random.uniform(1, 100000)),
+			round(random.uniform(1, GAMES_COUNT)) 
+		]
+		if (x[1], x[-1]) not in PURCHASES_SET: 
+			break
+	
+	PURCHASES_SET.add((x[1], x[-1]))
+
+	return x
 
 def create_image_with_text(text:str):
 	WIDTH, HEIGHT = 250, 250

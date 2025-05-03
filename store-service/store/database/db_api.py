@@ -231,7 +231,7 @@ def buy_cart(user_id:int, total:int, games_ids:list[int]):
 		# change purchases
 		cursor.execute(f"""
 			UPDATE purchases 
-			SET ts = STRFTIME('%s', 'now')
+			SET ts = EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::INTEGER
 			WHERE owner_id = %s AND game_id IN ({placeholders}) AND ts IS NULL;
 		""", [user_id] + games_ids)
 		# change balance
@@ -265,7 +265,7 @@ def get_user_cart_games(user_id:int)->list[dict]:
 		cursor.execute("""
 			SELECT game_id 
 			FROM purchases 
-			WHERE owner_id == %s and ts IS NULL;
+			WHERE owner_id = %s and ts IS NULL;
 		""", (user_id,))
 		data = cursor.fetchall()
 		return data
@@ -290,7 +290,7 @@ def check_own_game(user_id:int, game_id:int)->bool:
 	try:
 		cursor.execute("""
 			SELECT id FROM purchases 
-			WHERE game_id == %s and owner_id == %s;
+			WHERE game_id = %s and owner_id = %s;
 		""", (game_id, user_id,))
 		result = cursor.fetchone()
 		if result : 

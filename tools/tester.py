@@ -17,24 +17,30 @@ try:
 except psycopg.OperationalError as e:
 	raise ValueError(f'Failed to connect to database: {e}')
 
+game_id = 8
+
 cursor = db.cursor()
 
 cursor.execute("""
-			SELECT t.name
-			FROM game_tags gt
-			JOIN tags t ON gt.tag_id = t.id
-			WHERE gt.game_id = %s;
-		""", (game_id,))
-		data = cursor.fetchall()
-		tags = [tag['name'] for tag in data]
-		return tags
+	SELECT g.*, s.name AS studio_name
+	FROM games g
+	JOIN studios s ON s.id = g.studio_id
+	WHERE g.id = %s;
+""", (game_id,))
+
+data = cursor.fetchall()
+print(data)
 
 try:
-	cursor.execute(queue, params)
-	data = cursor.fetchall()
-	print(data)
-except psycopg.OperationalError as e:
-	print(f'sql execution error {e}')
+		cursor.execute("""
+			SELECT name, img_type, img_fmt
+			FROM games_pictures 
+			WHERE game_id = %s;
+		""", (game_id,))
+		data = cursor.fetchall()
+		print(data)
+except:
+	print('e')
 
 db.close()
 

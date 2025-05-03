@@ -1,17 +1,17 @@
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     password_hash TEXT NOT NULL,
     name TEXT NOT NULL UNIQUE,
     balance INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS studios (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS games (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     price INTEGER NOT NULL,
     description TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS games (
 );
 
 CREATE TABLE IF NOT EXISTS games_pictures (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     game_id INTEGER NOT NULL,
     img_type TEXT NOT NULL CHECK (
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS games_pictures (
 );
 
 CREATE TABLE IF NOT EXISTS profiles_pictures (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     user_id INTEGER NOT NULL,
     img_fmt TEXT NOT NULL CHECK (img_fmt IN ('jpg', 'png')),
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS profiles_pictures (
 );
 
 CREATE TABLE IF NOT EXISTS purchases (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     owner_id INTEGER NOT NULL,
     buyer_id INTEGER NOT NULL,
     ts INTEGER, -- make it NULL if game not buyed yet but in cart already
@@ -62,7 +62,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_owner_game ON purchases (
 );
 
 CREATE TABLE IF NOT EXISTS tags (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE
 );
 
