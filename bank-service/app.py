@@ -1,13 +1,12 @@
 import os
 import base64
 
+from flask import Flask
+
 from routes.routes import routes_blueprint
 from database.db import init_database
 
-from flask import Flask
-
 app = Flask(__name__)
-
 
 # initial state of database
 init_database()

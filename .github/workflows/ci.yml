@@ -31,11 +31,11 @@ jobs:
         run : |
           pip install sqlfluff
 
-      - name: Run sqlfluf for PostgreSQL
-        run : sqlfluf lint --dialect postgres database/init-scripts/*.sql
+      - name: Run sqlfluff for PostgreSQL
+        run : sqlfluff lint --dialect postgres database/init-scripts/*.sql
 
-      - name: Run sqlfluf for bank-service
-        run : sqlfluf lint --dialect sqlite bank-service/database/bank-schema.sql
+      - name: Run sqlfluff for bank-service
+        run : sqlfluff lint --dialect sqlite bank-service/database/bank-schema.sql
 
   check_store_service:
     runs-on: ubuntu-latest

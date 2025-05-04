@@ -13,4 +13,3 @@ CREATE TABLE IF NOT EXISTS transactions (
 
     FOREIGN KEY (user_id) REFERENCES accounts
 );
-
