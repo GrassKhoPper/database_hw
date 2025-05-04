@@ -1,3 +1,5 @@
 flask
+uwsgi
 bleach
 pillow
+psycopg[binary,pool]

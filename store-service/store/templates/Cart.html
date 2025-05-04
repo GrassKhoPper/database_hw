@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="main-content">
+	<div class="container_cart">		
+		<div class="cart_info">
+      <div class="total">Cost total: </div>
+			<div class="total">{{total // 100}}.{{total % 100}} RUB</div>
+      <form action="/cart/pay" method="POST">
+        <button class="button_common pay" type="submit">
+          Pay
+        </button>
+      </form>
+    </div>
+
+    <div class="cart-list">
+    {% for game in games %}
+			<div class="cart-item">
+        <img src={{url_for('static', filename='images/games/{game_id}/{cover}'.format(game_id=game.game_id, cover=game.cover))}} alt="Game Icon" class="game-picture">
+        <div class="game-info">
+          <div class="item-name">{{game.name}}</div>
+          <div class="item-price">{{game.price // 100}}.{{game.price % 100}} RUB</div>
+        </div>
+
+        <form action="/cart/remove/{{game.game_id}}" method="POST">
+          <button class="remove-button"  type="submit">×</button>
+        </form>
+      </div>
+    {% endfor %}
+    </div>
+	</div>
+</div>
+
+{% endblock %}

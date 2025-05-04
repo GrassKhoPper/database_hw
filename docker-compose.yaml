@@ -1,21 +1,50 @@
-version: '2'
+version: "2"
 
 services:
+  db:
+    image: postgres:latest
+    env_file: .env
+    container_name: gamehub-db
+    environment:
+      POSTGRES_USER: ${STORE_DB_USER}
+      POSTGRES_PASSWORD: ${STORE_DB_PSWD}
+      POSTGRES_DB: ${STORE_DB_NAME}
+      PGPORT: ${DB_PORT}
+    expose:
+      - "${DB_PORT}"
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init-scripts:/docker-entrypoint-initdb.d
+      - ./database/store-init-csvs:/store-init-csvs
+      - ./database/bank-init-csvs:/bank-init-csvs
+    networks:
+      - my-network
+    restart: always
+
   store-service:
     build: store-service
     ports:
       - "5000:5000"
     depends_on:
-      - bank-service
+      - db
     environment:
       BANK_SERVICE_URL: http://bank-service:5001
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${STORE_DB_NAME}
+      DB_USER: ${STORE_DB_USER}
+      DB_PSWD: ${STORE_DB_PSWD}
     volumes:
-      - store-db-data:/var/store-db
+      - ./database/store-init-csvs:/tmp/init-csvs/
     networks:
       - my-network
 
   bank-service:
     build: bank-service
+    depends_on:
+      - db
     ports:
       - "5001:5001"
     volumes:
@@ -27,6 +56,5 @@ networks:
   my-network:
 
 volumes:
-  store-db-data:
   bank-db-data:
-
+  postgres_data:

@@ -2,9 +2,13 @@
 .vscode
 *.csv
 
+.env
+
 *.py[co]
 __pycache__
 
 *.crt
 *.key
+
+venv
 

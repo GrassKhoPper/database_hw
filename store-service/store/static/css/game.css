@@ -1,0 +1,74 @@
+@import "variables.css";
+
+.game_info {
+	display: inline-flex;
+	align-items: center;
+	margin-bottom: var(--spacing-lg);
+	justify-content: space-between;
+	height: calc(100vh / 2);
+	width: 100%;
+}
+
+.game_info img {
+	object-fit: contain;
+}
+
+.screenshots {
+	height: 100%;
+	width: 65%;
+	margin-right: var(--spacing-lg);
+}
+
+.selected_screenshot {
+	height: 75%;
+	width: 100%;
+	display: flex;
+	margin-bottom: var(--spacing-sm);
+}
+
+.selected_screenshot img {
+	border-radius: var(--border-radius-lg);
+	margin: 0 auto;
+	height: 100%;
+	max-width: 100%;
+	align-self: center;
+}
+
+.scroll_screenshots {
+	height: 25%;
+	width: 100%;
+	display: flex;
+	overflow-x: scroll;
+}
+
+.screenshot {
+	margin: var(--spacing-xs);
+	margin-left: 0;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.screenshot.selected {
+	border: 2px solid var(--gradient-end);
+}
+
+.brief {
+	width: 35%;
+	height: 100%;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	display: block;
+}
+
+.brief h1 {
+	text-align: center;
+	margin: 0;
+}
+
+.brief img {
+	width: 100%;
+}
+
+.game-info_test::-webkit-scrollbar {
+	display: none;
+}
