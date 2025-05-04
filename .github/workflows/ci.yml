@@ -68,6 +68,7 @@ jobs:
     needs:
       - check_store_service
       - check_bank_service
+      - check_database_scripts
     steps:
       - name: Decide whether the needed jobs succeeded or failed
         uses: re-actors/alls-green@v1.2.2
