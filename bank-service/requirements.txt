@@ -1,2 +1,3 @@
-pysqlite3
+psycopg[binary,pool]
 flask
+uwsgi

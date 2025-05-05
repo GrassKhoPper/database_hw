@@ -7,7 +7,7 @@ from flask import (
 	g
 )
 
-from database.db import (
+from bank.database.db import (
 	get_user_balance,
 	add_account,
 	delete_account,
