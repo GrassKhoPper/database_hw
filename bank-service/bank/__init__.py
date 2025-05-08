@@ -3,13 +3,7 @@ import base64
 
 from flask import Flask
 
-from routes.routes import routes_blueprint
-from database.db import init_database
-
-app = Flask(__name__)
-
-# initial state of database
-init_database()
+from bank.routes.routes import routes_blueprint
 
 app = Flask(__name__)
 app.register_blueprint(routes_blueprint)

@@ -1,12 +1,22 @@
-FROM python:3.12
+FROM ubuntu:latest
 
-WORKDIR /bank
+RUN rm /var/lib/apt/lists/* -fv
+RUN apt update
+RUN apt install -y \
+	python3 \
+	libssl-dev \
+	python3-pip \
+	python3-venv
+
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN CFLAGS="-I/usr/local/opt/openssl/include" LDFLAGS="-L/usr/local/opt/openssl/lib" UWSGI_PROFILE_OVERRIDE=ssl=true pip3 install --no-cache-dir -r requirements.txt
 
+WORKDIR /bank
 COPY . /bank
 
-CMD ["python", "-u", "app.py"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 

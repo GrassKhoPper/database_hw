@@ -34,9 +34,6 @@ jobs:
       - name: Run sqlfluff for PostgreSQL
         run : sqlfluff lint --dialect postgres database/init-scripts/*.sql
 
-      - name: Run sqlfluff for bank-service
-        run : sqlfluff lint --dialect sqlite bank-service/database/bank-schema.sql
-
   check_store_service:
     runs-on: ubuntu-latest
     needs: setup
