@@ -74,12 +74,12 @@ def get_games_list(last_game_id:int, page_sz:int)->list[dict]:
 	try:
 		queue, params = ("""
 			SELECT id 
-			FROM games
+			FROM store.games
 			ORDER BY id 
 			LIMIT %s;
 		""", (page_sz,)) if last_game_id is None else ("""
 			SELECT id
-			FROM GAMES 
+			FROM store.games
 			WHERE id > %s
 			ORDER BY id
 			LIMIT %s;
@@ -101,8 +101,8 @@ def get_game_info(game_id:int)->dict:
 	try:
 		cursor.execute("""
 			SELECT g.*, s.name AS studio_name
-			FROM games g
-			JOIN studios s ON s.id = g.studio_id
+			FROM store.games g
+			JOIN store.studios s ON s.id = g.studio_id
 			WHERE g.id = %s;
 		""", (game_id,))
 		data = cursor.fetchone()
@@ -122,7 +122,7 @@ def check_user(user:User)->int:
 	cursor = db.cursor()
 	try:
 		cursor.execute(
-			'SELECT * FROM users WHERE name = %s;', (user.name,)
+			'SELECT * FROM store.users WHERE name = %s;', (user.name,)
 		)
 		user_data = cursor.fetchone()
 
@@ -142,7 +142,7 @@ def add_user(user:User):
 	cursor = db.cursor()
 	try:
 		cursor.execute("""
-			INSERT INTO users (name, password_hash, balance)
+			INSERT INTO store.users (name, password_hash, balance)
 			VALUES (%s, %s, %s)
 		""", (user.name, user.phash, 0))
 		print('user add query was called')
@@ -157,8 +157,8 @@ def get_profile_picture(user_id:int)->str:
 	try:
 		cursor.execute("""
 			SELECT pp.name, pp.img_fmt
-			FROM users u
-			JOIN profiles_pictures pp ON u.id = pp.user_id
+			FROM store.users u
+			JOIN store.profiles_pictures pp ON u.id = pp.user_id
 			WHERE u.id = %s;
 		""", (user_id,))
 		user_pic = cursor.fetchone()
@@ -185,7 +185,7 @@ def get_user_games(user_id:int)->list[int]:
 	try:
 		cursor.execute("""
 			SELECT game_id 
-			FROM purchases 
+			FROM store.purchases 
 			WHERE owner_id = %s AND ts IS NOT NULL;
 		""", (user_id,))
 
@@ -199,8 +199,8 @@ def get_tags_by_game_id(game_id:int)->list[str]:
 	try:
 		cursor.execute("""
 			SELECT t.name
-			FROM game_tags gt
-			JOIN tags t ON gt.tag_id = t.id
+			FROM store.game_tags gt
+			JOIN store.tags t ON gt.tag_id = t.id
 			WHERE gt.game_id = %s;
 		""", (game_id,))
 		data = cursor.fetchall()
@@ -214,7 +214,7 @@ def get_pictures_by_game_id(game_id:int)->list[str]:
 	try:
 		cursor.execute("""
 			SELECT name, img_type, img_fmt
-			FROM games_pictures 
+			FROM store.games_pictures 
 			WHERE game_id = %s;
 		""", (game_id,))
 		data = cursor.fetchall()
@@ -230,13 +230,13 @@ def buy_cart(user_id:int, total:int, games_ids:list[int]):
 		placeholders = ', '.join(['%s'] * len(games_ids))
 		# change purchases
 		cursor.execute(f"""
-			UPDATE purchases 
+			UPDATE store.purchases 
 			SET ts = EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::INTEGER
 			WHERE owner_id = %s AND game_id IN ({placeholders}) AND ts IS NULL;
 		""", [user_id] + games_ids)
 		# change balance
 		cursor.execute("""
-			UPDATE users
+			UPDATE store.users
 			SET balance = balance - %s
 			WHERE id = %s;
 		""", (total, user_id,))
@@ -251,7 +251,7 @@ def remove_from_cart(user_id:int, game_id:int):
 	cursor = conn.cursor()
 	try:
 		cursor.execute("""
-			DELETE FROM purchases 
+			DELETE FROM store.purchases 
 			WHERE owner_id = %s AND game_id = %s AND ts IS NULL;
 		""", (user_id, game_id,))
 		conn.commit()
@@ -264,7 +264,7 @@ def get_user_cart_games(user_id:int)->list[dict]:
 	try:
 		cursor.execute("""
 			SELECT game_id 
-			FROM purchases 
+			FROM store.purchases 
 			WHERE owner_id = %s and ts IS NULL;
 		""", (user_id,))
 		data = cursor.fetchall()
@@ -277,7 +277,7 @@ def add_game_to_cart(user_id:int, game_id:int):
 	cursor = conn.cursor()
 	try:
 		cursor.execute("""
-			INSERT INTO purchases (owner_id, buyer_id, ts, game_id) 
+			INSERT INTO store.purchases (owner_id, buyer_id, ts, game_id) 
 			VALUES (%s, %s, %s, %s);
 		""", (user_id, user_id, None, game_id,))
 		conn.commit()
@@ -289,7 +289,7 @@ def check_own_game(user_id:int, game_id:int)->bool:
 	cursor = get_db().cursor()
 	try:
 		cursor.execute("""
-			SELECT id FROM purchases 
+			SELECT id FROM store.purchases 
 			WHERE game_id = %s and owner_id = %s;
 		""", (game_id, user_id,))
 		result = cursor.fetchone()

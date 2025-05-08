@@ -1,61 +1,61 @@
 -- init users
-COPY users (id, password_hash, name, balance)
+COPY store.users (id, password_hash, name, balance)
 FROM '/store-init-csvs/init-data-users.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 
 SELECT
     setval(
-        pg_get_serial_sequence('users', 'id'),
+        pg_get_serial_sequence('store.users', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM users;
+FROM store.users;
 -- init tags
-COPY tags (id, name)
+COPY store.tags (id, name)
 FROM '/store-init-csvs/init-data-tags.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 SELECT
     setval(
-        pg_get_serial_sequence('tags', 'id'),
+        pg_get_serial_sequence('store.tags', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM tags;
+FROM store.tags;
 -- init studios
-COPY studios (id, name)
+COPY store.studios (id, name)
 FROM '/store-init-csvs/init-data-studios.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 
 SELECT
     setval(
-        pg_get_serial_sequence('studios', 'id'),
+        pg_get_serial_sequence('store.studios', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM studios;
+FROM store.studios;
 -- init games
-COPY games (id, name, price, description, brief, studio_id)
+COPY store.games (id, name, price, description, brief, studio_id)
 FROM '/store-init-csvs/init-data-games.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 
 SELECT
     setval(
-        pg_get_serial_sequence('games', 'id'),
+        pg_get_serial_sequence('store.games', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM games;
+FROM store.games;
 -- init game_tags
-COPY game_tags (game_id, tag_id)
+COPY store.game_tags (game_id, tag_id)
 FROM '/store-init-csvs/init-data-game-tags.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 -- init purchases
-COPY purchases (id, owner_id, buyer_id, ts, game_id)
+COPY store.purchases (id, owner_id, buyer_id, ts, game_id)
 FROM '/store-init-csvs/init-data-purchases.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',', NULL 'NULL');
 
 SELECT
     setval(
-        pg_get_serial_sequence('purchases', 'id'),
+        pg_get_serial_sequence('store.purchases', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM purchases;
+FROM store.purchases;
 -- create temporary table for games pictures to transform csv
 CREATE TEMP TABLE IF NOT EXISTS temp4gpictures (
     id INTEGER PRIMARY KEY,
@@ -70,7 +70,7 @@ COPY temp4gpictures
 FROM '/store-init-csvs/init-games-pictures.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 
-INSERT INTO games_pictures (id, name, game_id, img_type, img_fmt)
+INSERT INTO store.games_pictures (id, name, game_id, img_type, img_fmt)
 SELECT
     s.id,
     s.id::TEXT || 'g.' || s.img_fmt AS picture_name,
@@ -82,10 +82,10 @@ FROM
 ON CONFLICT (id) DO NOTHING;
 SELECT
     setval(
-        pg_get_serial_sequence('games_pictures', 'id'),
+        pg_get_serial_sequence('store.games_pictures', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM games_pictures;
+FROM store.games_pictures;
 
 DROP TABLE temp4gpictures;
 -- end of copy games pictures
@@ -103,7 +103,7 @@ COPY temp4ppictures
 FROM '/store-init-csvs/init-profile-pictures.csv'
 WITH (FORMAT csv, HEADER, DELIMITER ',');
 
-INSERT INTO profiles_pictures (id, name, user_id, img_fmt)
+INSERT INTO store.profiles_pictures (id, name, user_id, img_fmt)
 SELECT
     s.id,
     s.id::TEXT || 'p.' || s.img_fmt AS profile_pic_name,
@@ -114,10 +114,10 @@ FROM
 ON CONFLICT (id) DO NOTHING;
 SELECT
     setval(
-        pg_get_serial_sequence('profiles_pictures', 'id'),
+        pg_get_serial_sequence('store.profiles_pictures', 'id'),
         coalesce(max(id), 0) + 1
     )
-FROM profiles_pictures;
+FROM store.profiles_pictures;
 
 DROP TABLE temp4ppictures;
 

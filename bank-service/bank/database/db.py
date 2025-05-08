@@ -16,7 +16,6 @@ def get_db():
 		}
 		try:
 			g.db = psycopg.connect(**conn_params)
-			g.db.autocommit = True
 		except psycopg.OperationalError as e:
 			raise ValueError(f'Failed to connect to database: {e}')	
 	return g.db
@@ -26,7 +25,7 @@ def authenticate(username:int, password:str):
 	try:
 		cursor.execute("""
 			SELECT *
-			FROM accounts 
+			FROM bank.accounts 
 			WHERE uuid = (%s);
 		""", (username,))
 		data = cursor.fetchone()
@@ -41,7 +40,7 @@ def get_user_balance(user_id:int):
 		cursor = get_db().cursor()
 		cursor.execute("""
 			SELECT balance
-			FROM accounts 
+			FROM bank.accounts 
 			WHERE id = (%s);
 		""", (user_id,))
 		data = cursor.fetchone()
@@ -57,12 +56,15 @@ def add_account(uuid:str, password:str):
 	try:
 		cursor = conn.cursor()
 		cursor.execute("""
-			INSERT INTO accounts (uuid, phash, balance)
-			VALUES (%s, %s, 100000);
+			INSERT INTO bank.accounts (uuid, phash, balance)
+			VALUES (%s, %s, 100000)
+			RETURNING id;
 		""", (uuid, phash,))
+		result = cursor.fetchone()
+		new_id = result['id'] if result else None
 		conn.commit()
 		return {
-			'id' : cursor.lastrowid,
+			'id' : new_id,
 			'uuid' : uuid,
 			'balance' : 100000
 		}
@@ -75,7 +77,7 @@ def delete_account(user_id:int):
 	try:
 		cursor = conn.cursor()
 		cursor.execute("""
-			DELETE FROM accounts
+			DELETE FROM bank.accounts
 			WHERE id = %s;
 		""", (user_id,))
 		conn.commit()
@@ -89,7 +91,7 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 	try:
 		cursor.execute('BEGIN TRANSACTION')
 		cursor.execute(
-			'SELECT id FROM accounts WHERE uuid = %s;',
+			'SELECT id FROM bank.accounts WHERE uuid = %s;',
 			(uuid_to,)
 		)
 		id_to = cursor.fetchone()
@@ -98,7 +100,7 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 		id_to = id_to['id']
 
 		cursor.execute(
-			'SELECT balance FROM accounts WHERE id = %s;',
+			'SELECT balance FROM bank.accounts WHERE id = %s;',
 			(id_from,)
 		)
 		sender_balance = cursor.fetchone()
@@ -106,16 +108,16 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 			raise ValueError('Not enough money :(')
 
 		cursor.execute(
-			'UPDATE accounts SET balance = balance - %s WHERE id = %s;', 
+			'UPDATE bank.accounts SET balance = balance - %s WHERE id = %s;', 
 			(amount, id_from,)
 		)
 		cursor.execute(
-			'UPDATE accounts SET balance = balance + %s WHERE id = %s;',
+			'UPDATE bank.accounts SET balance = balance + %s WHERE id = %s;',
 			(amount, id_to,)
 		)
 
 		cursor.execute(
-			'INSERT INTO transactions (user_id, amount) VALUES (%s, %s), (%s, %s);', 
+			'INSERT INTO bank.transactions (user_id, amount) VALUES (%s, %s), (%s, %s);', 
 			(id_from, -amount, id_to, amount)
 		)
 
