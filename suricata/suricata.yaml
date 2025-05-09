@@ -1,0 +1,31 @@
+%YAML 1.1
+---
+max-pending-packets: 1024
+
+outputs:
+  - eve-log:
+      enabled: yes
+      type: file
+      filename: eve.json
+      types:
+        - alert:
+        - http:
+        - dns:
+        - tls:
+        - flow:
+        - stats:
+            totals: yes
+            threads: yes
+            deltas: no
+
+  - fast:
+      enabled: yes
+      filename: fast.log
+      append: yes
+
+
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - et-open.rules
+HOME_NET: "any" 
+EXTERNAL_NET: "!$HOME_NET"

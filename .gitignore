@@ -9,6 +9,7 @@ __pycache__
 
 *.crt
 *.key
+*.pem
 
 venv
 
