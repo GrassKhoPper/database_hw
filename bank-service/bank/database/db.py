@@ -58,15 +58,14 @@ def add_account(uuid:str, password:str):
 		cursor.execute("""
 			INSERT INTO bank.accounts (uuid, phash, balance)
 			VALUES (%s, %s, 100000)
-			RETURNING id;
+			RETURNING id, uuid, balance;
 		""", (uuid, phash,))
-		result = cursor.fetchone()
-		new_id = result['id'] if result else None
+		r = cursor.fetchone()
 		conn.commit()
 		return {
-			'id' : new_id,
-			'uuid' : uuid,
-			'balance' : 100000
+			'id' :      r['id'],
+			'uuid' :    r['uuid'],
+			'balance' : r['balance']
 		}
 	except psycopg.Error as e:
 		conn.rollback()

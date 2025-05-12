@@ -16,17 +16,13 @@ services:
 
       BANK_DB_USER: ${BANK_DB_USER}
       BANK_DB_PSWD: ${BANK_DB_PSWD}
-    expose:
-      - "${DB_PORT}"
-    ports:
-      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init-scripts:/docker-entrypoint-initdb.d
       - ./database/store-init-csvs:/store-init-csvs
       - ./database/bank-init-csvs:/bank-init-csvs
     networks:
-      - my-network
+      - gamehub-net
     restart: always
 
   store-service:
@@ -45,7 +41,7 @@ services:
     volumes:
       - ./database/store-init-csvs:/tmp/init-csvs/
     networks:
-      - my-network
+      - gamehub-net
 
   bank-service:
     build: bank-service
@@ -60,10 +56,28 @@ services:
     ports:
       - "5001:5001"
     networks:
-      - my-network
+      - gamehub-net
+
+  reverse-proxy:
+    image: nginx:1.25-alpine
+    container_name: gamehub-pr
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/snippets:/etc/nginx/snippets:ro
+    depends_on:
+      - store-service
+      -  bank-service
+    networks:
+      - gamehub-net
+    restart: always
 
 networks:
-  my-network:
+  gamehub-net:
 
 volumes:
   postgres_data:
