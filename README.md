@@ -46,11 +46,13 @@ PURCHASES_COUNT = 1000   # amount of created purchases. With chance 50% create p
 ### You need to set environment variables into .env file like this
 
 ```
-STORE_DB_NAME=store-db
+DB_SUPERUSER=admin
+DB_SUPERPSWD=admin
+DB_NAME=study-project
+
 STORE_DB_PSWD=store-pswd
 STORE_DB_USER=store-user
 
-BANK_DB_NAME=bank-db
 BANK_DB_PSWD=bank-store
 BANK_DB_USER=bank-user
 
@@ -108,6 +110,7 @@ curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{
 # create test data (optional)
 python tools/deGenerator.py 
 
+# OLD NOW NOT WORK:
 # store.crt and store.key files for store service
 cd store-service/
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout store.key -out store.crt
@@ -117,6 +120,11 @@ cd ..
 cd bank-service/
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout bank.key -out bank.crt
 cd ..
+
+# NEW BUT NEED FIX:
+cd nginx/certs/
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout gamehub.local.key -out gamehub.local.crt
+openssl dhparam -out dhparam.pem 4096
 
 # run containers in daemon mode
 docker compose up --build -d
