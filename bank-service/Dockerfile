@@ -13,7 +13,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY requirements.txt .
 
-RUN CFLAGS="-I/usr/local/opt/openssl/include" LDFLAGS="-L/usr/local/opt/openssl/lib" UWSGI_PROFILE_OVERRIDE=ssl=true pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 WORKDIR /bank
 COPY . /bank

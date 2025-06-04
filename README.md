@@ -46,6 +46,10 @@ PURCHASES_COUNT = 1000   # amount of created purchases. With chance 50% create p
 ### You need to set environment variables into .env file like this
 
 ```
+DB_SUPERUSER=admin
+DB_SUPERPSWD=admin
+DB_NAME=study-project
+
 STORE_DB_NAME=store-db
 STORE_DB_PSWD=store-pswd
 STORE_DB_USER=store-user
