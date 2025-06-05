@@ -41,7 +41,7 @@ async function loadMoreGames() {
 }
 
 function checkScroll() {
-    const threshold = 200;
+    const threshold = 70;
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     
     if (scrollTop + clientHeight >= scrollHeight - threshold) {
