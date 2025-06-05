@@ -1,4 +1,5 @@
 import psycopg
+import bcrypt
 import os
 import csv
 import base64
@@ -117,12 +118,12 @@ def get_game_info(game_id:int)->dict:
 		print(f'execute game query with id={game_id}:{e}')
 		return None
 
-def check_user(user:User)->int:
+def check_user(username:str, password:str)->int:
 	db = get_db()
 	cursor = db.cursor()
 	try:
 		cursor.execute(
-			'SELECT * FROM store.users WHERE name = %s;', (user.name,)
+			'SELECT * FROM store.users WHERE name = %s;', (username,)
 		)
 		user_data = cursor.fetchone()
 
@@ -130,7 +131,7 @@ def check_user(user:User)->int:
 			raise ValueError('Unknown username')
 
 		user_data = dict(user_data)
-		if user_data['password_hash'] == user.phash:
+		if bcrypt.checkpw(password.encode('utf-8'), user_data['password_hash'].encode('utf-8')):
 			return user_data['id'], user_data['balance']
 		raise ValueError('Wrong password')
 

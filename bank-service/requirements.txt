@@ -1,3 +1,4 @@
 psycopg[binary,pool]
 flask
+bcrypt
 uwsgi

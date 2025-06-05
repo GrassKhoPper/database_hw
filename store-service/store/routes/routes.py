@@ -122,8 +122,7 @@ def login_register():
 			username = request.form.get('login_username')
 			password = request.form.get('login_password')
 			try:
-				user = User(username, password)
-				user_id, balance = check_user(user)
+				user_id, balance = check_user(username, password)
 
 				session['user_id'] = user_id
 				session['balance'] = balance
