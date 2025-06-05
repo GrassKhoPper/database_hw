@@ -1,4 +1,4 @@
-import hashlib
+import bcrypt
 import re
 
 class User():
@@ -24,9 +24,10 @@ class User():
 			raise ValueError('Username must have only letters, numbers or _ symbol')
 
 		self.name = name
-		self.phash = hashlib.md5(password.encode()).hexdigest()
+		self.phash = bcrypt.hashpw(
+			password.encode('utf-8'),
+			bcrypt.gensalt(rounds=12)
+		).decode('utf-8')
 
-		if repassword:
-			rphash = hashlib.md5(repassword.encode()).hexdigest()
-			if rphash != self.phash:
-				raise ValueError('Passwords does not matching')
+		if repassword and not bcrypt.checkpw(repassword.encode('utf-8'), self.phash.encode('utf-8')):
+			raise ValueError('Passwords does not matching')

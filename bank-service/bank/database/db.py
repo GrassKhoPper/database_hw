@@ -1,6 +1,6 @@
 import os
 import psycopg
-import hashlib
+import bcrypt
 
 from flask import g
 
@@ -29,7 +29,7 @@ def authenticate(username:int, password:str):
 			WHERE uuid = (%s);
 		""", (username,))
 		data = cursor.fetchone()
-		if data and hashlib.md5(password.encode()).hexdigest() == data['phash']:
+		if data and bcrypt.checkpw(password.encode('utf-8'), data['phash'].encode('utf-8')):
 			return {'id': data['id'], 'uuid': data['uuid']}
 		return None
 	except psycopg.Error as e:
@@ -51,7 +51,10 @@ def get_user_balance(user_id:int):
 	raise ValueError('No user with this id')
 
 def add_account(uuid:str, password:str):
-	phash = hashlib.md5(password.encode()).hexdigest()
+	phash = bcrypt.hashpw(
+		password.encode('utf-8'),
+		bcrypt.gensalt(rounds = 12)
+	).hexdigest()
 	conn = get_db()
 	try:
 		cursor = conn.cursor()

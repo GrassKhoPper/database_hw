@@ -1,5 +1,5 @@
+import bcrypt
 import csv
-import hashlib
 import random
 import io
 import os
@@ -40,7 +40,10 @@ purchases_headers = ['id', 'owner_id', 'buyer_id', 'ts', 'game_id']
 def generate_user(idx:int):
 	return [
 		idx,
-		hashlib.md5(f'username{idx}'.encode()).hexdigest(),
+		bcrypt.hashpw(
+			f'username{idx}'.encode('utf-8'),
+			bcrypt.gensalt(rounds=12)
+		).decode('utf-8'),
 		f'username{idx}',
 		round(random.uniform(0, 10000))
 	]
