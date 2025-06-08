@@ -112,15 +112,11 @@ curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{
 # create test data (optional)
 python tools/deGenerator.py 
 
-# store.crt and store.key files for store service
-cd store-service/
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout store.key -out store.crt
-cd ..
-
-# bank.crt and bank.key files for bank service
-cd bank-service/
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout bank.key -out bank.crt
-cd ..
+# create cerificates for reverse-proxy
+cd nginx/certs/
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout gamehub.local.key -out gamehub.local.crt
+openssl dhparam -out dhparam.pem 2048
+cd ../..
 
 # run containers in daemon mode
 docker compose up --build -d
