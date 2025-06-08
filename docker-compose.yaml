@@ -83,8 +83,26 @@ services:
       - gamehub-net
     restart: always
 
+  ips:
+    image: jasonish/suricata:latest
+    container_name: gamehub-suricata
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    command: -i eth0
+    volumes:
+      - ./suricata/conf/suricata.yaml:/etc/suricata/suricata.yaml
+      - ./suricata/suricata_rules:/var/lib/suricata/rules
+      - suricata_logs:/var/log/suricata
+    networks:
+      - gamehub-net
+
 networks:
   gamehub-net:
 
 volumes:
   postgres_data:
+  suricata_rules:
+  suricata_logs:
+
