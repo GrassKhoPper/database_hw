@@ -38,6 +38,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${STORE_DB_USER}
       DB_PSWD: ${STORE_DB_PSWD}
+      SECRET_KEY: ${STORE_SEC_KEY}
     volumes:
       - ./database/store-init-csvs:/tmp/init-csvs/
     networks:
@@ -47,14 +48,15 @@ services:
     build: bank-service
     depends_on:
       - db
+    ports:
+      - "5001:5001"
     environment:
       DB_HOST: db
       DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
       DB_USER: ${BANK_DB_USER}
       DB_PSWD: ${BANK_DB_PSWD}
-    ports:
-      - "5001:5001"
+      SECRET_KEY: ${BANK_SEC_KEY}
     networks:
       - gamehub-net
 
@@ -68,9 +70,10 @@ services:
       - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf:ro
       - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/snippets:/etc/nginx/snippets:ro
+      - nginx_logs:/var/log/nginx
     environment:
       # On - блокировать, DetectionOnly - только обнаруживать, Off - выключить.
-      MODSEC_RULE_ENGINE: "DetectionOnly"
+      MODSEC_RULE_ENGINE: "Off"
       # Уровень паранойи от 1 до 4.
       PARANOIA_LEVEL: "1"
       # Уровень логирования (error, warn, notice, info, debug)
@@ -105,4 +108,5 @@ volumes:
   postgres_data:
   suricata_rules:
   suricata_logs:
+  nginx_logs:
 
