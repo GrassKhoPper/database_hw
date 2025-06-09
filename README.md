@@ -53,10 +53,12 @@ DB_NAME=study-project
 STORE_DB_NAME=store-db
 STORE_DB_PSWD=store-pswd
 STORE_DB_USER=store-user
+STORE_SEC_KEY=store-secret-key
 
 BANK_DB_NAME=bank-db
 BANK_DB_PSWD=bank-store
 BANK_DB_USER=bank-user
+BANK_SEC_KEY=bank-secret-key
 
 DB_PORT=51488
 ```
@@ -66,25 +68,25 @@ DB_PORT=51488
 ### How to get user balance ( example )
 
 ```
-curl --insecure -X GET -H 'Content-Type: application/json' -u "seregga:seregga" "https://127.0.0.1:5001/api/balance"
+curl --insecure -X GET -H 'Content-Type: application/json' -u "seregga:seregga" "https://127.0.0.1/api/bank/api/balance"
 ```
 
 ### How to add account in our great bank ( example )
 
 ```
-curl --insecure -X POST -H 'Content-Type: application/json' -d '{"uuid" : "test", "password" : "test"}' "https://127.0.0.1:5001/api/add-account"
+curl --insecure -X POST -H 'Content-Type: application/json' -d '{"uuid" : "test", "password" : "test"}' "https://127.0.0.1/api/bank/api/add-account"
 ```
 
 ### How to delete bank account ( example )
 
 ```
-curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" "https://127.0.0.1:5001/api/delete-account"
+curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" "https://127.0.0.1/api/bank/api/delete-account"
 ```
 
 ### How to transfer money from one account to another ( example )
 
 ```
-curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{"uuid_to" : "seregga", "amount" : 500 }' "https://127.0.0.1:5001/api/transfer"
+curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{"uuid_to" : "seregga", "amount" : 500 }' "https://127.0.0.1/api/bank/api/transfer"
 ```
 
 ### Return codes for bank api service
@@ -112,15 +114,11 @@ curl --insecure -X POST -H 'Content-Type: application/json' -u "test:test" -d '{
 # create test data (optional)
 python tools/deGenerator.py 
 
-# store.crt and store.key files for store service
-cd store-service/
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout store.key -out store.crt
-cd ..
-
-# bank.crt and bank.key files for bank service
-cd bank-service/
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout bank.key -out bank.crt
-cd ..
+# create cerificates for reverse-proxy
+cd nginx/certs/
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout gamehub.local.key -out gamehub.local.crt
+openssl dhparam -out dhparam.pem 2048
+cd ../..
 
 # run containers in daemon mode
 docker compose up --build -d
