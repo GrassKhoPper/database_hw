@@ -68,17 +68,16 @@ services:
       - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf:ro
       - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/snippets:/etc/nginx/snippets:ro
-      - ./nginx_logs:/var/log/nginx
     environment:
       # On - блокировать, DetectionOnly - только обнаруживать, Off - выключить.
-      MODSEC_RULE_ENGINE: "On"
+      MODSEC_RULE_ENGINE: "DetectionOnly"
       # Уровень паранойи от 1 до 4.
       PARANOIA_LEVEL: "1"
       # Уровень логирования (error, warn, notice, info, debug)
       LOG_LEVEL: "warn"
     depends_on:
       - store-service
-      -  bank-service
+      - bank-service
     networks:
       - gamehub-net
     restart: always
@@ -86,6 +85,9 @@ services:
   ips:
     image: jasonish/suricata:latest
     container_name: gamehub-suricata
+    network_mode: "service:reverse-proxy"
+    depends_on:
+      - reverse-proxy
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -93,10 +95,8 @@ services:
     command: -i eth0
     volumes:
       - ./suricata/conf/suricata.yaml:/etc/suricata/suricata.yaml
-      - ./suricata/suricata_rules:/var/lib/suricata/rules
+      - ./suricata/rules:/var/lib/suricata/my_rules
       - suricata_logs:/var/log/suricata
-    networks:
-      - gamehub-net
 
 networks:
   gamehub-net:
