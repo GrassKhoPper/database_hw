@@ -38,6 +38,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${STORE_DB_USER}
       DB_PSWD: ${STORE_DB_PSWD}
+      SECRET_KEY: ${STORE_SEC_KEY}
     volumes:
       - ./database/store-init-csvs:/tmp/init-csvs/
     networks:
@@ -47,14 +48,15 @@ services:
     build: bank-service
     depends_on:
       - db
+    ports:
+      - "5001:5001"
     environment:
       DB_HOST: db
       DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
       DB_USER: ${BANK_DB_USER}
       DB_PSWD: ${BANK_DB_PSWD}
-    ports:
-      - "5001:5001"
+      SECRET_KEY: ${BANK_SEC_KEY}
     networks:
       - gamehub-net
 

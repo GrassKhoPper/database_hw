@@ -53,10 +53,12 @@ DB_NAME=study-project
 STORE_DB_NAME=store-db
 STORE_DB_PSWD=store-pswd
 STORE_DB_USER=store-user
+STORE_SEC_KEY=store-secret-key
 
 BANK_DB_NAME=bank-db
 BANK_DB_PSWD=bank-store
 BANK_DB_USER=bank-user
+BANK_SEC_KEY=bank-secret-key
 
 DB_PORT=51488
 ```
