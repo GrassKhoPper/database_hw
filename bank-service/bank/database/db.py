@@ -93,34 +93,39 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 	try:
 		cursor.execute('BEGIN TRANSACTION')
 		cursor.execute(
-			'SELECT id FROM bank.accounts WHERE uuid = %s;',
+			'SELECT id, uuid FROM bank.accounts WHERE uuid = %s;',
 			(uuid_to,)
 		)
 		id_to = cursor.fetchone()
 		if not id_to:
 			raise ValueError(f'No recver uuid={uuid_to} in database')
-		id_to = id_to['id']
+		id_to   = id_to['id']
+		uuid_to = id_to['uuid']
 
 		cursor.execute(
-			'SELECT balance FROM bank.accounts WHERE id = %s;',
+			'SELECT id, uuid, balance FROM bank.accounts WHERE id = %s;',
 			(id_from,)
 		)
-		sender_balance = cursor.fetchone()
-		if not sender_balance or sender_balance['balance'] < amount:
+
+		from_data = cursor.fetchone()
+		if not from_data:
+			raise ValueError(f'No sender with id={id_from} in database')
+		uuid_from = from_data['uuid']
+
+		if id_from == id_to:
+			raise ValueError('Why you need to send money for yourself???')
+
+		if from_data['balance'] < amount:
 			raise ValueError('Not enough money :(')
 
 		cursor.execute(
-			'UPDATE bank.accounts SET balance = balance - %s WHERE id = %s;', 
-			(amount, id_from,)
-		)
-		cursor.execute(
-			'UPDATE bank.accounts SET balance = balance + %s WHERE id = %s;',
-			(amount, id_to,)
+			'INSERT INTO bank.transactions (account_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
+			(id_from, -amount, uuid_from)
 		)
 
 		cursor.execute(
-			'INSERT INTO bank.transactions (user_id, amount) VALUES (%s, %s), (%s, %s);', 
-			(id_from, -amount, id_to, amount)
+			'INSERT INTO bank.transactions (account_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
+			(id_to, amount, uuid_to)
 		)
 
 		conn.commit()
