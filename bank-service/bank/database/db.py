@@ -54,7 +54,7 @@ def add_account(uuid:str, password:str):
 	phash = bcrypt.hashpw(
 		password.encode('utf-8'),
 		bcrypt.gensalt(rounds = 12)
-	).hexdigest()
+	).decode('utf-8')
 	conn = get_db()
 	try:
 		cursor = conn.cursor()
@@ -93,14 +93,13 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 	try:
 		cursor.execute('BEGIN TRANSACTION')
 		cursor.execute(
-			'SELECT id, uuid FROM bank.accounts WHERE uuid = %s;',
+			'SELECT id FROM bank.accounts WHERE uuid = %s;',
 			(uuid_to,)
 		)
 		id_to = cursor.fetchone()
 		if not id_to:
 			raise ValueError(f'No recver uuid={uuid_to} in database')
 		id_to   = id_to['id']
-		uuid_to = id_to['uuid']
 
 		cursor.execute(
 			'SELECT id, uuid, balance FROM bank.accounts WHERE id = %s;',
@@ -119,12 +118,12 @@ def transfer(id_from:int, uuid_to:str, amount:int):
 			raise ValueError('Not enough money :(')
 
 		cursor.execute(
-			'INSERT INTO bank.transactions (account_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
+			'INSERT INTO bank.transactions (user_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
 			(id_from, -amount, uuid_from)
 		)
 
 		cursor.execute(
-			'INSERT INTO bank.transactions (account_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
+			'INSERT INTO bank.transactions (user_id, amount, account_uuid_snapshot) VALUES (%s, %s, %s);',
 			(id_to, amount, uuid_to)
 		)
 
