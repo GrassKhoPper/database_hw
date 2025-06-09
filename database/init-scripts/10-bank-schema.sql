@@ -22,7 +22,7 @@ SELECT
     a.id,
     a.uuid,
     COALESCE(SUM(t.amount), 0) AS balance
-FROM bank.accounts.a
+FROM bank.accounts a
 LEFT JOIN bank.transactions t ON a.id = t.user_id
 GROUP BY a.id, a.uuid;
 
@@ -31,9 +31,9 @@ SELECT
     t.id,
     t.ts,
     t.amount,
-    t.user_id
+    t.user_id,
     COALESCE(a.uuid, t.account_uuid_snapshot) AS related_account_uuid,
     CASE WHEN a.id IS NULL THEN TRUE ELSE FALSE END AS is_acount_deleted
 FROM bank.transactions t
-LEFT JOIN bank.account a ON t.account_id = a.id;
+LEFT JOIN bank.accounts a ON t.user_id = a.id;
 

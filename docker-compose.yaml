@@ -68,10 +68,10 @@ services:
       - ./nginx/conf.d/app.conf:/etc/nginx/conf.d/app.conf:ro
       - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/snippets:/etc/nginx/snippets:ro
-      - ./nginx_logs:/var/log/nginx
+      - nginx_logs:/var/log/nginx
     environment:
       # On - блокировать, DetectionOnly - только обнаруживать, Off - выключить.
-      MODSEC_RULE_ENGINE: "On"
+      MODSEC_RULE_ENGINE: "Off"
       # Уровень паранойи от 1 до 4.
       PARANOIA_LEVEL: "1"
       # Уровень логирования (error, warn, notice, info, debug)
@@ -105,4 +105,5 @@ volumes:
   postgres_data:
   suricata_rules:
   suricata_logs:
+  nginx_logs:
 
