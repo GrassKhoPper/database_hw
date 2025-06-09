@@ -4,6 +4,15 @@
 # Include the default configuration file.
 #include: /etc/suricata/suricata.yaml-default
 
+vars:
+  address-groups:
+    HOME-NET: "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]"
+    # HOME-NET: "any"
+                               
+rule-files:
+  - suricata.rules
+  - /var/lib/suricata/my_rules/my.rules
+
 # Overrides for this Docker container.
 outputs:
   - eve-log:
@@ -15,17 +24,17 @@ outputs:
             payload: yes
             packet: yes
             http: yes
-        - http:
-            extended: yes
+        # - http:
+            # extended: yes
         - dns
         - tls:
             extended: yes
         - files:
             force-magic: yes
-            force-md5: yes
+            # force-md5: yes
         - ssh
-        - flow
-        - netflow
+        # - flow
+        # - netflow
   - stats:
       enabled: yes
       filename: stats.log
@@ -39,3 +48,53 @@ af-packet:
     use-mmap: yes
     cluster-id: 99
     cluster-type: cluster_flow
+
+
+# Logging configuration.  This is not about logging IDS alerts/events, but
+# output about what Suricata is doing, like startup messages, errors, etc.
+logging:
+  # The default log level: can be overridden in an output section.
+  # Note that debug level logging will only be emitted if Suricata was
+  # compiled with the --enable-debug configure option.
+  #
+  # This value is overridden by the SC_LOG_LEVEL env var.
+  default-log-level: notice
+
+  # The default output format.  Optional parameter, should default to
+  # something reasonable if not provided.  Can be overridden in an
+  # output section.  You can leave this out to get the default.
+  #
+  # This console log format value can be overridden by the SC_LOG_FORMAT env var.
+  #default-log-format: "%D: %S: %M"
+  #
+  # For the pre-7.0 log format use:
+  #default-log-format: "[%i] %t [%S] - (%f:%l) <%d> (%n) -- "
+
+  # A regex to filter output.  Can be overridden in an output section.
+  # Defaults to empty (no filter).
+  #
+  # This value is overridden by the SC_LOG_OP_FILTER env var.
+  default-output-filter:
+
+  # Requires libunwind to be available when Suricata is configured and built.
+  # If a signal unexpectedly terminates Suricata, displays a brief diagnostic
+  # message with the offending stacktrace if enabled.
+  #stacktrace-on-signal: on
+
+  # Define your logging outputs.  If none are defined, or they are all
+  # disabled you will get the default: console output.
+  outputs:
+  - console:
+      enabled: yes
+      # type: json
+  - file:
+      enabled: yes
+      level: info
+      filename: suricata.log
+      # format: "[%i - %m] %z %d: %S: %M"
+      # type: json
+  - syslog:
+      enabled: no
+      facility: local5
+      format: "[%i] <%d> -- "
+      # type: json
